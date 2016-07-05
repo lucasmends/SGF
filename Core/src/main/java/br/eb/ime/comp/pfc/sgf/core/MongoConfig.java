@@ -1,4 +1,4 @@
-package br.eb.ime.comp.pfc.sgf.core.aluno;
+package br.eb.ime.comp.pfc.sgf.core;
 
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;

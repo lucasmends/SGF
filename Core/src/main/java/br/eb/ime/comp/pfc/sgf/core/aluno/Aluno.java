@@ -2,7 +2,6 @@ package br.eb.ime.comp.pfc.sgf.core.aluno;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
  * Definição da classe da entidade Aluno, que é a base desse microserviço
@@ -16,30 +15,27 @@ public class Aluno {
 	@Id
 	private String id;
 	
-	@Field
 	private String numero;
 	
-	@Field
+	private String nome;
+	
 	private String email;
 	
 	/**
 	 * Armazenado como hash
 	 */
-	@Field
 	private String password;
 	
-	@Field
-	private String secao;
 
 	public Aluno(){
 		
 	}
 	
-	public Aluno(String numero, String email, String password, String secao){
+	public Aluno(String numero, String nome, String email, String password){
 		this.numero = numero;
+		this.nome = nome;
 		this.email = email;
 		this.password = password;
-		this.secao = secao;
 	}
 	
 	/**
@@ -97,19 +93,4 @@ public class Aluno {
 		this.password = password;
 	}
 
-	/**
-	 * 
-	 * @return a seção do aluno
-	 */
-	public String getSecao() {
-		return secao;
-	}
-
-	/**
-	 *  Seta a seção do aluno
-	 * @param secao
-	 */
-	public void setSecao(String secao) {
-		this.secao = secao;
-	}
 }

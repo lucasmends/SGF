@@ -48,33 +48,45 @@ public class AlunoController {
 	 * @param aluno
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.PUT)
-	public Aluno update(@RequestBody Aluno aluno){
-		Query searchUserQuery = new Query(Criteria.where("numero").is(aluno.getNumero()));
+	@RequestMapping(value = "/{numero}", method = RequestMethod.PUT)
+	public Aluno update(@RequestBody Aluno aluno, @PathVariable("numero") String numero){
+		Query searchUserQuery = new Query(Criteria.where("numero").is(numero));
 		//Verificar o que está sendo mudado
 		Aluno old = mongo.findOne(searchUserQuery, Aluno.class);
+		
+		//se não encontra, cria
+		if(old.equals(null)){
+			mongo.save(aluno);
+			return aluno;		
+		}
+		//se o número informado não corresponder ao Aluno informado
+		if(!old.getNumero().equals(aluno.getNumero()))
+			return null;
 		
 		//Atualizar o email caso haja mudança
 		if(!old.getEmail().equals(aluno.getEmail()))
 			mongo.updateFirst(searchUserQuery, Update.update("email", aluno.getEmail()), Aluno.class);
-		
+		/**
+		 * Senha tem o caso do hash
 		//Atualizar a senha caso haja mudança
 		if(!old.getPassword().equals(aluno.getPassword()))
 			mongo.updateFirst(searchUserQuery, Update.update("password", aluno.getPassword()), Aluno.class);
+		**/
 		
-		//Atualiza a seção caso haja mudança
-		if(!old.getSecao().equals(aluno.getSecao()))
-			mongo.updateFirst(searchUserQuery, Update.update("secao", aluno.getSecao()), Aluno.class);
 		
 		return aluno;
 	}
 	
+	/**
+	 * TODO Javadoc
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Aluno> getAll(){
 		return mongo.findAll(Aluno.class);		
 	}
 	
-	@RequestMapping(value = "/numero/{numero}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{numero}", method = RequestMethod.GET)
 	public Aluno getByNumero(@PathVariable("numero") String numero){
 		Query searchUserQuery = new Query(Criteria.where("numero").is(numero));
 		return mongo.findOne(searchUserQuery, Aluno.class);
@@ -86,9 +98,4 @@ public class AlunoController {
 		return mongo.findOne(searchUserQuery, Aluno.class);
 	}
 	
-	@RequestMapping(value = "/secao/{secao}", method = RequestMethod.GET)
-	public List<Aluno> getBySecao(@PathVariable("secao") String secao){
-		Query searchUserQuery = new Query(Criteria.where("secao").is(secao));
-		return mongo.find(searchUserQuery, Aluno.class);
-	}
 }

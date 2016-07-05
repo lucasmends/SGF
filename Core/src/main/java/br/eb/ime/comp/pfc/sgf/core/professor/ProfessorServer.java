@@ -1,4 +1,4 @@
-package br.eb.ime.comp.pfc.sgf.core.aluno;
+package br.eb.ime.comp.pfc.sgf.core.professor;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Import;
 import br.eb.ime.comp.pfc.sgf.core.MongoConfig;
 
 /**
- * Classe de configuração do serviço Aluno
+ * Classe de configuração do serviço Professor
  * 
  * @author lucasmendes
  *
@@ -16,8 +16,8 @@ import br.eb.ime.comp.pfc.sgf.core.MongoConfig;
 @SpringBootApplication
 @EnableDiscoveryClient
 @Import({MongoConfig.class})
-public class AlunoServer {
-
+public class ProfessorServer {
+	
 	/**
 	 *  Caso queira iniciar somente esse serviço através da IDE
 	 *  
@@ -25,8 +25,7 @@ public class AlunoServer {
 	 */
 	public static void main(String[] args) {
 		// Tell server to look for web-server.properties or web-server.yml
-		System.setProperty("spring.config.name", "aluno-server");
-		SpringApplication.run(AlunoServer.class, args);
-	}		
-	
+		System.setProperty("spring.config.name", "professor-server");
+		SpringApplication.run(ProfessorServer.class, args);
+	}
 }
