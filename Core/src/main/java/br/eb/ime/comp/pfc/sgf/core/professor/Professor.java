@@ -6,6 +6,7 @@ package br.eb.ime.comp.pfc.sgf.core.professor;
 import java.util.Set;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -20,6 +21,7 @@ public class Professor {
 	
 	private String nome;
 	
+	@Indexed(unique = true)
 	private String email;
 	
 	private Boolean coordenador;
@@ -96,10 +98,14 @@ public class Professor {
 	}
 	
 	/**
+	 * 
+	 * A lista de engenharias é um conjunto onde os elementos são distintos
+	 * 
 	 * @param engenharia a engenharia a ser adicionada
+	 * @return true se foi adicionado e false se já existia o elemento desejado
 	 */
-	public void addEngenharia(String engenharia) {
-		this.engenharias.add(engenharia);
+	public boolean addEngenharia(String engenharia) {
+		return engenharias.add(engenharia);
 	}
 
 	/**

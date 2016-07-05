@@ -1,6 +1,7 @@
 package br.eb.ime.comp.pfc.sgf.core.aluno;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -15,10 +16,12 @@ public class Aluno {
 	@Id
 	private String id;
 	
+	@Indexed(unique = true)
 	private String numero;
 	
 	private String nome;
 	
+	@Indexed(unique = true)
 	private String email;
 	
 	/**
@@ -45,6 +48,9 @@ public class Aluno {
 		return id;
 	}
 
+	public String getNome(){
+		return nome;
+	}
 
 	/**
 	 * @return o número do aluno
