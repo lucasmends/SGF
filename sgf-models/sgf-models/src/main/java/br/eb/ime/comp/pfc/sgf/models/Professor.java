@@ -1,8 +1,9 @@
 /**
  * 
  */
-package br.eb.ime.comp.pfc.sgf.core.professor;
+package br.eb.ime.comp.pfc.sgf.models;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.data.annotation.Id;
@@ -13,7 +14,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @author lucasmendes
  *
  */
-@Document(collection="aluno")
+@Document(collection="professor")
 public class Professor {
 	
 	@Id
@@ -23,8 +24,8 @@ public class Professor {
 	
 	@Indexed(unique = true)
 	private String email;
-	
-	private Boolean coordenador;
+
+	private String coordenador;
 	
 	/**
 	 * Armazenado como hash
@@ -34,13 +35,27 @@ public class Professor {
 	private Set<String> engenharias;
 	
 	
-	public Professor(String nome, String email, Boolean coordenador, String password) {
+	public Professor(){
+		
+	}
+	
+	public Professor(String nome, String email, String coordenador, String password) {
 		this.nome = nome;
 		this.email = email;
 		this.coordenador = coordenador;
 		this.password = password;
+		this.engenharias = null;
 	}
-
+	
+	public Professor(String id, String nome, String email, String coordenador, String password,
+			Set<String> engenharias) {
+		this.id = id;
+		this.nome = nome;
+		this.email = email;
+		this.coordenador = coordenador;
+		this.password = password;
+		this.engenharias = engenharias;
+	}
 	/**
 	 * @return the nome
 	 */
@@ -69,10 +84,14 @@ public class Professor {
 		this.email = email;
 	}
 	
+	public void setCoordenador(String coordenador){
+		this.coordenador = coordenador;
+	}
+	
 	/**
 	 * @return se é coordenador
 	 */
-	public Boolean isCoordenador() {
+	public String getCoordenador() {
 		return this.coordenador;
 	}
 
@@ -94,7 +113,7 @@ public class Professor {
 	 * @return a lista das engenharias
 	 */
 	public Set<String> getEngenharias(){
-		return this.engenharias;
+		return !(this.engenharias == null)?this.engenharias:null;
 	}
 	
 	/**
@@ -102,12 +121,16 @@ public class Professor {
 	 * A lista de engenharias é um conjunto onde os elementos são distintos
 	 * 
 	 * @param engenharia a engenharia a ser adicionada
-	 * @return true se foi adicionado e false se já existia o elemento desejado
+	 * @return o próprio objeto
 	 */
-	public boolean addEngenharia(String engenharia) {
-		return engenharias.add(engenharia);
+	public Professor addEngenharia(String engenharia) {
+		if(this.engenharias == null)
+			this.engenharias = new HashSet<String>();
+		engenharias.add(engenharia);
+		return this;
 	}
 
+	
 	/**
 	 * @return the id
 	 */

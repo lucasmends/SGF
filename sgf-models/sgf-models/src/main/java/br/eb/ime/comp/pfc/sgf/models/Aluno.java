@@ -1,4 +1,4 @@
-package br.eb.ime.comp.pfc.sgf.core.aluno;
+package br.eb.ime.comp.pfc.sgf.models;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
