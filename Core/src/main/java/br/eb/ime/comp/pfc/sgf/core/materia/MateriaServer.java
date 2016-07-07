@@ -1,4 +1,4 @@
-package br.eb.ime.comp.pfc.sgf.core.aluno;
+package br.eb.ime.comp.pfc.sgf.core.materia;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,7 +16,7 @@ import br.eb.ime.comp.pfc.sgf.core.MongoConfig;
 @SpringBootApplication
 @EnableDiscoveryClient
 @Import({MongoConfig.class})
-public class AlunoServer {
+public class MateriaServer {
 
 	/**
 	 *  Caso queira iniciar somente esse serviço através da IDE
