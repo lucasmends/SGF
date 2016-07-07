@@ -47,18 +47,15 @@ public class AlunoController {
 	 * @param aluno
 	 * @return
 	 */
-	@RequestMapping(value = "/{numero}", method = RequestMethod.PUT)
-	public Aluno update(@RequestBody Aluno aluno, @PathVariable("numero") String numero){
+	@RequestMapping(method = RequestMethod.PUT)
+	public Aluno update(@RequestBody Aluno aluno){
 
-		Aluno old = repo.getByNumero(numero);
+		Aluno old = repo.getByNumero(aluno.getNumero());
 		
 		//se não encontra, cria
 		if(old.equals(null)){
 			return repo.create(aluno);	
 		}
-		//se o número informado não corresponder ao Aluno informado
-		if(!old.getNumero().equals(aluno.getNumero()))
-			return null;
 		
 		return repo.save(aluno);
 	}
