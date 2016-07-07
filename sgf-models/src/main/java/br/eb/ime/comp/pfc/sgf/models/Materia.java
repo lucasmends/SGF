@@ -18,6 +18,9 @@ public class Materia {
 	public Materia(String nome, Professor professor) {
 		this.nome = nome;
 		this.professor = professor;
+		/**
+		 * precisamos criar o id
+		 */
 	}
 
 	/**
