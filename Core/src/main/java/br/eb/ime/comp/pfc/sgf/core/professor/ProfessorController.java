@@ -43,10 +43,9 @@ public class ProfessorController {
 	 * @param professor
 	 * @return
 	 */
-	@RequestMapping(value = "/{email}", method = RequestMethod.PUT)
-	public Professor update(@PathVariable("email") String email, @RequestBody Professor professor){
-		if(!professor.getEmail().equals(email))
-			return null;
+	@RequestMapping(method = RequestMethod.PUT)
+	public Professor update(@RequestBody Professor professor){
+
 		return repo.save(professor);
 	}
 	
@@ -70,6 +69,7 @@ public class ProfessorController {
 			return null;
 		
 		return repo.save(professor.addEngenharia(engenharia));
+		// será que não dá pra usar apenas o PUT padrão, passando o nova lista de engenharias e dando save? acho que funciona
 	}
 	
 }
