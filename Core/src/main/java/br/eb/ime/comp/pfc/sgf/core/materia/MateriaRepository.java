@@ -30,7 +30,7 @@ public class MateriaRepository {
 		return mongo.findAll(Materia.class);
 	}
 
-	public Materia getByName(String name) {
+	public Materia getByNome(String nome) {
 		Query searchMateriaQuery = new Query(Criteria.where("nome").is(nome));
 		return mongo.findOne(searchMateriaQuery, Materia.class);
 	}
@@ -46,7 +46,7 @@ public class MateriaRepository {
 		Update update = new Update();
 		update.set("nome", materia.getNome());
 		// ver como faz pra atualizar lista de professores
-		// update.set("professor", materia.getProfessor());
+		update.set("professor", materia.getProfessor());
 
 		//faz update, se não encontrar  a materia, cria
 		mongo.upsert(searchMateriaQuery, update, Materia.class);

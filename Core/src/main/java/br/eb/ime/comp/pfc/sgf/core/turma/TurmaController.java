@@ -1,4 +1,4 @@
-package br.eb.ime.comp.pfc.sgf.core.materia;
+package br.eb.ime.comp.pfc.sgf.core.turma;
 
 import java.util.List;
 
@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.eb.ime.comp.pfc.sgf.models.Aluno;
 import br.eb.ime.comp.pfc.sgf.models.Materia;
-import br.eb.ime.comp.pfc.sgf.models.Professor;
+import br.eb.ime.comp.pfc.sgf.models.Turma;
 
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,13 +25,13 @@ import org.springframework.web.bind.annotation.RequestBody;
  */
 @RestController
 @RequestMapping("/")
-public class MateriaController {
+public class TurmaController {
 
 	/**
 	 * Conexão com o banco MongoDB, injeção de dependência feita automaticamente pelo Spring
 	 */
 	@Autowired
-	private MateriaRepository repo;
+	private TurmaRepository repo;
 	
 	/**
 	 * Criação de um Materia
@@ -39,8 +40,8 @@ public class MateriaController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST)
-	public Materia create(@RequestBody Materia materia){
-		return repo.create(materia);
+	public Turma create(@RequestBody Turma turma){
+		return repo.create(turma);
 	}
 	
 	/**
@@ -49,28 +50,42 @@ public class MateriaController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.PUT)
-	public Materia update(@RequestBody Materia materia){
-		return repo.save(materia);
+	public Turma update(@RequestBody Turma turma){
+		return repo.save(turma);
 	}
 
 	/**
 	 * 
-	 * @param materia
 	 * @return
 	 */
-	@RequestMapping(value = "/{id}/professor", method = RequestMethod.PUT)
-	public Materia addProfessor(@RequestBody Professor professor, @PathVariable("id") String id){
+	@RequestMapping(value = "/{id}/aluno", method = RequestMethod.PUT)
+	public Turma addAluno(@RequestBody Aluno aluno, @PathVariable("id") String id){
 
-		Materia materia = repo.getById(id);
+		Turma turma = repo.getById(id);
 		
 		//se não encontra, cria
-		if(materia.equals(null)){
-			return repo.create(materia);	
+		if(turma.equals(null)){
+			repo.create(turma);	
 		}
 		
-		materia.setProfessor(professor);
+		turma.addAluno(aluno);
 		
-		return repo.save(materia);
+		return repo.save(turma);
+	}	
+
+	@RequestMapping(value = "/{id}/materia", method = RequestMethod.PUT)
+	public Turma addAluno(@RequestBody Materia materia, @PathVariable("id") String id){
+
+		Turma turma = repo.getById(id);
+		
+		//se não encontra, cria
+		if(turma.equals(null)){
+			repo.create(turma);	
+		}
+		
+		turma.addMateria(materia);
+		
+		return repo.save(turma);
 	}	
 	
 	/**
@@ -78,18 +93,13 @@ public class MateriaController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public List<Materia> getAll(){
+	public List<Turma> getAll(){
 		return repo.getAll();
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Materia getById(@PathVariable("id") String id){
+	public Turma getById(@PathVariable("id") String id){
 		return repo.getById(id);
-	}
-	
-	@RequestMapping(value = "/nome/{nome}", method = RequestMethod.GET)
-	public Materia getByNome(@PathVariable("nome") String nome){
-		return repo.getByNome(nome);
 	}
 	
 }

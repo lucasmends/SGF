@@ -1,4 +1,4 @@
-package br.eb.ime.comp.pfc.sgf.turma;
+package br.eb.ime.comp.pfc.sgf.core.turma;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
