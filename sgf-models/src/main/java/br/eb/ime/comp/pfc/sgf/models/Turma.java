@@ -75,6 +75,20 @@ public class Turma {
 		return materias;
 	}
 
+	/**
+	 * @param materias the materias to set
+	 */
+	public void setMaterias(Set<Materia> materias) {
+		this.materias = materias;
+	}
+
+	/**
+	 * @param alunos the alunos to set
+	 */
+	public void setAlunos(Set<Aluno> alunos) {
+		this.alunos = alunos;
+	}
+
 	public Turma addMateria(Materia materia){
 		if(this.materias.equals(null))
 			this.materias = new HashSet<Materia>();

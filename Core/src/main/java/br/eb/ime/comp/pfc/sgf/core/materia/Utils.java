@@ -12,8 +12,8 @@ import br.eb.ime.comp.pfc.sgf.models.Professor;
 
 public class Utils {
 
-	private static int PROFESSOR_IND_START = 0;
-	private static int PROFESSOR_IND_END = 1;
+	private static int IND_START = 0;
+	private static int IND_END = 1;
 	
 	/**
 	 * Cria o Objeto do tipo Materia apartir da notação em JSON
@@ -32,7 +32,7 @@ public class Utils {
 		int idStringProfessor = materiaJSON.indexOf("\"professor\":");
 		if(idStringProfessor > 0){
 			professor = getProfessor(materiaJSON);
-			int idLast = getProfessirInd(materiaJSON)[PROFESSOR_IND_END];
+			int idLast = getProfessirInd(materiaJSON)[IND_END];
 			idStringProfessor = materiaJSON.substring(0, idStringProfessor).lastIndexOf(',');
 			materiaJSON = materiaJSON.replace(materiaJSON.substring(idStringProfessor, idLast), "");
 		}
@@ -50,7 +50,7 @@ public class Utils {
 		int[] professorInd = getProfessirInd(materiaJSON);
 		
 		if(professorInd != null)
-			return mapper.readValue(materiaJSON.substring(professorInd[PROFESSOR_IND_START], professorInd[PROFESSOR_IND_END]), Professor.class);
+			return mapper.readValue(materiaJSON.substring(professorInd[IND_START], professorInd[IND_END]), Professor.class);
 		
 		return null;
 	}
