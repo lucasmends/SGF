@@ -8,12 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.eb.ime.comp.pfc.sgf.models.Materia;
-import br.eb.ime.comp.pfc.sgf.models.Professor;
 
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,39 +46,10 @@ public class MateriaController {
 	 * @throws JsonParseException 
 	 */
 	@RequestMapping(method = RequestMethod.POST)
-	public Materia create(@RequestBody String materiaRaw) throws JsonParseException, JsonMappingException, IOException{
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+	public Materia create(@RequestBody String materiaJSON) throws JsonParseException, JsonMappingException, IOException{
 		
-		Materia materia;
-		
-		int idStringProfessor = materiaRaw.indexOf("\"professor\":");
-		if(idStringProfessor > 0){
-			int idFirst = materiaRaw.substring(idStringProfessor).indexOf("{") + idStringProfessor;
-			int idLast = idFirst;
-			int count = 1;
-			for(int i = idFirst + 1; i < materiaRaw.length(); i++){
-				if(materiaRaw.charAt(i) == '{')
-					count++;
-				else if(materiaRaw.charAt(i) == '}'){
-					count--;
-					if(count == 0){
-						idLast = i + 1;
-						break;
-					}
-				}
-			}
-			Professor professor = mapper.readValue(materiaRaw.substring(idFirst, idLast), Professor.class);
+		Materia materia = Utils.getMateria(materiaJSON);
 			
-			idStringProfessor = materiaRaw.substring(0, idStringProfessor).lastIndexOf(',');
-			materiaRaw = materiaRaw.replace(materiaRaw.substring(idStringProfessor, idLast), "");
-			
-			materia = mapper.readValue(materiaRaw, Materia.class);
-			materia.setProfessor(professor);
-		}else 
-			materia = mapper.readValue(materiaRaw, Materia.class);
-	
-		
 		return repo.create(materia);
 	}
 
@@ -89,29 +57,15 @@ public class MateriaController {
 	 * 
 	 * @param materia
 	 * @return
+	 * @throws IOException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 */
 	@RequestMapping(method = RequestMethod.PUT)
-	public Materia update(@RequestBody Materia materia) {
-		return repo.save(materia);
-	}
-
-	/**
-	 * 
-	 * @param materia
-	 * @return
-	 */
-	@RequestMapping(value = "/{id}/professor", method = RequestMethod.PUT)
-	public Materia addProfessor(@RequestBody Professor professor, @PathVariable("id") String id) {
-
-		Materia materia = repo.getById(id);
-
-		// se não encontra, cria
-		if (materia.equals(null)) {
-			return repo.create(materia);
-		}
-
-		materia.setProfessor(professor);
-
+	public Materia update(@RequestBody String materiaJSON) throws JsonParseException, JsonMappingException, IOException {
+		
+		Materia materia = Utils.getMateria(materiaJSON);	
+		
 		return repo.save(materia);
 	}
 
