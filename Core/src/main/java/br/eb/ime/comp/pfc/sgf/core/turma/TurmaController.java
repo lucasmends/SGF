@@ -38,9 +38,9 @@ public class TurmaController {
 	private TurmaRepository repo;
 	
 	/**
-	 * Criação de um Materia
+	 * Criação de uma turma
 	 * 
-	 * @param materia A materia formatada em JSON no corpo da requisição
+	 * @param turmaJSON A turma formatada em JSON no corpo da requisição
 	 * @return
 	 * @throws IOException 
 	 * @throws JsonMappingException 
@@ -55,7 +55,7 @@ public class TurmaController {
 	
 	/**
 	 * 
-	 * @param materia
+	 * @param turmaJSON
 	 * @return
 	 * @throws IOException 
 	 * @throws JsonMappingException 
@@ -72,9 +72,12 @@ public class TurmaController {
 	@RequestMapping(value = "/{id}/materia", method = RequestMethod.PUT)
 	public Turma addMateria(@RequestBody Materia materia, @PathVariable("id") String id){
 
+		/**
+		 * Deviamos passar apenas o id da materia a ser adicionada, buscá-la e adicioná-la
+		 */
 		Turma turma = repo.getById(id);
 		
-		//se não encontra, cria
+		//se não encontra, retorna null
 		if(turma.equals(null)){
 			return null;
 		}
@@ -87,9 +90,12 @@ public class TurmaController {
 	@RequestMapping(value = "/{id}/aluno", method = RequestMethod.PUT)
 	public Turma addAluno(@RequestBody Aluno aluno, @PathVariable("id") String id){
 
+		/**
+		 * Deviamos passar apenas o id do aluno a ser adicionado, buscá-lo e adicioná-lo
+		 */
 		Turma turma = repo.getById(id);
 		
-		//se não encontra, cria
+		//se não encontra, retorna null
 		if(turma.equals(null)){
 			return null;	
 		}
