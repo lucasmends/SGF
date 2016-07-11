@@ -6,6 +6,7 @@
 .idea/
 */.mvn/
 */target/
+*/mvnw.*
 
 # Ignore OS generated files #
 .DS_Store
