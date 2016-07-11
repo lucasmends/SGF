@@ -1,4 +1,22 @@
 *.class
+.classpath
+.project
+*.iml
+.settings/
+.idea/
+
+target/
+
+# Ignore OS generated files #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+.~lock.*
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
