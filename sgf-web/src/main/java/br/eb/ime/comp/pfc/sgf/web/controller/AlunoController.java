@@ -20,7 +20,8 @@ public class AlunoController {
 	private AlunoService service;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String index(){
+	public String index(Model model){
+		model.addAttribute("title", "Alunos");
 		return "aluno/index";
 	}
 	
@@ -28,12 +29,14 @@ public class AlunoController {
 	public String getByNumero(@PathVariable("numero") String numero, Model model){
 		Aluno aluno = service.getByNumero(numero);
 		model.addAttribute("aluno",aluno);
+		model.addAttribute("title", "Aluno");
 		return "aluno/aluno";
 	}
 	
 	@RequestMapping(value = "/todos", method = RequestMethod.GET)
 	public String all(Model model){
 		List<Aluno> alunos = service.getAll();
+		model.addAttribute("title", "Alunos");
 		model.addAttribute("alunos",alunos);
 		return "aluno/all";
 	}

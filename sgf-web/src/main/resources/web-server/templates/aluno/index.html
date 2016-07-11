@@ -2,8 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 
-
+	<head th:replace="base :: head (${title})"></head>
 <body>
-<p>Aluno</p>
+	<nav th:replace="base :: nav"></nav>
+
+<!-- Begin page content -->
+	<div class="container">
+		Mopa
+	</div>
+<!-- End page content -->
+	<footer th:replace="base :: footer"></footer>
 </body>
 </html>
