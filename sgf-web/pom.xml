@@ -4,49 +4,46 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>br.eb.ime.comp.pfc.sgf</groupId>
-	<artifactId>sgf-core</artifactId>
+	<artifactId>sgf-web</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>Core</name>
-	<description>Seriços da camada base para o SGF</description>
+	<name>Web</name>
+	<description>Interface Web</description>
 
-	<!-- Dependencia pai como o Cloud, por ele conter o Eureka e o Srping Boot -->
 	<parent>
 		<groupId>org.springframework.cloud</groupId>
 		<artifactId>spring-cloud-starter-parent</artifactId>
-		<version>Angel.SR6</version>
+		<version>Brixton.RELEASE</version>
 	</parent>
 
 	<properties>
-		<start-class>br.eb.ime.comp.pfc.sgf.core.CoreStarter</start-class>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
-			<!-- Setup Spring Boot -->
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-eureka</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-ribbon</artifactId>
+		</dependency>
+		
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-		</dependency>		
-			
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		
 		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-eureka-server</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-mongodb</artifactId>
-		</dependency>
-		
 	</dependencies>
+
 
 	<build>
 		<plugins>

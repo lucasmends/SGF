@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: web-service
+  thymeleaf:
+    cache: false       
+    prefix: classpath:/web-server/templates/
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1111/eureka/
+          
+# HTTP Server
+server:
+  port: 8090   # HTTP (Tomcat) port
