@@ -1,11 +1,11 @@
 *.class
-.classpath
-.project
+*/.classpath
+*/.project
 *.iml
-.settings/
+*/.settings/
 .idea/
-
-target/
+*/.mvn/
+*/target/
 
 # Ignore OS generated files #
 .DS_Store
