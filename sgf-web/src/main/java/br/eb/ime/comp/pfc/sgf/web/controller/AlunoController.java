@@ -58,4 +58,24 @@ public class AlunoController {
 		service.create(aluno);
 		return "redirect:" + "/aluno";
 	}
+	
+	@RequestMapping(value = "/edit/{numero}", method = RequestMethod.GET)
+	public String editAluno(@PathVariable("numero") String numero, Model model){
+		//return "redirect:" + "/aluno/" + numero;
+		Aluno aluno = service.getByNumero(numero);
+		model.addAttribute("aluno", aluno);
+		model.addAttribute("title", "Editar Aluno");
+		return "aluno/edit";
+	}
+	
+	@RequestMapping(value = "/edit/{numero}", method = RequestMethod.POST)
+	public String saveAluno(@PathVariable("numero") String numero,
+			@RequestParam("nome") String nome, @RequestParam("email") String email, 
+			@RequestParam("password") String password){
+		Aluno aluno = service.getByNumero(numero);
+		aluno.setEmail(email);
+		aluno.setNome(nome);
+		service.update(aluno);
+		return "redirect:" + "/aluno";
+	}
 }

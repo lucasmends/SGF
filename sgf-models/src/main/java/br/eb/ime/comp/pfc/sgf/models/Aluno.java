@@ -66,6 +66,14 @@ public class Aluno {
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
+	
+	/**
+	 *  Seta o nome do aluno
+	 * @param numero
+	 */
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
 	/**
 	 * 
