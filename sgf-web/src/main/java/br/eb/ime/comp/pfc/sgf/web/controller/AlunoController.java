@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import br.eb.ime.comp.pfc.sgf.models.Aluno;
@@ -18,10 +19,13 @@ public class AlunoController {
 	
 	@Autowired
 	private AlunoService service;
+	private Aluno alunoEdit;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model){
+		List<Aluno> alunos = service.getAll();
 		model.addAttribute("title", "Alunos");
+		model.addAttribute("alunos",alunos);
 		return "aluno/index";
 	}
 	
@@ -39,5 +43,19 @@ public class AlunoController {
 		model.addAttribute("title", "Alunos");
 		model.addAttribute("alunos",alunos);
 		return "aluno/all";
+	}
+	
+	@RequestMapping(value = "/new", method = RequestMethod.GET)
+	public String newAluno(Model model){
+		model.addAttribute("title", "Novo Aluno");
+		return "aluno/new";
+	}
+	
+	@RequestMapping(value = "/new", method = RequestMethod.POST)
+	public String createAluno(@RequestParam("nome") String nome, @RequestParam("email") String email, 
+			@RequestParam("numero") String numero, @RequestParam("password") String password){
+		Aluno aluno = new Aluno(numero, nome, email, password);
+		service.create(aluno);
+		return "redirect:" + "/aluno";
 	}
 }
