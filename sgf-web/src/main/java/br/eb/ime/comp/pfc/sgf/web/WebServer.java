@@ -11,10 +11,11 @@ import org.springframework.web.client.RestTemplate;
 
 import br.eb.ime.comp.pfc.sgf.web.controller.WebController;
 import br.eb.ime.comp.pfc.sgf.web.service.AlunoService;
+import br.eb.ime.comp.pfc.sgf.web.service.ProfessorService;
 
 @EnableAutoConfiguration
 // O Spring também procura Beans nos packages das classes informadas
-@ComponentScan(basePackageClasses = { WebController.class, AlunoService.class })
+@ComponentScan(basePackageClasses = { WebController.class, AlunoService.class, ProfessorService.class })
 @EnableDiscoveryClient
 public class WebServer {
 

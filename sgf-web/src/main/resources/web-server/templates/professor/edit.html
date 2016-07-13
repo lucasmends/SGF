@@ -1,0 +1,30 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="base :: head (${title})"></head>
+
+<body>
+	<nav th:replace="base :: nav"></nav>
+
+	<!-- Begin page content -->
+	<div class="container">
+		<div class="panel panel-default">
+			<div class="panel-heading">Editar Professor</div>
+			<form method="post" th:action="@{/professor/edit/} + ${professor.email}">
+				<label>Nome</label>
+				<input type="text" id="nome" name="nome" th:value="*{professor.nome}" />
+				<label>Engenharia</label>
+				<input type="text" id="engenharia" name="engenharia" th:value="*{professor.engenharia}" />
+				<label>Coordenador</label>
+				<input type="text" id="coordenador" name="coordenador" th:value="*{professor.coordenador}" />
+				<label>Password</label>
+				<input type="password" id="password" name="password" />
+			    <input type="submit" id="create" value="Salvar" />
+			</form>
+		</div>
+	</div>
+	<!-- End page content -->
+	<footer th:replace="base :: footer"></footer>
+</body>
+
+</html>
