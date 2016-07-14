@@ -14,7 +14,7 @@ import br.eb.ime.comp.pfc.sgf.web.service.ProfessorService;
 
 @EnableAutoConfiguration
 // O Spring também procura Beans nos packages das classes informadas
-@ComponentScan(basePackageClasses = { WebController.class, AlunoService.class, ProfessorService.class })
+@ComponentScan(basePackageClasses = { WebController.class, AlunoService.class })
 @EnableDiscoveryClient
 public class WebServer {
 
