@@ -1,0 +1,36 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="base :: head (${title})"></head>
+
+<body>
+	<nav th:replace="base :: nav"></nav>
+
+	<!-- Begin page content -->
+	<div class="container">
+		<div class="panel panel-default">
+			<div class="panel-heading">Alunos</div>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Numero</th>
+						<th>Nome</th>
+						<th>Email</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="aluno : ${alunos}">
+						<td th:text="${aluno.numero}"></td>
+						<td th:text="${aluno.nome}"></td>
+						<td th:text="${aluno.email}"><a th:href="@{/aluno/edit(id=${aluno.numero})}">Editar</a></td>
+					</tr>
+				</tbody>
+			</table>
+			<a th:href="@{/aluno/new}">Novo Aluno</a>
+		</div>
+	</div>
+	<!-- End page content -->
+	<footer th:replace="base :: footer"></footer>
+</body>
+
+</html>

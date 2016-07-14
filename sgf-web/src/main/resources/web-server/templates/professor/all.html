@@ -1,0 +1,33 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="base :: head (${title})"></head>
+
+<body>
+	<nav th:replace="base :: nav"></nav>
+
+	<!-- Begin page content -->
+	<div class="container">
+		<div class="panel panel-default">
+			<div class="panel-heading">Professores</div>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th>Email</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="professor : ${professores}">
+						<td th:text="${professor.nome}"></td>
+						<td th:text="${professor.email}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!-- End page content -->
+	<footer th:replace="base :: footer"></footer>
+</body>
+
+</html>

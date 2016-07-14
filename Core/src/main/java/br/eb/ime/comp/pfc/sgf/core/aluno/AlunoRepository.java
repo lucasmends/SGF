@@ -45,6 +45,7 @@ public class AlunoRepository {
 
 		Update update = new Update();
 		update.set("nome", aluno.getNome());
+		update.set("email", aluno.getEmail());
 		/*
 		 * Definir de quem vai ser a responsabilidade de checar o hash
 		 * update.set("password", aluno.getPassword());
