@@ -16,6 +16,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @Document(collection="professor")
 public class Professor {
+	public static String IS_COORDEADOR = "true";
 	
 	@Id
 	private String id;
