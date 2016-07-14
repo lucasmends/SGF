@@ -19,7 +19,6 @@ public class AlunoController {
 	
 	@Autowired
 	private AlunoService service;
-	private Aluno alunoEdit;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model){
