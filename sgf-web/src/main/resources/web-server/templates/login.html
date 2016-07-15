@@ -1,0 +1,35 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="base :: head-login"></head>
+
+<body>
+    <nav th:replace="base :: nav"></nav>
+
+    <!-- Begin page content -->
+    <div class="container">
+        <div class="modal show" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="loginmodal-container">
+                    <div class="alert alert-danger" role="alert" th:if="${param.error}">
+                        Erro no Login
+                    </div>
+                    <div class="alert alert-success" role="alert" th:if="${param.logout}">
+                        Você foi deslogado
+                    </div>
+                    <h1>Fassa o login na sua conta</h1>
+                    <br>
+                    <form th:action="@{/login}" method="post">
+                        <input type="text" name="username" placeholder="Número ou Email"/>
+                        <input type="password" name="password" placeholder="Senha"  />
+                        <input type="submit" name="submit" class="login loginmodal-submit" value="Login">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End page content -->
+    <footer th:replace="base :: footer"></footer>
+</body>
+
+</html>

@@ -6,7 +6,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import br.eb.ime.comp.pfc.sgf.web.controller.WebController;
 import br.eb.ime.comp.pfc.sgf.web.service.AlunoService;
@@ -15,7 +18,8 @@ import br.eb.ime.comp.pfc.sgf.web.service.AlunoService;
 // O Spring também procura Beans nos packages das classes informadas
 @ComponentScan(basePackageClasses = { WebController.class, AlunoService.class })
 @EnableDiscoveryClient
-public class WebServer {
+@Import({SecurityConfig.class, LoginConfig.class})
+public class WebServer extends WebMvcConfigurerAdapter{
 
 	public static void main(String[] args) {
 		SpringApplication.run(WebServer.class, args);
@@ -26,4 +30,11 @@ public class WebServer {
 	RestTemplate restTemplate() {
 		return new RestTemplate();
 	}
+	
+	@Bean
+	UserDetailsService userDetailService(){
+		return new SGFUserDetailService();
+	}
+	
+	
 }

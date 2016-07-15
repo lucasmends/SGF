@@ -12,6 +12,18 @@
     <script th:src="@{~/js/bootstrap.min.js}"></script>
   </head>
 
+	<head th:fragment="head-login">
+    <title th:text="Login"></title>
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{~/css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{~/css/footer.css}" rel="stylesheet" />
+		<link th:href="@{~/css/login.css}" rel="stylesheet" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script th:src="@{~/js/bootstrap.min.js}"></script>
+  </head>
+
   <body>
 
     <!-- Fixed navbar -->
