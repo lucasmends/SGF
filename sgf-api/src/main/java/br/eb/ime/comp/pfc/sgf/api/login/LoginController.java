@@ -30,16 +30,16 @@ public class LoginController {
 		if (Utils.isEmail(id)) {
 			Professor professor = professorService.getByEmail(id);
 			if (!professor.equals(null)) {
-				roles.add("professor");
+				roles.add(Client.ROLE_PROFESSOR);
 				if (professor.getCoordenador().equals(Professor.IS_COORDEADOR)) {
-					roles.add("coordenador");
+					roles.add(Client.ROLE_COORDENADOR);
 				}
 				client = new Client(professor.getEmail(), professor.getPassword(), roles);
 			}
 		} else if (Utils.isNumber(id)) {
 			Aluno aluno = alunoService.getByNumero(id);
 			if(!aluno.equals(null)){
-				roles.add("aluno");
+				roles.add(Client.ROLE_ALUNO);
 				client = new Client(aluno.getNumero(), aluno.getPassword(), roles);
 			}
 		}

@@ -40,13 +40,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 			.formLogin()
 				.loginPage("/login").permitAll()
-				.and().logout().permitAll();
+				.and()
+			.logout().permitAll();
 	}
 
-	/*
-	 * @Autowired public void configureGlobal(AuthenticationManagerBuilder auth)
-	 * throws Exception { auth.authenticationProvider(authenticationProvider); }
-	 */
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailService);

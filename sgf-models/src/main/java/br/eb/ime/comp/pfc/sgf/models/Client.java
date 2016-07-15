@@ -4,6 +4,10 @@ import java.util.List;
 
 public class Client {
 
+	public static String ROLE_ALUNO = "aluno";
+	public static String ROLE_PROFESSOR = "professor";
+	public static String ROLE_COORDENADOR = "coordenador";
+	
 	private String username;
 	
 	private String password;
