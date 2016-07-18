@@ -61,7 +61,7 @@ public class ProfessorController {
 	}
 	
 	@RequestMapping(value = "/edit/{email}", method = RequestMethod.GET)
-	public String editAluno(@PathVariable("email") String email, Model model){
+	public String editProfessor(@PathVariable("email") String email, Model model){
 		Professor professor = service.getByEmail(email);
 		model.addAttribute("professor", professor);
 		model.addAttribute("title", "Editar Professor");
@@ -69,7 +69,7 @@ public class ProfessorController {
 	}
 	
 	@RequestMapping(value = "/edit/{email}", method = RequestMethod.POST)
-	public String saveAluno(@PathVariable("email") String email,
+	public String saveProfessor(@PathVariable("email") String email,
 			@RequestParam("nome") String nome, @RequestParam("coordenador") String coordenador, 
 			@RequestParam("engenharia") String engenharia, @RequestParam("password") String password){
 		Professor professor = service.getByEmail(email);

@@ -42,7 +42,7 @@ public class ProfessorRepository {
 		
 		Update update = new Update();
 		update.set("nome", professor.getNome());
-		update.set("coordenador", !professor.getCoordenador().equals("true")?"true":"false");
+		update.set("coordenador", professor.getCoordenador().equals("true")?"true":"false");
 		/*
 		update.set("password", professor.getPassword())
 		*/

@@ -18,4 +18,14 @@ public class WebController {
 	public String aluno(){
 		return "redirect:aluno/";
 	}
+	
+	@RequestMapping(value = "/professor", method = RequestMethod.GET)
+	public String professor(){
+		return "redirect:professor/";
+	}
+	
+	@RequestMapping(value = "/materia", method = RequestMethod.GET)
+	public String materia(){
+		return "redirect:materia/";
+	}
 }
