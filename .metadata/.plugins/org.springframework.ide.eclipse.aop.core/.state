@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<aop-reference-model/>
+<aop-reference-model>
+<aop-project name="sgf-models"/>
+<aop-project name="Core"/>
+<aop-project name="Auxiliar"/>
+<aop-project name="sgf-web"/>
+</aop-reference-model>
