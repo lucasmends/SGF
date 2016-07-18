@@ -1,0 +1,30 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="base :: head (${title})"></head>
+
+<body>
+	<nav th:replace="base :: nav"></nav>
+
+	<!-- Begin page content -->
+	<div class="container">
+		<div class="panel panel-default">
+			<div class="panel-heading">Adicionar materias</div>
+			<ul class="list-group" th:each="materia : ${turma.materias}">
+				<li class="list-group-item"  th:text="${materia.nome}"></li>
+			</ul>
+			<form method="post" th:action="@{/turma/edit/materias/} + ${turma.id}">
+				<select th:field="*{materia}">
+				  <option th:each="materia : ${materias}" 
+				          th:value="${materia.nome}" 
+				          th:text="${materia.nome}"></option>
+				</select>
+			    <input type="submit" id="create" value="Adicionar" />
+			</form>
+		</div>
+	</div>
+	<!-- End page content -->
+	<footer th:replace="base :: footer"></footer>
+</body>
+
+</html>

@@ -60,6 +60,13 @@ public class Turma {
 	public void setEngenharia(String engenharia) {
 		this.engenharia = engenharia;
 	}
+	
+	/**
+	 * @return the materias
+	 */
+	public void setAno(String ano) {
+		this.ano = ano;
+	}
 
 	/**
 	 * @return the ano
