@@ -4,5 +4,6 @@ public class ServiceName {
 	public static String aluno = "http://ALUNO-SERVICE";
 	public static String professor = "http://PROFESSOR-SERVICE";
 	public static String materia = "http://MATERIA-SERVICE";
+	public static String turma = "http://TURMA-SERVICE";
 	public static String login = "http://LOGIN-SERVICE";
 }

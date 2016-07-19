@@ -1,0 +1,36 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="base :: head (${title})"></head>
+
+<body>
+	<nav th:replace="base :: nav"></nav>
+
+	<!-- Begin page content -->
+	<div class="container">
+		<div class="panel panel-default">
+			<div class="panel-heading">Turmas</div>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Ano</th>
+						<th>Engenharia</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="turma : ${turmas}">
+						<td th:text="${turma.ano}"></td>
+						<td th:text="${turma.engenharia}"></td>
+						<td><a th:href="@{/turma/edit/} + ${turma.id}">Editar</a></td>
+					</tr>
+				</tbody>
+			</table>
+			<a th:href="@{/turma/new}">Nova Turma</a>
+		</div>
+	</div>
+	<!-- End page content -->
+	<footer th:replace="base :: footer"></footer>
+</body>
+
+</html>
