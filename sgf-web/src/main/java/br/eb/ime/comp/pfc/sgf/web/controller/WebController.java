@@ -28,4 +28,9 @@ public class WebController {
 	public String materia(){
 		return "redirect:materia/";
 	}
+	
+	@RequestMapping(value = "/turma", method = RequestMethod.GET)
+	public String turma(){
+		return "redirect:turma/";
+	}
 }

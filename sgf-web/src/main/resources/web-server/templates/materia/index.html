@@ -14,14 +14,14 @@
 				<thead>
 					<tr>
 						<th>Nome</th>
-						<th>Professor (email)</th>
+						<th>Professor</th>
 						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="materia : ${materias}">
 						<td th:text="${materia.nome}"></td>
-						<td th:text="${materia.professor.nome} (${materia.professor.email})"></td>
+						<td th:text="${materia.professor.getNome()}"></td>
 						<td><a th:href="@{/materia/edit/} + ${materia.id}">Editar</a></td>
 					</tr>
 				</tbody>

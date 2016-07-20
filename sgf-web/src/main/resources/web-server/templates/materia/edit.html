@@ -12,9 +12,9 @@
 			<div class="panel-heading">Editar Materia</div>
 			<form method="post" th:action="@{/materia/edit/} + ${materia.id}">
 				<label>Professor</label>
-				<select th:field="*{professor}">
+				<select id="id" name="id">
 				  <option th:each="professor : ${professores}" 
-				          th:value="${professor.nome}" 
+				          th:value="${professor.id}" 
 				          th:text="${professor.nome}"></option>
 				</select>
 			    <input type="submit" id="create" value="Salvar" />

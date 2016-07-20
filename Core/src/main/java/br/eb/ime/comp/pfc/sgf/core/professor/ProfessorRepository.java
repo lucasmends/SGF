@@ -37,6 +37,11 @@ public class ProfessorRepository {
 		return mongo.findOne(searchProfessorQuery, Professor.class);
 	}
 	
+	public Professor findById(String id){
+		Query searchProfessorQuery = new Query(Criteria.where("id").is(id));
+		return mongo.findOne(searchProfessorQuery, Professor.class);
+	}
+	
 	public Professor save(Professor professor){
 		Query searchProfessorQuery = new Query(Criteria.where("email").is(professor.getEmail()));
 		

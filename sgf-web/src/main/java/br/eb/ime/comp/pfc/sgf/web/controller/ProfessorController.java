@@ -28,6 +28,14 @@ public class ProfessorController {
 		return "professor/index";
 	}
 	
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public String getById(@PathVariable("id") String id, Model model){
+		Professor professor = service.getById(id);
+		model.addAttribute("professor",professor);
+		model.addAttribute("title", "Professor");
+		return "professor/professor";
+	}
+	
 	@RequestMapping(value = "/email/{email}", method = RequestMethod.GET)
 	public String getByEmail(@PathVariable("email") String email, Model model){
 		Professor professor = service.getByEmail(email);

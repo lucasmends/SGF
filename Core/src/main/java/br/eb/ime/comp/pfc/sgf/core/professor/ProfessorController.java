@@ -53,6 +53,12 @@ public class ProfessorController {
 	public Professor getByEmail(@PathVariable("email") String email){
 		return repo.findByEmail(email);
 	}
+	
+	@RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
+	public Professor getById(@PathVariable("id") String id){
+		return repo.findById(id);
+	}
+	
 	/**
 	 * 
 	 * Adiciona uma engenharia para o professor

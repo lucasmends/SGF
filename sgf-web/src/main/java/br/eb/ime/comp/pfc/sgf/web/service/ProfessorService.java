@@ -27,6 +27,10 @@ public class ProfessorService {
 		return restTemplate.getForObject(ServiceName.professor + "/{email}", Professor.class, email);
 	}
 	
+	public Professor getById(String id){
+		return restTemplate.getForObject(ServiceName.professor + "/id/{id}", Professor.class, id);
+	}
+	
 	public Professor create(Professor professor){
 		return restTemplate.postForObject(ServiceName.professor , professor, Professor.class);
 	}

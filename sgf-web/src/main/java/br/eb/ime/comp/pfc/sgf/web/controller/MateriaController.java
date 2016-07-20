@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import br.eb.ime.comp.pfc.sgf.models.Materia;
 import br.eb.ime.comp.pfc.sgf.models.Professor;
@@ -21,13 +22,14 @@ public class MateriaController {
 	
 	@Autowired
 	private MateriaService service;
+	@Autowired
 	private ProfessorService professorService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model){
 		List<Materia> materias = service.getAll();
 		model.addAttribute("title", "Materias");
-		model.addAttribute("Materias", materias);
+		model.addAttribute("materias", materias);
 		return "materia/index";
 	}
 	
@@ -48,7 +50,7 @@ public class MateriaController {
 	}
 	
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
-	public String newMateria(Model model){
+	public String newMateria(Model model, Materia materia){
 		List<Professor> professores = professorService.getAll();
 		model.addAttribute("professores", professores);
 		model.addAttribute("title", "Nova Materia");
@@ -56,8 +58,9 @@ public class MateriaController {
 	}
 	
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
-	public String createMateria(@RequestParam("nome") String nome, @RequestParam("professor") Professor professor){
-		Materia materia  = new Materia(nome, professor);
+	public String createMateria(@RequestParam("nome") String nome, @RequestParam("id") String id){
+		Professor professor = professorService.getById(id);
+		Materia materia = new Materia(nome, professor);
 		service.create(materia);
 		return "redirect:" + "/materia/";
 	}
@@ -72,9 +75,10 @@ public class MateriaController {
 		return "materia/edit";
 	}
 	
-	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-	public String saveMateria(@PathVariable("id") String id, @RequestParam("professor") Professor professor){
-		Materia materia = service.getById(id);
+	@RequestMapping(value = "/edit/{materiaId}", method = RequestMethod.POST)
+	public String saveMateria(@PathVariable("materiaId") String materiaId, @RequestParam("id") String id){
+		Materia materia = service.getById(materiaId);
+		Professor professor = professorService.getById(id);
 		materia.setProfessor(professor);
 		service.update(materia);
 		return "redirect:" + "/materia/";
