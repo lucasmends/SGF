@@ -1,5 +1,6 @@
 package br.eb.ime.comp.pfc.sgf.core.aluno;
 
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -27,6 +28,6 @@ public class AlunoServer {
 		// Tell server to look for web-server.properties or web-server.yml
 		System.setProperty("spring.config.name", "aluno-server");
 		SpringApplication.run(AlunoServer.class, args);
-	}		
+	}
 	
 }

@@ -70,7 +70,7 @@ public class TurmaController {
 
 
 	@RequestMapping(value = "/{id}/materia", method = RequestMethod.PUT)
-	public Turma addMateria(@RequestBody Materia materia, @PathVariable("id") String id){
+	public Turma addMateria(@RequestBody String materiaJSON, @PathVariable("id") String id) throws JsonParseException, JsonMappingException, IOException{
 
 		/**
 		 * Deviamos passar apenas o id da materia a ser adicionada, buscá-la e adicioná-la
@@ -81,6 +81,8 @@ public class TurmaController {
 		if(turma.equals(null)){
 			return null;
 		}
+		
+		Materia materia = br.eb.ime.comp.pfc.sgf.core.materia.Utils.getMateria(materiaJSON);
 		
 		turma.addMateria(materia);
 		
