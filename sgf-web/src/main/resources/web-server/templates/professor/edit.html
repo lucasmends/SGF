@@ -4,17 +4,17 @@
 <head th:replace="base :: head (${title})"></head>
 
 <body>
-	<nav th:replace="base :: nav"></nav>
+	<nav th:replace="base :: nav-logged (${user.isCoordenador()} )" th:if="${user.isProfessor()} == 'true'"></nav>
 
 	<!-- Begin page content -->
 	<div class="container">
 		<div class="panel panel-default">
 			<div class="panel-heading">Editar Professor</div>
-			<form method="post" th:action="@{/professor/edit/} + ${professor.email}">
+			<form method="post" th:action="@{/professor/edit/} + ${professor.id}">
 				<label>Nome</label>
 				<input type="text" id="nome" name="nome" th:value="*{professor.nome}" />
-				<label>Engenharia</label>
-				<input type="text" id="engenharia" name="engenharia" th:value="*{professor.engenharia}" />
+				<!--<label>Engenharia</label>
+				<input type="text" id="engenharia" name="engenharia" th:value="*{professor.engenharia}" />-->
 				<label>Coordenador</label>
 				<input type="text" id="coordenador" name="coordenador" th:value="*{professor.coordenador}" />
 				<label>Password</label>

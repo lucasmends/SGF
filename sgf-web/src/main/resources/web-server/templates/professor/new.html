@@ -4,7 +4,7 @@
 <head th:replace="base :: head (${title})"></head>
 
 <body>
-	<nav th:replace="base :: nav"></nav>
+	<nav th:replace="base :: nav-logged (${user.isCoordenador()} )" th:if="${user.isProfessor()} == 'true'"></nav>
 
 	<!-- Begin page content -->
 	<div class="container">
@@ -17,8 +17,8 @@
 				<input type="text" id="email" name="email" th:value="*{email}" />
 				<label>Coordenador</label>
 				<input type="text" id="coordenador" name="coordenador" th:value="*{coordenador}" />
-				<label>Engenharia</label>
-				<input type="text" id="engenharia" name="engenharia" th:value="*{engenharia}" />
+				<!--<label>Engenharia</label>
+				<input type="text" id="engenharia" name="engenharia" th:value="*{engenharia}" />-->
 				<label>Password</label>
 				<input type="password" id="password" name="password" th:value="*{password}" />
 			    <input type="submit" id="create" value="Salvar" />

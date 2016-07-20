@@ -1,16 +1,23 @@
 package br.eb.ime.comp.pfc.sgf.web.controller;
 
+import java.security.Principal;
+
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import br.eb.ime.comp.pfc.sgf.web.User;
+
 @Controller
 public class WebController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String index(Model model){
+	public String index(Model model, Principal u){
+		User user = new User((UsernamePasswordAuthenticationToken) u);
 		model.addAttribute("title", "Sistema de Gerenciamento de Faltas");
+		model.addAttribute("user", user);
 		return "index";
 	}
 	

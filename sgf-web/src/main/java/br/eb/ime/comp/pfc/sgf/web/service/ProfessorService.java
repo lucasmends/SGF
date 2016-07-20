@@ -24,7 +24,19 @@ public class ProfessorService {
 	private RestTemplate restTemplate;
 	
 	public Professor getByEmail(String email){
-		return restTemplate.getForObject(ServiceName.professor + "/{email}", Professor.class, email);
+		Professor professor = new Professor();
+		professor.setEmail(email);
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		HttpEntity<Professor> entity = new HttpEntity<Professor>(professor, headers);
+		
+		ResponseEntity<Professor> response = restTemplate.exchange(ServiceName.professor + "/email", HttpMethod.GET, entity, Professor.class);
+		
+		if(response.getStatusCode() == HttpStatus.OK)
+			return response.getBody();
+		return null;
 	}
 	
 	public Professor getById(String id){

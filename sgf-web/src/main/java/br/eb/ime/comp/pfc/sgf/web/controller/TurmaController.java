@@ -35,7 +35,7 @@ public class TurmaController {
 		return "turma/index";
 	}
 	
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
 	public String getById(@PathVariable("id") String id, Model model){
 		Turma turma = service.getById(id);
 		model.addAttribute("turma",turma);

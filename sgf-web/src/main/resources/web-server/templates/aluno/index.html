@@ -24,7 +24,7 @@
 						<td th:text="${aluno.numero}"></td>
 						<td th:text="${aluno.nome}"></td>
 						<td th:text="${aluno.email}"></td>
-						<td><a th:href="@{/aluno/edit/} + ${aluno.numero}">Editar</a></td>
+						<td th:if="${user.isCoordenador()} == 'true'"><a th:href="@{/aluno/edit/} + ${aluno.numero}">Editar</a></td>
 					</tr>
 				</tbody>
 			</table>

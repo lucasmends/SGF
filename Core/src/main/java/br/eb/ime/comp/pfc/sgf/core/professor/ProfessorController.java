@@ -49,9 +49,9 @@ public class ProfessorController {
 		return repo.save(professor);
 	}
 	
-	@RequestMapping(value = "/{email}", method = RequestMethod.GET)
-	public Professor getByEmail(@PathVariable("email") String email){
-		return repo.findByEmail(email);
+	@RequestMapping(value = "/email", method = RequestMethod.GET)
+	public Professor getByEmail(@RequestBody Professor professor){
+		return repo.findByEmail(professor.getEmail());
 	}
 	
 	@RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
@@ -67,9 +67,9 @@ public class ProfessorController {
 	 * @param engenharia a engenharia a ser adicionada
 	 * @return
 	 */
-	@RequestMapping(value = "/{email}/engenharia/{engenharia}", method = RequestMethod.PUT)
-	public Professor addEngenharia(@PathVariable("email") String email, @PathVariable("engenharia") String engenharia){
-		Professor professor = repo.findByEmail(email);
+	@RequestMapping(value = "/email/engenharia/{engenharia}", method = RequestMethod.PUT)
+	public Professor addEngenharia(@RequestBody Professor professor_, @PathVariable("engenharia") String engenharia){
+		Professor professor = repo.findByEmail(professor_.getEmail());
 		
 		if(professor.equals(null))
 			return null;
