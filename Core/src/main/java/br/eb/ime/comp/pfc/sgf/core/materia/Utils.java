@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import br.eb.ime.comp.pfc.sgf.core.GeneralUtils;
 import br.eb.ime.comp.pfc.sgf.models.Materia;
 import br.eb.ime.comp.pfc.sgf.models.Professor;
 
@@ -32,7 +33,7 @@ public class Utils {
 		int idStringProfessor = materiaJSON.indexOf("\"professor\":");
 		if(idStringProfessor > 0){
 			professor = getProfessor(materiaJSON);
-			int idLast = getProfessirInd(materiaJSON)[IND_END];
+			int idLast = GeneralUtils.getInd(materiaJSON, "\"professor\":", '{', '}')[IND_END];
 			idStringProfessor = materiaJSON.substring(0, idStringProfessor).lastIndexOf(',');
 			materiaJSON = materiaJSON.replace(materiaJSON.substring(idStringProfessor, idLast), "");
 		}
@@ -47,7 +48,7 @@ public class Utils {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		
-		int[] professorInd = getProfessirInd(materiaJSON);
+		int[] professorInd = GeneralUtils.getInd(materiaJSON, "\"professor\":", '{', '}');
 		
 		if(professorInd != null)
 			return mapper.readValue(materiaJSON.substring(professorInd[IND_START], professorInd[IND_END]), Professor.class);
@@ -55,26 +56,4 @@ public class Utils {
 		return null;
 	}
 
-	private static int[] getProfessirInd(String materiaJSON) {
-		int idStringProfessor = materiaJSON.indexOf("\"professor\":");
-		if (idStringProfessor > 0) {
-			int idFirst = materiaJSON.substring(idStringProfessor).indexOf("{") + idStringProfessor;
-			int idLast = idFirst;
-			int count = 1;
-			for (int i = idFirst + 1; i < materiaJSON.length(); i++) {
-				if (materiaJSON.charAt(i) == '{')
-					count++;
-				else if (materiaJSON.charAt(i) == '}') {
-					count--;
-					if (count == 0) {
-						idLast = i + 1;
-						break;
-					}
-				}
-			}
-			int[] result = {idFirst, idLast};
-			return result;
-		}
-		return null;
-	}
 }

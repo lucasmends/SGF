@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import br.eb.ime.comp.pfc.sgf.core.GeneralUtils;
 import br.eb.ime.comp.pfc.sgf.models.Aluno;
 import br.eb.ime.comp.pfc.sgf.models.Materia;
 import br.eb.ime.comp.pfc.sgf.models.Turma;
@@ -40,7 +41,7 @@ public class Utils {
 		if (id > 0) {
 			//se sim, chama o método que cria o conjunto de matériasß
 			materias = getSet(turmaJSON, Materia.class);
-			idLast = getInd(turmaJSON, "\"materias\":", '[', ']')[IND_END];
+			idLast = GeneralUtils.getInd(turmaJSON, "\"materias\":", '[', ']')[IND_END];
 			id = turmaJSON.substring(0, id).lastIndexOf(',');
 			//retira o atributo matéria da string
 			turmaJSON = turmaJSON.replace(turmaJSON.substring(id, idLast), "");
@@ -49,7 +50,7 @@ public class Utils {
 		id = turmaJSON.indexOf("\"alunos\":");
 		if (id > 0) {
 			alunos = getSet(turmaJSON, Aluno.class);
-			idLast = getInd(turmaJSON, "\"alunos\":", '[', ']')[IND_END];
+			idLast = GeneralUtils.getInd(turmaJSON, "\"alunos\":", '[', ']')[IND_END];
 			id = turmaJSON.substring(0, id).lastIndexOf(',');
 			turmaJSON = turmaJSON.replace(turmaJSON.substring(id, idLast), "");
 		}
@@ -80,10 +81,10 @@ public class Utils {
 		boolean flagMateria = false;
 		//verifica a classe informada
 		if (cls == Materia.class) {
-			Ind = getInd(turmaJSON, "\"materias\":", '[', ']');
+			Ind = GeneralUtils.getInd(turmaJSON, "\"materias\":", '[', ']');
 			flagMateria = true;//porque a classe do tipo Matéria é composto
 		} else if (cls == Aluno.class)
-			Ind = getInd(turmaJSON, "\"alunos\":", '[', ']');
+			Ind = GeneralUtils.getInd(turmaJSON, "\"alunos\":", '[', ']');
 		else
 			return set;
 
@@ -120,38 +121,6 @@ public class Utils {
 		}
 
 		return set;
-	}
-
-	/**
-	 * Pega os indices de início e fim de um dado atributo
-	 * 
-	 * @param turmaJSON a string que contém o atributo
-	 * @param name o nome do atributo
-	 * @param open o caracter que abre o atributo
-	 * @param close o caracter que fecha o atributo
-	 * @return os índices de início e fim
-	 */
-	private static int[] getInd(String turmaJSON, String name, char open, char close) {
-		int idStringMaterias = turmaJSON.indexOf(name);
-		if (idStringMaterias > 0) {
-			int idFirst = turmaJSON.substring(idStringMaterias).indexOf("{") + idStringMaterias;
-			int idLast = idFirst;
-			int count = 1;
-			for (int i = idFirst + 1; i < turmaJSON.length(); i++) {
-				if (turmaJSON.charAt(i) == open)
-					count++;
-				else if (turmaJSON.charAt(i) == close) {
-					count--;
-					if (count == 0) {
-						idLast = i + 1;
-						break;
-					}
-				}
-			}
-			int[] result = { idFirst, idLast };
-			return result;
-		}
-		return null;
 	}
 
 }
