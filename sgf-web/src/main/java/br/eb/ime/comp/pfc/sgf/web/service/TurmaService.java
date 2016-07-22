@@ -20,6 +20,7 @@ public class TurmaService {
 	@LoadBalanced
 	private RestTemplate restTemplate;
 	
+	
 	public Turma getById(String id){
 		return restTemplate.getForObject(ServiceName.turma + "/{id}", Turma.class, id);
 	}
@@ -30,16 +31,6 @@ public class TurmaService {
 	
 	public Turma update(Turma turma){
 		return Utils.exchange(ServiceName.turma, turma, restTemplate, HttpMethod.PUT, Turma.class);
-		/*HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		
-		HttpEntity<Turma> entity = new HttpEntity<Turma>(turma, headers);
-		
-		ResponseEntity<Turma> response = restTemplate.exchange(ServiceName.turma, HttpMethod.PUT, entity, Turma.class);
-		
-		if(response.getStatusCode() == HttpStatus.OK)
-			return response.getBody();
-		return null;*/
 	}
 	
 	public List<Turma> getAll(){

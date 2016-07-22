@@ -24,14 +24,17 @@ public class TurmaController {
 	
 	@Autowired
 	private MateriaService materiaService;
+	@Autowired
 	private AlunoService alunoService;
+	@Autowired
 	private TurmaService service;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model){
 		List<Turma> turmas = service.getAll();
+		System.out.println(turmas.size());
 		model.addAttribute("title", "Turmas");
-		model.addAttribute("Turmas", turmas);
+		model.addAttribute("turmas", turmas);
 		return "turma/index";
 	}
 	
