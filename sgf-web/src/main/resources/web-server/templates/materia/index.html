@@ -4,29 +4,51 @@
 <head th:replace="base :: head (${title})"></head>
 
 <body>
-	<nav th:replace="base :: nav"></nav>
+	<nav th:replace="base :: nav-logged-aluno" th:if="${user.isAluno()} == true"></nav>
+	<nav th:replace="base :: nav-logged (${user.isCoordenador()} )" th:if="${user.isProfessor()} == true"></nav>
 
 	<!-- Begin page content -->
 	<div class="container">
-		<div class="panel panel-default">
-			<div class="panel-heading">Materias</div>
-			<table class="table">
-				<thead>
-					<tr>
-						<th>Nome</th>
-						<th>Professor</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="materia : ${materias}">
-						<td th:text="${materia.nome}"></td>
-						<td th:text="${materia.professor.getNome()}"></td>
-						<td><a th:href="@{/materia/edit/} + ${materia.id}">Editar</a></td>
-					</tr>
-				</tbody>
-			</table>
-			<a th:href="@{/materia/new}">Nova Materia</a>
+		<div class="row">
+			<div class="col-md-6 col-lg-6">
+				<h3 align="center">Materias</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6 col-lg-6">
+				<div class="row">
+					<div class="panel panel-default">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Nome</th>
+									<th>Professor</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="materia : ${materias}">
+									<td th:text="${materia.nome}"></td>
+									<td th:text="${materia.professor.getNome()}"></td>
+									<td>
+										<a th:href="@{/materia/id/} + ${materia.id}">
+											<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+										</a>
+										<a th:href="@{/materia/edit/} + ${materia.id}" th:if="${user.isCoordenador()} == true">
+											<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+										</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="row" th:if="${user.isCoordenador()} == true">
+					<a class="btn btn-default" th:href="@{/materia/new}">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nova matéria
+					</a>
+				</div>
+			</div>
 		</div>
 	</div>
 	<!-- End page content -->

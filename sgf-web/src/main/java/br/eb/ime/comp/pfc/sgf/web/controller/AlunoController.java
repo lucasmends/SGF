@@ -27,7 +27,7 @@ public class AlunoController {
 	public String index(Model model, Principal u){
 		User user = new User((UsernamePasswordAuthenticationToken) u);
 		
-		if(!user.isCoordenador())
+		if(!user.isProfessor())
 			return "redirect:/403";
 		
 		List<Aluno> alunos = service.getAll();
@@ -50,7 +50,7 @@ public class AlunoController {
 
 		Aluno aluno = service.getByNumero(numero);
 		model.addAttribute("aluno",aluno);
-		model.addAttribute("title", "Aluno");
+		model.addAttribute("title", "Aluno " + aluno.getNome());
 		
 		model.addAttribute("user", user);
 		return "aluno/aluno";
@@ -102,7 +102,8 @@ public class AlunoController {
 		User user = new User((UsernamePasswordAuthenticationToken) u);
 		
 		if(!user.isCoordenador())
-			return "redirect:/403";
+			if(!(user.isAluno() && user.getName().equals(numero)))
+				return "redirect:/403";
 		
 		Aluno aluno = service.getByNumero(numero);
 		model.addAttribute("aluno", aluno);
@@ -119,12 +120,16 @@ public class AlunoController {
 		User user = new User((UsernamePasswordAuthenticationToken) u);
 		
 		if(!user.isCoordenador())
-			return "redirect:/403";
+			if(!(user.isAluno() && user.getName().equals(numero)))
+				return "redirect:/403";
 		
 		Aluno aluno = service.getByNumero(numero);
 		aluno.setEmail(email);
 		aluno.setNome(nome);
+		if((password != null) && !password.equals(""))
+			aluno.setPassword(password);
 		service.update(aluno);
 		return "redirect:" + "/aluno/numero/" + numero;
 	}
+	
 }

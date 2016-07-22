@@ -58,6 +58,11 @@ public class ProfessorController {
 	public Professor getById(@PathVariable("id") String id){
 		return repo.findById(id);
 	}
+
+	@RequestMapping(value = "/engenharia/{engenharia}", method = RequestMethod.GET)
+	public List<Professor> findByEngenharia(@PathVariable("engenharia") String engenharia){
+		return repo.findByEngenharia(engenharia);
+	}
 	
 	/**
 	 * 

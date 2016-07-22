@@ -4,27 +4,70 @@
 <head th:replace="base :: head (${title})"></head>
 
 <body>
-	<nav th:replace="base :: nav"></nav>
+	<nav th:replace="base :: nav-logged (${user.isCoordenador()} )" th:if="${user.isProfessor()} == true"></nav>
 
 	<!-- Begin page content -->
 	<div class="container">
-		<div class="panel panel-default">
-			<div class="panel-heading">Novo Aluno</div>
-			<form method="post" th:action="@{/aluno/new}">
-				<label>Nome</label>
-				<input type="text" id="nome" name="nome" th:value="*{nome}" />
-				<label>Email</label>
-				<input type="text" id="email" name="email" th:value="*{email}" />
-				<label>Numero</label>
-				<input type="text" id="numero" name="numero" th:value="*{numero}" />
-				<label>Password</label>
-				<input type="password" id="password" name="password" th:value="*{password}" />
-			    <input type="submit" id="create" value="Salvar" />
-			</form>
+		<div class="row">
+			<div class="col-md-5 col-lg-5">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="panel-heading">Criar um novo aluno</div>
+						<form method="post" th:action="@{/aluno/new}" class="form-horizontal">
+							<div class="form-group">
+								<label for="nome" class="col-md-2 col-lg-2 control-label">Nome</label>
+								<div class="col-md-4 col-lg-4">
+									<input type="text" class="form-control" id="nome" name="nome" th:value="*{nome}" required="true" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="email" class="col-md-2 col-lg-2 control-label">Email</label>
+								<div class="col-md-6 col-lg-6">
+									<input type="email" class="form-control" id="email" name="email" th:value="*{email}" required="true" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="password" class="col-md-2 col-lg-2 control-label">Senha</label>
+								<div class="col-md-4 col-lg-4">
+									<input type="password" id="password" class="form-control" name="password" th:value="*{password}" required="true" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="password_" class="col-md-2 col-lg-2 control-label">Repetir senha</label>
+								<div class="col-md-4 col-lg-4">
+									<input type="password" id="password_" class="form-control" name="password" th:value="*{password}" onchange="checkPasswordMatch();" required="true" />
+								</div>
+								<div class="col-md-1 col-lg-1">
+									<a id="bad" hidden="true"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></a>
+									<a id="good" hidden="true"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span></a>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-offset-2 col-lg-offset-2">
+									<input type="submit" id="create" class="btn btn-default" value="Criar" />
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<!-- End page content -->
 	<footer th:replace="base :: footer"></footer>
+	<script>
+		function checkPasswordMatch() {
+			var password = $("#password").val();
+			var confirmPassword = $("#password_").val();
+
+			if (password != confirmPassword) {
+				$("#bad").show();
+			} else {
+				$("#bad").hide();
+				$("#good").hide();
+			}
+		}
+	</script>
 </body>
 
 </html>

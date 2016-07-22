@@ -4,7 +4,7 @@
 <head th:replace="base :: head (${title})"></head>
 
 <body>
-	<nav th:replace="base :: nav"></nav>
+	<nav th:replace="base :: nav-logged (${user.isCoordenador()} )" th:if="${user.isProfessor()} == true"></nav>
 
 	<!-- Begin page content -->
 	<div class="container">
@@ -13,6 +13,7 @@
 			<table class="table">
 				<thead>
 					<tr>
+						<th th:if="${user.isCoordenador()} == 'true'"></th>
 						<th>Numero</th>
 						<th>Nome</th>
 						<th>Email</th>
@@ -20,6 +21,7 @@
 				</thead>
 				<tbody>
 					<tr th:each="aluno : ${alunos}">
+						<td th:if="${user.isCoordenador()} == 'true'"></td>
 						<td th:text="${aluno.numero}"></td>
 						<td th:text="${aluno.nome}"></td>
 						<td th:text="${aluno.email}"></td>

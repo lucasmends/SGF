@@ -56,4 +56,9 @@ public class ProfessorRepository {
 		mongo.upsert(searchProfessorQuery, update, Professor.class);
 		return this.findByEmail(professor.getEmail());
 	}
+	
+	public List<Professor> findByEngenharia(String engenharia){
+		Query searchProfessorQuery = new Query(Criteria.where("engenharias").is(engenharia));
+		return mongo.find(searchProfessorQuery, Professor.class);	
+	}
 }
