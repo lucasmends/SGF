@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,13 +22,15 @@ public class LoginController {
 	@Autowired
 	private AlunoService alunoService;
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Client getClient(@PathVariable("id") String id) {
-
+	@RequestMapping(value = "/", method = RequestMethod.POST)
+	public Client getClient(@RequestBody Client id) {
+		/*
+		 * id.getUsername() contém o email ou o número do usuário
+		 */
 		Client client = null;
 		List<String> roles = new ArrayList<>();
-		if (Utils.isEmail(id)) {
-			Professor professor = professorService.getByEmail(id);
+		if (Utils.isEmail(id.getUsername())) {
+			Professor professor = professorService.getByEmail(id.getUsername());
 			if (!professor.equals(null)) {
 				roles.add(Client.ROLE_PROFESSOR);
 				if (professor.getCoordenador().equals(Professor.IS_COORDEADOR)) {
@@ -36,8 +38,8 @@ public class LoginController {
 				}
 				client = new Client(professor.getEmail(), professor.getPassword(), roles);
 			}
-		} else if (Utils.isNumber(id)) {
-			Aluno aluno = alunoService.getByNumero(id);
+		} else if (Utils.isNumber(id.getUsername())) {
+			Aluno aluno = alunoService.getByNumero(id.getUsername());
 			if(!aluno.equals(null)){
 				roles.add(Client.ROLE_ALUNO);
 				client = new Client(aluno.getNumero(), aluno.getPassword(), roles);

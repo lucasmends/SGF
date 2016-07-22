@@ -21,6 +21,7 @@
 					<tr th:each="professor : ${professores}">
 						<td th:text="${professor.nome}"></td>
 						<td th:text="${professor.email}"></td>
+						<td><a th:href="@{/professor/id/} + ${professor.id}">Detalhes</a></td>
 					</tr>
 				</tbody>
 			</table>

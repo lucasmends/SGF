@@ -47,14 +47,6 @@ public class ProfessorController {
 		return "professor/professor";
 	}
 	
-	/*@RequestMapping(value = "/email/{email}", method = RequestMethod.GET)
-	public String getByEmail(@PathVariable("email") String email, Model model){
-		Professor professor = service.getByEmail(email);
-		model.addAttribute("professor",professor);
-		model.addAttribute("title", "Professor");
-		return "professor/professor";
-	}*/
-	
 	@RequestMapping(value = "/todos", method = RequestMethod.GET)
 	public String all(Model model, Principal u){
 		User user = new User((UsernamePasswordAuthenticationToken) u);

@@ -5,16 +5,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import br.eb.ime.comp.pfc.sgf.models.Professor;
+import br.eb.ime.comp.pfc.sgf.web.Utils;
 
 @Service
 public class ProfessorService {
@@ -26,17 +23,8 @@ public class ProfessorService {
 	public Professor getByEmail(String email){
 		Professor professor = new Professor();
 		professor.setEmail(email);
-		
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		
-		HttpEntity<Professor> entity = new HttpEntity<Professor>(professor, headers);
-		
-		ResponseEntity<Professor> response = restTemplate.exchange(ServiceName.professor + "/email", HttpMethod.GET, entity, Professor.class);
-		
-		if(response.getStatusCode() == HttpStatus.OK)
-			return response.getBody();
-		return null;
+		return  restTemplate.postForObject(ServiceName.professor + "/email", professor, Professor.class);
+		//return Utils.exchange(ServiceName.professor + "/email", professor, restTemplate, HttpMethod.GET, Professor.class);	
 	}
 	
 	public Professor getById(String id){
@@ -48,16 +36,7 @@ public class ProfessorService {
 	}
 	
 	public Professor update(Professor professor){
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		
-		HttpEntity<Professor> entity = new HttpEntity<Professor>(professor, headers);
-		
-		ResponseEntity<Professor> response = restTemplate.exchange(ServiceName.professor, HttpMethod.PUT, entity, Professor.class);
-		
-		if(response.getStatusCode() == HttpStatus.OK)
-			return response.getBody();
-		return null;
+		return Utils.exchange(ServiceName.professor, professor, restTemplate, HttpMethod.PUT, Professor.class);
 	}
 	
 	public List<Professor> getAll(){

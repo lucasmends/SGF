@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import br.eb.ime.comp.pfc.sgf.models.Materia;
+import br.eb.ime.comp.pfc.sgf.web.Utils;
 
 @Service
 public class MateriaService {
@@ -37,7 +38,8 @@ public class MateriaService {
 	}
 	
 	public Materia update(Materia materia){
-		HttpHeaders headers = new HttpHeaders();
+		return Utils.exchange(ServiceName.materia, materia, restTemplate, HttpMethod.PUT, Materia.class);
+		/*HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		
 		HttpEntity<Materia> entity = new HttpEntity<Materia>(materia, headers);
@@ -46,7 +48,7 @@ public class MateriaService {
 		
 		if(response.getStatusCode() == HttpStatus.OK)
 			return response.getBody();
-		return null;
+		return null;*/
 	}
 	
 	public List<Materia> getAll(){

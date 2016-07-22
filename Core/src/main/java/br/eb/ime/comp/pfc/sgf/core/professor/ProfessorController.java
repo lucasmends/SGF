@@ -49,7 +49,7 @@ public class ProfessorController {
 		return repo.save(professor);
 	}
 	
-	@RequestMapping(value = "/email", method = RequestMethod.GET)
+	@RequestMapping(value = "/email", method = RequestMethod.POST)
 	public Professor getByEmail(@RequestBody Professor professor){
 		return repo.findByEmail(professor.getEmail());
 	}

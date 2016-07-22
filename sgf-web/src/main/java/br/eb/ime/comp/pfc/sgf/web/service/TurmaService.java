@@ -5,16 +5,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import br.eb.ime.comp.pfc.sgf.models.Turma;
+import br.eb.ime.comp.pfc.sgf.web.Utils;
 
 @Service
 public class TurmaService {
@@ -32,7 +29,8 @@ public class TurmaService {
 	}
 	
 	public Turma update(Turma turma){
-		HttpHeaders headers = new HttpHeaders();
+		return Utils.exchange(ServiceName.turma, turma, restTemplate, HttpMethod.PUT, Turma.class);
+		/*HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		
 		HttpEntity<Turma> entity = new HttpEntity<Turma>(turma, headers);
@@ -41,7 +39,7 @@ public class TurmaService {
 		
 		if(response.getStatusCode() == HttpStatus.OK)
 			return response.getBody();
-		return null;
+		return null;*/
 	}
 	
 	public List<Turma> getAll(){

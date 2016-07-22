@@ -15,7 +15,9 @@ public class LoginService {
 	private RestTemplate restTemplate;
 	
 	public Client getClient(String id){
-		return restTemplate.getForObject(ServiceName.login + "/{id}", Client.class, id);
+		Client user = new Client(id, null, null);
+		return restTemplate.postForObject(ServiceName.login, user, Client.class);
+	//	return Utils.exchange(ServiceName.login, user, restTemplate, HttpMethod.GET, Client.class);	
 	}
 	
 }

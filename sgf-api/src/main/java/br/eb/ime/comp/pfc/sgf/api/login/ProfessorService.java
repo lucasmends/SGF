@@ -21,7 +21,10 @@ public class ProfessorService {
 	private RestTemplate restTemplate;
 	
 	public Professor getByEmail(String email){
-		return restTemplate.getForObject(professorService + "/{email}", Professor.class, email);
+		Professor professor = new Professor();
+		professor.setEmail(email);
+		
+		return  restTemplate.postForObject(professorService + "/email", professor, Professor.class);
 	}
 	
 	public List<Professor> getAll(){
