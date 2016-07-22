@@ -8,21 +8,57 @@
 
 	<!-- Begin page content -->
 	<div class="container">
-		<div class="panel panel-default">
-			<div class="panel-heading">Novo Professor</div>
-			<form method="post" th:action="@{/professor/new}">
-				<label>Nome</label>
-				<input type="text" id="nome" name="nome" th:value="*{nome}" />
-				<label>Email</label>
-				<input type="text" id="email" name="email" th:value="*{email}" />
-				<label>Coordenador</label>
-				<input type="text" id="coordenador" name="coordenador" th:value="*{coordenador}" />
-				<!--<label>Engenharia</label>
-				<input type="text" id="engenharia" name="engenharia" th:value="*{engenharia}" />-->
-				<label>Password</label>
-				<input type="password" id="password" name="password" th:value="*{password}" />
-			    <input type="submit" id="create" value="Salvar" />
-			</form>
+		<div class="row">
+			<div class="col-md-5 col-lg-5">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="panel-heading">
+							<h4 align="center">Criar um Professor</h4>
+						</div>
+						<form method="post" th:action="@{/professor/new}" class="form-horizontal" id="form">
+							<div class="form-group">
+								<label for="nome" class="col-md-4 col-lg-4 control-label">Nome </label>
+								<div class="col-md-6 col-lg-6">
+									<input type="text" class="form-control" id="nome" name="nome" required="true" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="email" class="col-md-4 col-lg-4 control-label">Email </label>
+								<div class="col-md-8 col-lg-8">
+									<input type="email" class="form-control" id="email" name="email" required="true" />
+								</div>
+							</div>
+							<div class="form-group">
+
+								<label for="coordenador" class="col-md-4 col-lg-4 control-label">Coordenador </label>
+								<div class="col-md-3 col-lg-3">
+									<select class="form-control" id="coordenador" name="coordenador">
+										<option value="false">Não</option>
+										<option value="true">Sim</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="engenharias" class="col-md-4 col-lg-4 control-label">Engenharias </label>
+								<div class="col-md-6 col-lg-6">
+									<select th:replace="base :: engenharias"></select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="password" class="col-md-4 col-lg-4 control-label">Senha </label>
+								<div class="col-md-6 col-lg-6">
+									<input type="password" id="password" class="form-control" name="password" required="true" />
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-4 col-lg-4">
+									<input type="submit" id="create" class="btn btn-default" value="Criar" />
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<!-- End page content -->

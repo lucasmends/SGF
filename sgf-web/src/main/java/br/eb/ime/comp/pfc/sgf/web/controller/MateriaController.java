@@ -46,6 +46,7 @@ public class MateriaController {
 		model.addAttribute("materia",materia);
 		model.addAttribute("title", "Materia");
 		model.addAttribute("user", user);
+		
 		return "materia/materia";
 	}
 	
@@ -102,6 +103,7 @@ public class MateriaController {
 		Professor professor = professorService.getById(id);
 		materia.setProfessor(professor);
 		service.update(materia);
+		
 		return "redirect:" + "/materia/";
 	}
 }

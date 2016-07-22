@@ -33,7 +33,6 @@ public class AlunoController {
 		List<Aluno> alunos = service.getAll();
 		model.addAttribute("title", "Alunos");
 		model.addAttribute("alunos",alunos);
-		
 		model.addAttribute("user", user);
 		return "aluno/index";
 	}
@@ -126,7 +125,7 @@ public class AlunoController {
 		Aluno aluno = service.getByNumero(numero);
 		aluno.setEmail(email);
 		aluno.setNome(nome);
-		if((password != null) && !password.equals(""))
+		if(user.isAluno() && !password.equals(""))
 			aluno.setPassword(password);
 		service.update(aluno);
 		return "redirect:" + "/aluno/numero/" + numero;

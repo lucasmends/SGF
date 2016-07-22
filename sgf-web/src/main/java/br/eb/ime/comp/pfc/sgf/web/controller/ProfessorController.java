@@ -66,15 +66,19 @@ public class ProfessorController {
 		model.addAttribute("title", "Novo Professor");
 		
 		model.addAttribute("user", user);
+		
 		return "professor/new";
 	}
 	
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public String createProfessor(@RequestParam("nome") String nome, @RequestParam("email") String email, 
-			@RequestParam("coordenador") String coordenador, @RequestParam("engenharia") String engenharia, 
+			@RequestParam("coordenador") String coordenador, @RequestParam("engenharias") String[] engenharias, 
 			@RequestParam("password") String password){
-		Professor professor  = new Professor(nome, email, coordenador, password);
-		professor.addEngenharia(engenharia);
+		Professor professor  = new Professor(nome, email, "false", password);
+		professor.setEngenharias(engenharias);
+		if(coordenador != null)
+			professor.setCoordenador(coordenador);
+		
 		String id = service.create(professor).getId();
 		return "redirect:" + "/professor/id/" + id;
 	}
@@ -93,13 +97,19 @@ public class ProfessorController {
 	
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
 	public String saveProfessor(@PathVariable("id") String id,
-			@RequestParam("nome") String nome, @RequestParam("coordenador") String coordenador, 
-			@RequestParam("engenharia") String engenharia, @RequestParam("password") String password){
+			@RequestParam("nome") String nome, @RequestParam("engenharias") String[] engenharias, 
+			@RequestParam("password") String password, 
+			Principal u){
+		User user = new User((UsernamePasswordAuthenticationToken) u);
+				
 		Professor professor = service.getById(id);
 		professor.setNome(nome);
-		professor.setCoordenador(coordenador);
-		professor.setPassword(password);
-		professor.addEngenharia(engenharia);
+		professor.setCoordenador(professor.getCoordenador());
+		if(user.getName().equals(professor.getEmail()))
+			if(!password.equals(""))
+				professor.setPassword(password);
+		professor.setEngenharias(engenharias);
+		
 		service.update(professor);
 		return "redirect:" + "/professor/id/" + id;
 	}

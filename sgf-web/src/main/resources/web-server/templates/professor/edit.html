@@ -8,19 +8,42 @@
 
 	<!-- Begin page content -->
 	<div class="container">
-		<div class="panel panel-default">
-			<div class="panel-heading">Editar Professor</div>
-			<form method="post" th:action="@{/professor/edit/} + ${professor.id}">
-				<label>Nome</label>
-				<input type="text" id="nome" name="nome" th:value="*{professor.nome}" />
-				<!--<label>Engenharia</label>
-				<input type="text" id="engenharia" name="engenharia" th:value="*{professor.engenharia}" />-->
-				<label>Coordenador</label>
-				<input type="text" id="coordenador" name="coordenador" th:value="*{professor.coordenador}" />
-				<label>Password</label>
-				<input type="password" id="password" name="password" />
-			    <input type="submit" id="create" value="Salvar" />
-			</form>
+		<div class="row">
+			<div class="col-md-5 col-lg-5">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="panel-heading" >
+							<h4 align="center" th:text="'Editar o Professor ' + ${professor.nome}"></h4>
+						</div>
+						<form method="post" th:action="@{/professor/edit/} + ${professor.id}" class="form-horizontal">
+							<div class="form-group">
+								<label for="nome" class="col-md-4 col-lg-4 control-label">Nome </label>
+								<div class="col-md-6 col-lg-6">
+									<input type="text" class="form-control" id="nome" name="nome" th:value="*{professor.nome}" required="true" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="engenharias" class="col-md-4 col-lg-4 control-label">Engenharias </label>
+								<div class="col-md-6 col-lg-6">
+									<select th:replace="base :: engenharias"></select>
+								</div>
+							</div>
+							<div class="form-group" th:if="${user.name.equals(professor.email)}">
+								<label for="password" class="col-md-4 col-lg-4 control-label">Senha </label>
+								<div class="col-md-6 col-lg-6">
+									<input type="password" id="password" class="form-control" name="password"/>
+								</div>
+							</div>
+							<input type="hidden" id="password" th:unless="${user.name.equals(professor.email)}" name="password" value="" />
+							<div class="form-group">
+								<div class="col-md-4 col-lg-4">
+									<input type="submit" id="create" class="btn btn-default" value="Salvar" />
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<!-- End page content -->

@@ -14,32 +14,31 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @author lucasmendes
  *
  */
-@Document(collection="professor")
+@Document(collection = "professor")
 public class Professor {
 	public static String IS_COORDEADOR = "true";
-	
+
 	@Id
 	private String id;
-	
+
 	private String nome;
-	
+
 	@Indexed(unique = true)
 	private String email;
 
 	private String coordenador;
-	
+
 	/**
 	 * Armazenado como hash
 	 */
 	private String password;
-	
+
 	private Set<String> engenharias;
-	
-	
-	public Professor(){
-		
+
+	public Professor() {
+
 	}
-	
+
 	public Professor(String nome, String email, String coordenador, String password) {
 		this.nome = nome;
 		this.email = email;
@@ -47,7 +46,7 @@ public class Professor {
 		this.password = password;
 		this.engenharias = null;
 	}
-	
+
 	public Professor(String id, String nome, String email, String coordenador, String password,
 			Set<String> engenharias) {
 		this.id = id;
@@ -57,6 +56,7 @@ public class Professor {
 		this.password = password;
 		this.engenharias = engenharias;
 	}
+
 	/**
 	 * @return the nome
 	 */
@@ -65,7 +65,8 @@ public class Professor {
 	}
 
 	/**
-	 * @param nome the nome to set
+	 * @param nome
+	 *            the nome to set
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
@@ -79,16 +80,17 @@ public class Professor {
 	}
 
 	/**
-	 * @param email the email to set
+	 * @param email
+	 *            the email to set
 	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	public void setCoordenador(String coordenador){
+
+	public void setCoordenador(String coordenador) {
 		this.coordenador = coordenador;
 	}
-	
+
 	/**
 	 * @return se é coordenador
 	 */
@@ -104,7 +106,8 @@ public class Professor {
 	}
 
 	/**
-	 * @param password the password to set
+	 * @param password
+	 *            the password to set
 	 */
 	public void setPassword(String password) {
 		this.password = password;
@@ -113,30 +116,45 @@ public class Professor {
 	/**
 	 * @return a lista das engenharias
 	 */
-	public Set<String> getEngenharias(){
-		return !(this.engenharias == null)?this.engenharias:null;
+	public Set<String> getEngenharias() {
+		return !(this.engenharias == null) ? this.engenharias : null;
 	}
-	
+
 	/**
 	 * 
 	 * A lista de engenharias é um conjunto onde os elementos são distintos
 	 * 
-	 * @param engenharia a engenharia a ser adicionada
+	 * @param engenharia
+	 *            a engenharia a ser adicionada
 	 * @return o próprio objeto
 	 */
 	public Professor addEngenharia(String engenharia) {
-		if(this.engenharias == null)
+		if (this.engenharias == null)
 			this.engenharias = new HashSet<String>();
 		engenharias.add(engenharia);
 		return this;
 	}
 
-	
+	public Professor addEngenharias(String[] engenharias) {
+		if (this.engenharias == null)
+			this.engenharias = new HashSet<String>();
+		for (String eng : engenharias)
+			this.engenharias.add(eng);
+		return this;
+	}
+
+	public Professor setEngenharias(String[] engenharias) {
+		this.engenharias = new HashSet<String>();
+		for (String eng : engenharias)
+			this.engenharias.add(eng);
+		return this;
+	}
+
 	/**
 	 * @return the id
 	 */
 	public String getId() {
 		return id;
 	}
-	
+
 }

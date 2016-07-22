@@ -64,10 +64,10 @@
 			</div>
 			<div id="navbar" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li><a th:href="@{/aluno}">Atas</a></li>
+					<li><a th:href="@{/aluno/numero/} + ${user.name}">Perfil</a></li>
+					<li><a th:href="@{/professor}">Atas</a></li>
 					<li><a th:href="@{/professor}">Professores</a></li>
 					<li><a th:href="@{/materia}">Materias</a></li>
-					<li><a th:href="@{/turma}">Turmas</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li>
@@ -133,6 +133,12 @@
 		<script th:src="@{~/js/bootstrap.min.js}"></script>
 	</footer>
 
+	<select multiple="true" class="form-control" id="engenharias" name="engenharias" th:fragment="engenharias">
+		<option value="Computação">Computação</option>
+		<option value="Eletrônica">Eletrônica</option>
+		<option value="Telecomunicação">Telecomunicação</option>
+		<option value="Elétrica">Elétrica</option>
+	</select>
 
 	<!-- Bootstrap core JavaScript
     ================================================== -->
