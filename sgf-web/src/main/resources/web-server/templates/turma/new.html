@@ -4,19 +4,62 @@
 <head th:replace="base :: head (${title})"></head>
 
 <body>
-	<nav th:replace="base :: nav"></nav>
+	<nav th:replace="base :: nav-logged-aluno" th:if="${user.isAluno()} == true"></nav>
+	<nav th:replace="base :: nav-logged (${user.isCoordenador()} )" th:if="${user.isProfessor()} == true"></nav>
 
 	<!-- Begin page content -->
 	<div class="container">
-		<div class="panel panel-default">
-			<div class="panel-heading">Nova Turma</div>
-			<form method="post" th:action="@{/turma/new}">
-				<label>Ano</label>
-				<input type="text" id="ano" name="ano" th:value="*{ano}" />
-				<label>Engenharia</label>
-				<input type="text" id="engenharia" name="engenharia" th:value="*{engenharia}" />
-			    <input type="submit" id="create" value="Salvar" />
-			</form>
+		<div class="row">
+			<div class="col-md-5 col-lg-5">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="panel-heading">
+							<h4 align="center">Criar uma Turma</h4>
+						</div>
+						<form method="post" th:action="@{/turma/new}" class="form-horizontal" id="form">
+							<div class="form-group">
+								<label for="nome" class="col-md-4 col-lg-4 control-label">Ano </label>
+								<div class="col-md-2 col-lg-2">
+									<select class="form-control" id="ano" name="ano">
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="engenharias" class="col-md-4 col-lg-4 control-label">Engenharia </label>
+								<div class="col-md-6 col-lg-6">
+									<select th:replace="base :: engenharia"></select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="nome" class="col-md-4 col-lg-4 control-label">Materia </label>
+								<div class="col-md-6 col-lg-6">
+									<select multiple="true" class="form-control" id="materias" name="materias" data-size="1" required="true">
+										<option th:each="materia : ${materias}" th:value="${materia.id}" th:text="${materia.nome}"></option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="nome" class="col-md-4 col-lg-4 control-label">Alunos </label>
+								<div class="col-md-6 col-lg-6">
+									<select multiple="true" class="form-control" id="alunos" name="alunos" data-size="1" required="true">
+										<option th:each="aluno : ${alunos}" th:value="${aluno.numero}" th:text="${aluno.nome}"></option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-offset-6 col-lg-offset-6">
+									<input type="submit" id="create" class="btn btn-default" value="Criar" />
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<!-- End page content -->

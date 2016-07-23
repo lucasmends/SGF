@@ -5,6 +5,9 @@ package br.eb.ime.comp.pfc.sgf.core.professor;
 
 import java.util.List;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -50,8 +53,9 @@ public class ProfessorController {
 	}
 	
 	@RequestMapping(value = "/email", method = RequestMethod.POST)
-	public Professor getByEmail(@RequestBody Professor professor){
-		return repo.findByEmail(professor.getEmail());
+	public Professor getByEmail(@RequestBody String professorJSON) throws ParseException{
+		JSONObject professor = (JSONObject) new JSONParser().parse(professorJSON);
+		return repo.findByEmail((String) professor.get("email"));
 	}
 	
 	@RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
@@ -62,25 +66,6 @@ public class ProfessorController {
 	@RequestMapping(value = "/engenharia/{engenharia}", method = RequestMethod.GET)
 	public List<Professor> findByEngenharia(@PathVariable("engenharia") String engenharia){
 		return repo.findByEngenharia(engenharia);
-	}
-	
-	/**
-	 * 
-	 * Adiciona uma engenharia para o professor
-	 * 
-	 * @param email o campo unico que indentifica o professor
-	 * @param engenharia a engenharia a ser adicionada
-	 * @return
-	 */
-	@RequestMapping(value = "/email/engenharia/{engenharia}", method = RequestMethod.PUT)
-	public Professor addEngenharia(@RequestBody Professor professor_, @PathVariable("engenharia") String engenharia){
-		Professor professor = repo.findByEmail(professor_.getEmail());
-		
-		if(professor.equals(null))
-			return null;
-		
-		return repo.save(professor.addEngenharia(engenharia));
-		// será que não dá pra usar apenas o PUT padrão, passando o nova lista de engenharias e dando save? acho que funciona
 	}
 	
 }

@@ -35,9 +35,10 @@ public class Turma {
 	}
 	
 	public Turma(String ano, String engenharia) {
-		super();
 		this.ano = ano;
 		this.engenharia = engenharia;
+		this.materias = new HashSet<>();
+		this.alunos = new HashSet<>();
 	}
 
 	/**
@@ -79,6 +80,8 @@ public class Turma {
 	 * @return the materias
 	 */
 	public Set<Materia> getMaterias() {
+		if(this.materias == null)
+			this.materias = new HashSet<Materia>();
 		return materias;
 	}
 
@@ -97,7 +100,7 @@ public class Turma {
 	}
 
 	public Turma addMateria(Materia materia){
-		if(this.materias.equals(null))
+		if(this.materias == null)
 			this.materias = new HashSet<Materia>();
 		this.materias.add(materia);
 		return this;
@@ -107,13 +110,17 @@ public class Turma {
 	 * @return the alunos
 	 */
 	public Set<Aluno> getAlunos() {
+		if(this.alunos == null)
+			this.alunos = new HashSet<>();
 		return alunos;
 	}
 	
 	public Turma addAluno(Aluno aluno){
-		if(this.alunos.equals(null))
+		if(this.alunos == null)
 			this.alunos = new HashSet<Aluno>();
 		this.alunos.add(aluno);
 		return this;
 	}
+
+	
 }

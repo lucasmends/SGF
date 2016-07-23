@@ -1,6 +1,7 @@
 package br.eb.ime.comp.pfc.sgf.web.controller;
 
 import java.security.Principal;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,15 @@ public class AlunoController {
 			return "redirect:/403";
 		
 		List<Aluno> alunos = service.getAll();
+		//ordenar por numero
+		alunos.sort(new Comparator<Aluno>() {
+
+			@Override
+			public int compare(Aluno o1, Aluno o2) {
+				return o1.getNumero().compareTo(o2.getNumero());
+			}
+		});
+		
 		model.addAttribute("title", "Alunos");
 		model.addAttribute("alunos",alunos);
 		model.addAttribute("user", user);
@@ -56,18 +66,8 @@ public class AlunoController {
 	}
 	
 	@RequestMapping(value = "/todos", method = RequestMethod.GET)
-	public String all(Model model, Principal u){
-		User user = new User((UsernamePasswordAuthenticationToken) u);
-		
-		if(!user.isCoordenador())
-			return "redirect:/403";
-		
-		List<Aluno> alunos = service.getAll();
-		model.addAttribute("title", "Alunos");
-		model.addAttribute("alunos",alunos);
-		
-		model.addAttribute("user", user);
-		return "aluno/all";
+	public String all(Model model){
+		return "redirect:/aluno";
 	}
 	
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
