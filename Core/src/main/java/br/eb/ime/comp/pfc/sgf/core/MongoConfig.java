@@ -25,6 +25,7 @@ public class MongoConfig{
 	 */
 	@Bean
 	public MongoDbFactory mongoDbFactory() throws Exception {
+		//configurações para o acesso à base
 		return new SimpleMongoDbFactory(new MongoClient("127.0.0.1", 27017), "sgf");
 	}
 	

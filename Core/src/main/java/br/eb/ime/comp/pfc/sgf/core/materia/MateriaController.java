@@ -40,7 +40,7 @@ public class MateriaController {
 	 * Criação de um Materia
 	 * 
 	 * @param materia A materia formatada em JSON no corpo da requisição
-	 * @return
+	 * @return a materia criada em JSON
 	 * @throws IOException 
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
@@ -54,9 +54,10 @@ public class MateriaController {
 	}
 
 	/**
+	 * Atualiza uma matéria
 	 * 
-	 * @param materia
-	 * @return
+	 * @param materia a matéria com as informações atualizadas
+	 * @return a matéria atualizada em JSON
 	 * @throws IOException 
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
@@ -70,20 +71,32 @@ public class MateriaController {
 	}
 
 	/**
-	 * TODO Javadoc
+	 * Retorna todas as matérias do banco de dados
 	 * 
-	 * @return
+	 * @return a lista com todas as matérias em JSON
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Materia> getAll() {
 		return repo.getAll();
 	}
 
+	/**
+	 * Prucura uma matéria pelo seu id
+	 * 
+	 * @param id o id da matéria
+	 * @return a matéria encontrada em JSON, ou null se não foi achado
+	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public Materia getById(@PathVariable("id") String id) {
 		return repo.getById(id);
 	}
 
+	/**
+	 * Procura uma matéria pelo nome
+	 * 
+	 * @param nome o nome da matéria
+	 * @return a matéria encontrada em JSON, ou null se não foi achado
+	 */
 	@RequestMapping(value = "/nome/{nome}", method = RequestMethod.GET)
 	public Materia getByNome(@PathVariable("nome") String nome) {
 		return repo.getByNome(nome);

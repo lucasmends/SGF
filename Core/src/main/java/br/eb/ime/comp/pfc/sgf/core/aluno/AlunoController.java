@@ -35,7 +35,7 @@ public class AlunoController {
 	 * Criação de um Aluno
 	 * 
 	 * @param aluno O aluno formatado em JSON no corpo da requisição
-	 * @return
+	 * @return o aluno criado
 	 */
 	@RequestMapping(method = RequestMethod.POST)
 	public Aluno create(@RequestBody Aluno aluno){
@@ -43,9 +43,10 @@ public class AlunoController {
 	}
 	
 	/**
+	 * Atualiza um aluno que foi passado via JSON, se o aluno não existir, cria ele
 	 * 
-	 * @param aluno
-	 * @return
+	 * @param aluno o aluno que é enviado em JSON e será desserializado
+	 * @return o aluno atualizado
 	 */
 	@RequestMapping(method = RequestMethod.PUT)
 	public Aluno update(@RequestBody Aluno aluno){
@@ -61,19 +62,32 @@ public class AlunoController {
 	}
 	
 	/**
-	 * TODO Javadoc
-	 * @return
+	 * Retorna todos os alunos da base de dados 
+	 *
+	 * @return a lista com todos os alunos
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Aluno> getAll(){
 		return repo.getAll();		
 	}
 	
+	/**
+	 * Procura um aluno pelo seu número
+	 * 
+	 * @param numero o número do aluno
+	 * @return o aluno caso exista ou null caso não
+	 */
 	@RequestMapping(value = "/{numero}", method = RequestMethod.GET)
 	public Aluno getByNumero(@PathVariable("numero") String numero){
 		return repo.getByNumero(numero);
 	}
 	
+	/**
+	 * Procura um aluno pelo email
+	 * 
+	 * @param email o email do aluno
+	 * @return o aluno caso exista ou null caso não
+	 */
 	@RequestMapping(value = "/email/{email}", method = RequestMethod.GET)
 	public Aluno getByEmail(@PathVariable("email") String email){
 		return repo.getByEmail(email);

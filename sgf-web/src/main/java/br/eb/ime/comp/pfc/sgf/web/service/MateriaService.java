@@ -36,16 +36,6 @@ public class MateriaService {
 	
 	public Materia update(Materia materia){
 		return Utils.exchange(ServiceName.materia, materia, restTemplate, HttpMethod.PUT, Materia.class);
-		/*HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		
-		HttpEntity<Materia> entity = new HttpEntity<Materia>(materia, headers);
-		
-		ResponseEntity<Materia> response = restTemplate.exchange(ServiceName.materia, HttpMethod.PUT, entity, Materia.class);
-		
-		if(response.getStatusCode() == HttpStatus.OK)
-			return response.getBody();
-		return null;*/
 	}
 	
 	public List<Materia> getAll(){

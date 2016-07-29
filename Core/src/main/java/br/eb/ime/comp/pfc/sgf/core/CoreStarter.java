@@ -6,7 +6,16 @@ import java.util.Map;
 import org.springframework.boot.SpringApplication;
 
 import br.eb.ime.comp.pfc.sgf.core.aluno.AlunoServer;
+import br.eb.ime.comp.pfc.sgf.core.materia.MateriaServer;
+import br.eb.ime.comp.pfc.sgf.core.professor.ProfessorServer;
+import br.eb.ime.comp.pfc.sgf.core.turma.TurmaServer;
 
+/**
+ * Classe para a simulação de serviços separados que estão no mesmo jar
+ * 
+ * @author lucasmendes
+ *
+ */
 public class CoreStarter {
 
 	public static void main(String args[]) {
@@ -46,6 +55,9 @@ public class CoreStarter {
 	public static Map<String, Class<?>> services() {
 		Map<String, Class<?>> allServers = new HashMap<>();
 		allServers.put("aluno", AlunoServer.class);
+		allServers.put("materia", MateriaServer.class);
+		allServers.put("professor", ProfessorServer.class);
+		allServers.put("turma", TurmaServer.class);
 		return allServers;
 	}
 
@@ -53,7 +65,8 @@ public class CoreStarter {
 	 * Mensagem de como usar
 	 */
 	protected static void usage() {
-		System.out.println("Usage: java -jar ... <server-name> [server-port]");
-		System.out.println("     where server-name is 'registration', " + "'accounts' or 'web' and server-port > 1024");
+		System.out.println("Uso: java -jar ... <nome-do-servico> [porta-do-serviço]");
+		System.out.println("     onde nome-do-servico é 'aluno', " + "'materia', 'professor' ou 'turma'");
+		System.out.println("     e porta-do-serviço > 1024");
 	}
 }

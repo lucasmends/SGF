@@ -21,25 +21,55 @@ public class AlunoRepository {
 	@Autowired
 	private MongoOperations mongo;
 
+	/**
+	 * Salva no banco de dados o aluno
+	 * 
+	 * @param aluno o aluno a ser salvo
+	 * @return o aluno salvo
+	 */
 	public Aluno create(Aluno aluno) {
 		mongo.save(aluno);
 		return aluno;
 	}
 
+	/**
+	 * Retorna todos os alunos da base de dados
+	 * 
+	 * @return a lista com todos os alunos
+	 */
 	public List<Aluno> getAll() {
 		return mongo.findAll(Aluno.class);
 	}
 
+	
+	/**
+	 * Procura no banco de dados um aluno pelo seu número
+	 * 
+	 * @param numero  o número do aluno
+	 * @return o aluno caso exista, null caso não
+	 */
 	public Aluno getByNumero(String numero) {
 		Query searchAlunoQuery = new Query(Criteria.where("numero").is(numero));
 		return mongo.findOne(searchAlunoQuery, Aluno.class);
 	}
 
+	/**
+	 * Procura um aluno pelo seu email
+	 * 
+	 * @param email o email do aluno
+	 * @return o aluno caso exista, null caso não
+	 */
 	public Aluno getByEmail(String email) {
 		Query searchAlunoQuery = new Query(Criteria.where("email").is(email));
 		return mongo.findOne(searchAlunoQuery, Aluno.class);
 	}
 
+	/**
+	 * Atualiza um aluno, cria se a aluno passado não existir
+	 * 
+	 * @param aluno o aluno com as informações atualizadas
+	 * @return o aluno atualizadoß
+	 */
 	public Aluno save(Aluno aluno) {
 		Query searchAlunoQuery = new Query(Criteria.where("numero").is(aluno.getNumero()));
 
