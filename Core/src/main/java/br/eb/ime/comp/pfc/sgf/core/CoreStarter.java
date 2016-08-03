@@ -24,7 +24,10 @@ public class CoreStarter {
 
 		try {
 			switch (args.length) {
-
+			
+			case 2:
+				System.setProperty("server.port", args[1]);
+				
 			case 1:
 				serverName = args[0].toLowerCase();
 				break;
@@ -35,7 +38,10 @@ public class CoreStarter {
 			}
 
 			System.setProperty("spring.config.name", serverName + "-server");
-
+			
+			if(args.length == 2)
+				System.setProperty("server.port", args[1]);
+			
 			SpringApplication.run(services().get(serverName), serverName + "server");
 
 		} // Caso outra execeção ocorra
