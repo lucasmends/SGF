@@ -7,9 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-
 import br.eb.ime.comp.pfc.sgf.models.Aluno;
 import br.eb.ime.comp.pfc.sgf.models.Materia;
 import br.eb.ime.comp.pfc.sgf.models.Turma;
@@ -47,8 +44,10 @@ public class TurmaController {
 	 * @throws JsonParseException 
 	 */
 	@RequestMapping(method = RequestMethod.POST)
-	public Turma create(@RequestBody String turmaJSON) throws JsonParseException, JsonMappingException, IOException{
-		Turma turma = Utils.getTurma(turmaJSON);
+	public Turma create(@RequestBody Turma turma){
+		/*Gson gson = new GsonBuilder().create();
+		
+		Turma turma = gson.fromJson(turmaJSON, Turma.class);*/
 		
 		return repo.create(turma);
 	}
@@ -62,15 +61,17 @@ public class TurmaController {
 	 * @throws JsonParseException 
 	 */
 	@RequestMapping(method = RequestMethod.PUT)
-	public Turma update(@RequestBody String turmaJSON) throws JsonParseException, JsonMappingException, IOException{
-		Turma turma = Utils.getTurma(turmaJSON);
+	public Turma update(@RequestBody Turma turma){
+		/*Gson gson = new GsonBuilder().create();
+		
+		Turma turma = gson.fromJson(turmaJSON, Turma.class);*/
 		
 		return repo.save(turma);
 	}
 
 
 	@RequestMapping(value = "/{id}/materia", method = RequestMethod.PUT)
-	public Turma addMateria(@RequestBody String materiaJSON, @PathVariable("id") String id) throws JsonParseException, JsonMappingException, IOException{
+	public Turma addMateria(@RequestBody Materia materia, @PathVariable("id") String id){
 
 		/**
 		 * Deviamos passar apenas o id da materia a ser adicionada, buscá-la e adicioná-la
@@ -82,7 +83,9 @@ public class TurmaController {
 			return null;
 		}
 		
-		Materia materia = br.eb.ime.comp.pfc.sgf.core.materia.Utils.getMateria(materiaJSON);
+		/*Gson gson = new GsonBuilder().create();
+		
+		Materia materia = gson.fromJson(materiaJSON, Materia.class);*/
 		
 		turma.addMateria(materia);
 		

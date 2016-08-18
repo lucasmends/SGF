@@ -15,6 +15,7 @@ import br.eb.ime.comp.pfc.sgf.core.MongoConfig;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
+//@EnableAutoConfiguration(exclude = { JacksonAutoConfiguration.class })
 @Import({MongoConfig.class})
 public class MateriaServer {
 
@@ -26,7 +27,9 @@ public class MateriaServer {
 	public static void main(String[] args) {
 		// Tell server to look for web-server.properties or web-server.yml
 		System.setProperty("spring.config.name", "materia-server");
+		//System.setProperty("logging.level.org.springframework","DEBUG");
 		SpringApplication.run(MateriaServer.class, args);
+		
 	}		
 	
 }

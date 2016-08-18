@@ -4,11 +4,9 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 
 import br.eb.ime.comp.pfc.sgf.models.Materia;
 
@@ -35,7 +33,7 @@ public class MateriaController {
 	 */
 	@Autowired
 	private MateriaRepository repo;
-
+	
 	/**
 	 * Criação de um Materia
 	 * 
@@ -46,9 +44,10 @@ public class MateriaController {
 	 * @throws JsonParseException 
 	 */
 	@RequestMapping(method = RequestMethod.POST)
-	public Materia create(@RequestBody String materiaJSON) throws JsonParseException, JsonMappingException, IOException{
+	public Materia create(@RequestBody Materia materia){
+		/*Gson gson = new GsonBuilder().create();
 		
-		Materia materia = Utils.getMateria(materiaJSON);
+		Materia materia = gson.fromJson(materiaJSON, Materia.class);*/
 			
 		return repo.create(materia);
 	}
@@ -63,9 +62,11 @@ public class MateriaController {
 	 * @throws JsonParseException 
 	 */
 	@RequestMapping(method = RequestMethod.PUT)
-	public Materia update(@RequestBody String materiaJSON) throws JsonParseException, JsonMappingException, IOException {
+	public Materia update(@RequestBody Materia materia){	
 		
-		Materia materia = Utils.getMateria(materiaJSON);	
+		/*Gson gson = new GsonBuilder().create();
+		
+		Materia materia = gson.fromJson(materiaJSON, Materia.class);*/
 		
 		return repo.save(materia);
 	}

@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection="materia")
 public class Materia {
 
+
 	@Id
 	private String id;
 	
@@ -55,6 +56,14 @@ public class Materia {
 	 */
 	public String getNome() {
 		return nome;
+	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "{\"id\": \"" + id + "\", \"nome\": \"" + nome + "\", \"professor\": \"" + professor.toString() + "\"}";
 	}
 
 }

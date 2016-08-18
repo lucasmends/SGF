@@ -107,4 +107,14 @@ public class Aluno {
 		this.password = password;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "{\"id\": \"" + id + "\", \"numero\": \"" + numero + "\", \"nome\" :\"" + nome + "\", \"email\": \"" + email + 
+				"\", \"password\": \""	+ password + "\"}";
+	}
+
+	
 }

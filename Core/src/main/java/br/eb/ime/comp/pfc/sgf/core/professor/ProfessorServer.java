@@ -1,7 +1,9 @@
 package br.eb.ime.comp.pfc.sgf.core.professor;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Import;
 
@@ -14,6 +16,7 @@ import br.eb.ime.comp.pfc.sgf.core.MongoConfig;
  *
  */
 @SpringBootApplication
+@EnableAutoConfiguration(exclude = { JacksonAutoConfiguration.class })
 @EnableDiscoveryClient
 @Import({MongoConfig.class})
 public class ProfessorServer {

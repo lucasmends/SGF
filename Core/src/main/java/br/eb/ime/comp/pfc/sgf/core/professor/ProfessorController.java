@@ -5,9 +5,6 @@ package br.eb.ime.comp.pfc.sgf.core.professor;
 
 import java.util.List;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,9 +50,11 @@ public class ProfessorController {
 	}
 	
 	@RequestMapping(value = "/email", method = RequestMethod.POST)
-	public Professor getByEmail(@RequestBody String professorJSON) throws ParseException{
-		JSONObject professor = (JSONObject) new JSONParser().parse(professorJSON);
-		return repo.findByEmail((String) professor.get("email"));
+	public Professor getByEmail(@RequestBody Professor professor){
+		//Gson gson = new GsonBuilder().create();
+		//Professor professor = gson.fromJson(professorJSON, Professor.class);
+		
+		return repo.findByEmail(professor.getEmail());
 	}
 	
 	@RequestMapping(value = "/id/{id}", method = RequestMethod.GET)

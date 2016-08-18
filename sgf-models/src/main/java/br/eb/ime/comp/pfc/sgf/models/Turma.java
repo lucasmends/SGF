@@ -122,5 +122,15 @@ public class Turma {
 		return this;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "{\"id\":  \"" + id + "\", \"ano\":  \"" + ano + "\", \"engenharia\":  \"" + engenharia
+				+ "\", \"materias\":  \"" + materias + "\", \"alunos\":  \"" + alunos + "\"}";
+	}
+
+
 	
 }

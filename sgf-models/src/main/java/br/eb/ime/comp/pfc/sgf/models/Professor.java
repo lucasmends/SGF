@@ -156,4 +156,15 @@ public class Professor {
 	public String getId() {
 		return id;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "P{\"id\": \"" + id + ", \"nome\": \"" + nome + "\", \"email\": \"" + email + "\", \"coordenador\": \"" + coordenador
+				+ "\", \"password\": \"" + password + "\", \"engenharias\": \"" + engenharias + "\"}";
+	}
+	
+	
 }
