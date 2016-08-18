@@ -2,7 +2,6 @@ package br.eb.ime.comp.pfc.sgf.web.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
