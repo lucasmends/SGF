@@ -1,6 +1,5 @@
 package br.eb.ime.comp.pfc.sgf.core.turma;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +38,6 @@ public class TurmaController {
 	 * 
 	 * @param turmaJSON A turma formatada em JSON no corpo da requisição
 	 * @return
-	 * @throws IOException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
 	 */
 	@RequestMapping(method = RequestMethod.POST)
 	public Turma create(@RequestBody Turma turma){
@@ -56,9 +52,6 @@ public class TurmaController {
 	 * 
 	 * @param turmaJSON
 	 * @return
-	 * @throws IOException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
 	 */
 	@RequestMapping(method = RequestMethod.PUT)
 	public Turma update(@RequestBody Turma turma){
