@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import br.eb.ime.comp.pfc.sgf.models.Materia;
+import br.eb.ime.comp.pfc.sgf.models.Disciplina;
 import br.eb.ime.comp.pfc.sgf.models.Aluno;
 import br.eb.ime.comp.pfc.sgf.models.Turma;
 
-import br.eb.ime.comp.pfc.sgf.web.service.MateriaService;
+import br.eb.ime.comp.pfc.sgf.web.service.DisciplinaService;
 import br.eb.ime.comp.pfc.sgf.web.User;
 import br.eb.ime.comp.pfc.sgf.web.service.AlunoService;
 import br.eb.ime.comp.pfc.sgf.web.service.TurmaService;
@@ -27,7 +27,7 @@ import br.eb.ime.comp.pfc.sgf.web.service.TurmaService;
 public class TurmaController {
 
 	@Autowired
-	private MateriaService materiaService;
+	private DisciplinaService disciplinaService;
 	@Autowired
 	private AlunoService alunoService;
 	@Autowired
@@ -74,9 +74,9 @@ public class TurmaController {
 			return "redirect:/403";
 
 		List<Aluno> alunos = alunoService.getAll();
-		List<Materia> materias = materiaService.getAll();
+		List<Disciplina> disciplinas = disciplinaService.getAll();
 		model.addAttribute("alunos", alunos);
-		model.addAttribute("materias", materias);
+		model.addAttribute("disciplinas", disciplinas);
 		model.addAttribute("title", "Nova Turma");
 		model.addAttribute("user", user);
 		return "turma/new";
@@ -84,15 +84,15 @@ public class TurmaController {
 
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public String createTurma(@RequestParam("ano") String ano, @RequestParam("engenharia") String engenharia,
-			@RequestParam("materias") String[] materias, @RequestParam("alunos") String[] alunos, Principal u) {
+			@RequestParam("disciplinas") String[] disciplinas, @RequestParam("alunos") String[] alunos, Principal u) {
 		User user = new User((UsernamePasswordAuthenticationToken) u);
 
 		if (!user.isCoordenador())
 			return "redirect:/403";
 
 		Turma turma = new Turma(ano, engenharia);
-		for (String id : materias) {
-			turma.addMateria(materiaService.getById(id));
+		for (String id : disciplinas) {
+			turma.addDisciplina(disciplinaService.getById(id));
 		}
 		for (String numero : alunos) {
 			turma.addAluno(alunoService.getByNumero(numero));
@@ -110,16 +110,16 @@ public class TurmaController {
 
 		Turma turma = service.getById(id);
 
-		List<Materia> materiasAvulsas = new ArrayList<>();
+		List<Disciplina> disciplinasAvulsas = new ArrayList<>();
 		boolean flag = true;
-		for (Materia materia : materiaService.getAll()) {
-			for (Materia m : turma.getMaterias())
-				if (m.getId().equals(materia.getId())) {
+		for (Disciplina disciplina : disciplinaService.getAll()) {
+			for (Disciplina m : turma.getDisciplinas())
+				if (m.getId().equals(disciplina.getId())) {
 					flag = false;
 					break;
 				}
 			if (flag)
-				materiasAvulsas.add(materia);
+				disciplinasAvulsas.add(disciplina);
 			flag = true;
 		}
 		List<Aluno> alunosAvulsos = new ArrayList<>();
@@ -136,7 +136,7 @@ public class TurmaController {
 		}
 		System.out.println(turma.getAno());
 		model.addAttribute("turma", turma);
-		model.addAttribute("materiasAvulsas", materiasAvulsas);
+		model.addAttribute("disciplinasAvulsas", disciplinasAvulsas);
 		model.addAttribute("alunosAvulsos", alunosAvulsos);
 		model.addAttribute("title", "Editar Turma");
 		model.addAttribute("user", user);
@@ -144,7 +144,7 @@ public class TurmaController {
 	}
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-	public String saveTurma(@RequestParam("ano") String ano, @RequestParam("materias") String[] materias,
+	public String saveTurma(@RequestParam("ano") String ano, @RequestParam("disciplinas") String[] disciplinas,
 			@PathVariable("id") String id, @RequestParam("alunos") String[] alunos, Principal u) {
 		User user = new User((UsernamePasswordAuthenticationToken) u);
 
@@ -155,9 +155,9 @@ public class TurmaController {
 		System.out.println(id);
 		turma.setAno(ano);
 		turma.setAlunos(null);
-		turma.setMaterias(null);
-		for (String idMateria : materias)
-			turma.addMateria(materiaService.getById(idMateria));
+		turma.setDisciplinas(null);
+		for (String idDisciplina : disciplinas)
+			turma.addDisciplina(disciplinaService.getById(idDisciplina));
 		for (String numero : alunos)
 			turma.addAluno(alunoService.getByNumero(numero));
 		service.update(turma);
@@ -189,28 +189,28 @@ public class TurmaController {
 		return "redirect:" + "/turma/edit/alunos" + id;
 	}
 
-	@RequestMapping(value = "/edit/materias/{id}", method = RequestMethod.GET)
-	public String addMateria(@PathVariable("id") String id, Model model, Principal u) {
+	@RequestMapping(value = "/edit/disciplinas/{id}", method = RequestMethod.GET)
+	public String addDisciplina(@PathVariable("id") String id, Model model, Principal u) {
 		User user = new User((UsernamePasswordAuthenticationToken) u);
 
 		Turma turma = service.getById(id);
-		List<Materia> materias = materiaService.getAll();
+		List<Disciplina> disciplinas = disciplinaService.getAll();
 		model.addAttribute("turma", turma);
-		model.addAttribute("materias", materias);
-		model.addAttribute("title", "Adicionar materias");
+		model.addAttribute("disciplinas", disciplinas);
+		model.addAttribute("title", "Adicionar disciplinas");
 		model.addAttribute("user", user);
-		return "turma/materias";
+		return "turma/disciplinas";
 	}
 
-	@RequestMapping(value = "/edit/materias/{id}", method = RequestMethod.POST)
-	public String saveMateria(@PathVariable("id") String id, @RequestParam("materiaId") String materiaId, Model model,
+	@RequestMapping(value = "/edit/disciplinas/{id}", method = RequestMethod.POST)
+	public String saveDisciplina(@PathVariable("id") String id, @RequestParam("disciplinaId") String disciplinaId, Model model,
 			Principal u) {
 		User user = new User((UsernamePasswordAuthenticationToken) u);
 
 		Turma turma = service.getById(id);
-		Materia materia = materiaService.getById(materiaId);
-		turma.addMateria(materia);
+		Disciplina disciplina = disciplinaService.getById(disciplinaId);
+		turma.addDisciplina(disciplina);
 		service.update(turma);
-		return "redirect:" + "/turma/edit/materias" + id;
+		return "redirect:" + "/turma/edit/disciplinas" + id;
 	}
 }

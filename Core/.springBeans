@@ -7,8 +7,13 @@
 	</configSuffixes>
 	<enableImports><![CDATA[false]]></enableImports>
 	<configs>
+		<config>java:br.eb.ime.comp.pfc.sgf.core.disciplina.DisciplinaServer</config>
 	</configs>
 	<autoconfigs>
+		<config>java:br.eb.ime.comp.pfc.sgf.core.aluno.AlunoServer</config>
+		<config>java:br.eb.ime.comp.pfc.sgf.core.professor.ProfessorServer</config>
+		<config>java:br.eb.ime.comp.pfc.sgf.core.ata.AtaServer</config>
+		<config>java:br.eb.ime.comp.pfc.sgf.core.turma.TurmaServer</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>

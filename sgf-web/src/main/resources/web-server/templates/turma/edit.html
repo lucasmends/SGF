@@ -30,11 +30,11 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="nome" class="col-md-4 col-lg-4 control-label">Materia </label>
+								<label for="nome" class="col-md-4 col-lg-4 control-label">Disciplina </label>
 								<div class="col-md-6 col-lg-6">
-									<select multiple="true" class="form-control" id="materias" name="materias" data-size="1">
-										<option th:each="materia : ${turma.materias}" th:value="${materia.id}" th:text="${materia.nome}" selected="true"></option>
-										<option th:each="materia : ${materiasAvulsas}" th:value="${materia.id}" th:text="${materia.nome}"></option>
+									<select multiple="true" class="form-control" id="disciplinas" name="disciplinas" data-size="1">
+										<option th:each="disciplina : ${turma.disciplinas}" th:value="${disciplina.id}" th:text="${disciplina.nome}" selected="true"></option>
+										<option th:each="disciplina : ${disciplinasAvulsas}" th:value="${disciplina.id}" th:text="${disciplina.nome}"></option>
 									</select>
 								</div>
 							</div>

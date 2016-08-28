@@ -9,15 +9,15 @@
 	<!-- Begin page content -->
 	<div class="container">
 		<div class="panel panel-default">
-			<div class="panel-heading">Adicionar materias</div>
-			<ul class="list-group" th:each="materia : ${turma.materias}">
-				<li class="list-group-item"  th:text="${materia.nome}"></li>
+			<div class="panel-heading">Adicionar disciplinas</div>
+			<ul class="list-group" th:each="disciplina : ${turma.disciplinas}">
+				<li class="list-group-item"  th:text="${disciplina.nome}"></li>
 			</ul>
-			<form method="post" th:action="@{/turma/edit/materias/} + ${turma.id}">
-				<select th:field="*{materia}">
-				  <option th:each="materia : ${materias}" 
-				          th:value="${materia.nome}" 
-				          th:text="${materia.nome}"></option>
+			<form method="post" th:action="@{/turma/edit/disciplinas/} + ${turma.id}">
+				<select th:field="*{disciplina}">
+				  <option th:each="disciplina : ${disciplinas}" 
+				          th:value="${disciplina.nome}" 
+				          th:text="${disciplina.nome}"></option>
 				</select>
 			    <input type="submit" id="create" value="Adicionar" />
 			</form>

@@ -31,9 +31,9 @@ public class WebController {
 		return "redirect:professor/";
 	}
 	
-	@RequestMapping(value = "/materia", method = RequestMethod.GET)
-	public String materia(){
-		return "redirect:materia/";
+	@RequestMapping(value = "/disciplina", method = RequestMethod.GET)
+	public String disciplina(){
+		return "redirect:disciplina/";
 	}
 	
 	@RequestMapping(value = "/turma", method = RequestMethod.GET)

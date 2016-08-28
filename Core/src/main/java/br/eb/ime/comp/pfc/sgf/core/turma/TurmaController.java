@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.eb.ime.comp.pfc.sgf.models.Aluno;
-import br.eb.ime.comp.pfc.sgf.models.Materia;
+import br.eb.ime.comp.pfc.sgf.models.Disciplina;
 import br.eb.ime.comp.pfc.sgf.models.Turma;
 
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 /**
- * Classe que funciona como uma RESTApi para a persistência da entidade Materia
+ * Classe que funciona como uma RESTApi para a persistência da entidade Disciplina
  * São utilizados os conceitos de verbos do HTTP, sendo que requisições POST tem significado de criação
  * GET de requisição de recurso, PUT atualição e DELETE de exclusão
  * 
@@ -63,11 +63,11 @@ public class TurmaController {
 	}
 
 
-	@RequestMapping(value = "/{id}/materia", method = RequestMethod.PUT)
-	public Turma addMateria(@RequestBody Materia materia, @PathVariable("id") String id){
+	@RequestMapping(value = "/{id}/disciplina", method = RequestMethod.PUT)
+	public Turma addDisciplina(@RequestBody Disciplina disciplina, @PathVariable("id") String id){
 
 		/**
-		 * Deviamos passar apenas o id da materia a ser adicionada, buscá-la e adicioná-la
+		 * Deviamos passar apenas o id da disciplina a ser adicionada, buscá-la e adicioná-la
 		 */
 		Turma turma = repo.getById(id);
 		
@@ -78,9 +78,9 @@ public class TurmaController {
 		
 		/*Gson gson = new GsonBuilder().create();
 		
-		Materia materia = gson.fromJson(materiaJSON, Materia.class);*/
+		Disciplina disciplina = gson.fromJson(disciplinaJSON, Disciplina.class);*/
 		
-		turma.addMateria(materia);
+		turma.addDisciplina(disciplina);
 		
 		return repo.save(turma);
 	}

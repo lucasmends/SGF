@@ -25,7 +25,7 @@ public class Turma {
 	private String engenharia;
 	
 	@DBRef
-	private Set<Materia> materias;
+	private Set<Disciplina> disciplinas;
 	
 	@DBRef
 	private Set<Aluno> alunos;
@@ -37,7 +37,7 @@ public class Turma {
 	public Turma(String ano, String engenharia) {
 		this.ano = ano;
 		this.engenharia = engenharia;
-		this.materias = new HashSet<>();
+		this.disciplinas = new HashSet<>();
 		this.alunos = new HashSet<>();
 	}
 
@@ -63,7 +63,7 @@ public class Turma {
 	}
 	
 	/**
-	 * @return the materias
+	 * @return the disciplinas
 	 */
 	public void setAno(String ano) {
 		this.ano = ano;
@@ -77,19 +77,19 @@ public class Turma {
 	}
 
 	/**
-	 * @return the materias
+	 * @return the disciplinas
 	 */
-	public Set<Materia> getMaterias() {
-		if(this.materias == null)
-			this.materias = new HashSet<Materia>();
-		return materias;
+	public Set<Disciplina> getDisciplinas() {
+		if(this.disciplinas == null)
+			this.disciplinas = new HashSet<Disciplina>();
+		return disciplinas;
 	}
 
 	/**
-	 * @param materias the materias to set
+	 * @param disciplinas the disciplinas to set
 	 */
-	public void setMaterias(Set<Materia> materias) {
-		this.materias = materias;
+	public void setDisciplinas(Set<Disciplina> disciplinas) {
+		this.disciplinas = disciplinas;
 	}
 
 	/**
@@ -99,10 +99,10 @@ public class Turma {
 		this.alunos = alunos;
 	}
 
-	public Turma addMateria(Materia materia){
-		if(this.materias == null)
-			this.materias = new HashSet<Materia>();
-		this.materias.add(materia);
+	public Turma addDisciplina(Disciplina disciplina){
+		if(this.disciplinas == null)
+			this.disciplinas = new HashSet<Disciplina>();
+		this.disciplinas.add(disciplina);
 		return this;
 	}
 	
@@ -128,7 +128,7 @@ public class Turma {
 	@Override
 	public String toString() {
 		return "{\"id\":  \"" + id + "\", \"ano\":  \"" + ano + "\", \"engenharia\":  \"" + engenharia
-				+ "\", \"materias\":  \"" + materias + "\", \"alunos\":  \"" + alunos + "\"}";
+				+ "\", \"disciplinas\":  \"" + disciplinas + "\", \"alunos\":  \"" + alunos + "\"}";
 	}
 
 

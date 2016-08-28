@@ -1,0 +1,34 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+	<head th:replace="base :: head (${title})"></head>
+<body>
+	<nav th:replace="base :: nav-logged-aluno" th:if="${user.isAluno()} == true"></nav>
+	<nav th:replace="base :: nav-logged (${user.isCoordenador()} )" th:if="${user.isProfessor()} == true"></nav>
+
+<!-- Begin page content -->
+<div class="container">
+	<div class="row">
+		<div class="col-md-4 col-lg-4">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<p th:text="'Nome: ' + ${disciplina.nome}"></p>
+					<p th:text="'Professor: ' + ${disciplina.professor.nome}"></p>
+					<p th:text="'Email do professor: ' + ${disciplina.professor.email}"></p>
+					<a th:href="@{/professor/id/} + ${disciplina.professor.id}" class="btn btn-default">
+						<span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span> Professor
+					</a>
+					<a th:href="@{/disciplina/edit/} + ${disciplina.id}" th:if="${user.isCoordenador()} == true" class="btn btn-default">
+						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- End page content -->
+	<footer th:replace="base :: footer"></footer>
+</body>
+</html>

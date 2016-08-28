@@ -15,6 +15,7 @@
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
 			<item value="/home/igor/Documents/IME/PFC/SGF"/>
+			<item value="/home/igor/Documents/IME/PFC/SGF/sgf-api"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>

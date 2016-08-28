@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 /**
- * Classe que funciona como uma RESTApi para a persistência da entidade Materia
+ * Classe que funciona como uma RESTApi para a persistência da entidade Disciplina
  * São utilizados os conceitos de verbos do HTTP, sendo que requisições POST tem significado de criação
  * GET de requisição de recurso, PUT atualição e DELETE de exclusão
  * 

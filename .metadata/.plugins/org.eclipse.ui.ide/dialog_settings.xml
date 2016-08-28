@@ -140,4 +140,6 @@
 		<item value="org.springsource.sts.package:3.8.0.201606301029-RELEASE-e46"/>
 		<item value="org.springsource.sts:3.8.0.201606301029-RELEASE"/>
 	</list>
+	<section name="ExternalProjectImportWizard">
+	</section>
 </section>

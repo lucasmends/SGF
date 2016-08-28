@@ -6,7 +6,7 @@ import java.util.Map;
 import org.springframework.boot.SpringApplication;
 
 import br.eb.ime.comp.pfc.sgf.core.aluno.AlunoServer;
-import br.eb.ime.comp.pfc.sgf.core.materia.MateriaServer;
+import br.eb.ime.comp.pfc.sgf.core.disciplina.DisciplinaServer;
 import br.eb.ime.comp.pfc.sgf.core.professor.ProfessorServer;
 import br.eb.ime.comp.pfc.sgf.core.turma.TurmaServer;
 import br.eb.ime.comp.pfc.sgf.models.Ata;
@@ -62,7 +62,7 @@ public class CoreStarter {
 	public static Map<String, Class<?>> services() {
 		Map<String, Class<?>> allServers = new HashMap<>();
 		allServers.put("aluno", AlunoServer.class);
-		allServers.put("materia", MateriaServer.class);
+		allServers.put("disciplina", DisciplinaServer.class);
 		allServers.put("professor", ProfessorServer.class);
 		allServers.put("turma", TurmaServer.class);
 		allServers.put("ata", Ata.class);
@@ -74,7 +74,7 @@ public class CoreStarter {
 	 */
 	protected static void usage() {
 		System.out.println("Uso: java -jar ... <nome-do-servico> [porta-do-serviço]");
-		System.out.println("     onde nome-do-servico é 'aluno', " + "'materia', 'professor', 'turma' ou 'ata'");
+		System.out.println("     onde nome-do-servico é 'aluno', " + "'disciplina', 'professor', 'turma' ou 'ata'");
 		System.out.println("     e porta-do-serviço > 1024");
 	}
 }

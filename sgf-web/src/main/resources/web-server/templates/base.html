@@ -43,7 +43,7 @@
 				<ul class="nav navbar-nav">
 					<li><a th:href="@{/aluno}">Alunos</a></li>
 					<li><a th:href="@{/professor}">Professores</a></li>
-					<li><a th:href="@{/materia}">Materias</a></li>
+					<li><a th:href="@{/disciplina}">Disciplinas</a></li>
 					<li><a th:href="@{/turma}">Turmas</a></li>
 				</ul>
 			</div>
@@ -67,7 +67,7 @@
 					<li><a th:href="@{/aluno/numero/} + ${user.name}">Perfil</a></li>
 					<li><a th:href="@{/professor}">Atas</a></li>
 					<li><a th:href="@{/professor}">Professores</a></li>
-					<li><a th:href="@{/materia}">Materias</a></li>
+					<li><a th:href="@{/disciplina}">Disciplinas</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li>
@@ -95,13 +95,13 @@
 				<ul class="nav navbar-nav" th:if="${coordenador} == false">
 					<li><a th:href="@{/aluno}">Alunos</a></li>
 					<li><a th:href="@{/professor}">Professores</a></li>
-					<li><a th:href="@{/materia}">Materias</a></li>
+					<li><a th:href="@{/disciplina}">Disciplinas</a></li>
 					<li><a th:href="@{/turma}">Turmas</a></li>
 				</ul>
 				<ul class="nav navbar-nav" th:if="${coordenador} == true">
 					<li><a th:href="@{/aluno}">Alunos</a></li>
 					<li><a th:href="@{/professor}">Professores</a></li>
-					<li><a th:href="@{/materia}">Materias</a></li>
+					<li><a th:href="@{/disciplina}">Disciplinas</a></li>
 					<li><a th:href="@{/turma}">Turmas</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">

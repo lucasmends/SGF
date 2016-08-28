@@ -50,7 +50,7 @@ public class TurmaRepository {
 		Update update = new Update();
 		update.set("ano", turma.getAno());
 		update.set("engenharia", turma.getEngenharia());
-		update.set("materias", turma.getMaterias());
+		update.set("disciplinas", turma.getDisciplinas());
 		update.set("alunos", turma.getAlunos());
 		
 		mongo.upsert(searchProfessorQuery, update, Turma.class);

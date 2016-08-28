@@ -1,6 +1,6 @@
 spring:
   application:
-    name: materia-service
+    name: disciplina-service
 
 # Discovery Server Access
 eureka:
