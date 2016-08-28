@@ -9,9 +9,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
-import br.eb.ime.comp.pfc.sgf.models.Aluno;
 import br.eb.ime.comp.pfc.sgf.models.Ata;
-import br.eb.ime.comp.pfc.sgf.models.Professor;
 
 
 @Component
@@ -43,17 +41,17 @@ public class AtaRepository {
 	}
 	
 	public List<Ata> getByProfessor(String idProfessor){
-		Query searchAtaQuery = new Query(Criteria.where("idProfessor").is(idProfessor));
+		Query searchAtaQuery = new Query(Criteria.where("tempos.assinatura.idProfessor").is(idProfessor));
 		return mongo.find(searchAtaQuery, Ata.class);
 	}
 	
-	public List<Ata> getByXerife(Aluno xerife){
-		Query searchAtaQuery = new Query(Criteria.where("xerife").is(xerife));
+	public List<Ata> getByXerife(String idXerife){
+		Query searchAtaQuery = new Query(Criteria.where("xerife.xerife.id").is(idXerife));
 		return mongo.find(searchAtaQuery, Ata.class);	
 	}
 	
-	public List<Ata> getByCoordenador(Professor coordenador){
-		Query searchAtaQuery = new Query(Criteria.where("coordenador").is(coordenador));
+	public List<Ata> getByCoordenador(String idCoordenador){
+		Query searchAtaQuery = new Query(Criteria.where("coordenador.coordenador.id").is(idCoordenador));
 		return mongo.find(searchAtaQuery, Ata.class);		
 	}
 	

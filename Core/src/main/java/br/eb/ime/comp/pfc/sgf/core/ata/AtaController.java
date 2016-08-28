@@ -56,14 +56,14 @@ public class AtaController {
 		return repo.getByProfessor(idProfessor);
 	}
 	
-	@RequestMapping(value = "/xerife", method = RequestMethod.GET)
-	public List<Ata> getByXerife(@RequestBody Aluno xerife){
-		return repo.getByXerife(xerife);
+	@RequestMapping(value = "/xerife/{id}", method = RequestMethod.GET)
+	public List<Ata> getByXerife(@PathVariable("id") String idXerife){
+		return repo.getByXerife(idXerife);
 	}
 	
-	@RequestMapping(value = "/coordenador", method = RequestMethod.GET)
-	public List<Ata> getByCoordenador(@RequestBody Professor coordenador){
-		return repo.getByCoordenador(coordenador);
+	@RequestMapping(value = "/coordenador/{id}", method = RequestMethod.GET)
+	public List<Ata> getByCoordenador(@PathVariable("id") String idCoordenador){
+		return repo.getByCoordenador(idCoordenador);
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT)
