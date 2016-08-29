@@ -116,4 +116,8 @@ public class TurmaController {
 		return repo.getById(id);
 	}
 	
+	@RequestMapping(value = "/aluno/{id}", method = RequestMethod.GET)
+	public Turma getByAluno(@PathVariable("id") String idAluno){
+		return repo.getByAluno(idAluno);
+	}
 }

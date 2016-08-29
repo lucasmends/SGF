@@ -1,10 +1,8 @@
 package br.eb.ime.comp.pfc.sgf.web.controller;
 
 import java.security.Principal;
-import java.util.Comparator;
 import java.util.List;
-import java.util.HashSet;
-import java.util.Set;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -95,19 +93,19 @@ public class AtaController {
 		if(!user.isAluno())
 			return "redirect:/403";
 		
-		List<Turma> turmas = turmaService.getAll();
-		Turma turmaDoXerife = null;
+		//List<Turma> turmas = turmaService.getAll();
 		// obter turma do xerife
 		String numero = user.getName();
 		Aluno xerife = alunoService.getByNumero(numero);
-		for(int i=0; i<turmas.size(); i++) {
+		Turma turmaDoXerife = turmaService.getByAluno(xerife);
+		/*for(int i=0; i<turmas.size(); i++) {
 			List<Aluno> alunosDaTurma = turmas.get(i).getAlunos();
 			for(int j=0; j<alunosDaTurma.size(); j++) {
 				if(alunosDaTurma.get(j).getId() == xerife.getId()) {
 					turmaDoXerife = turmas.get(i);
 				}
 			}
-		}
+		}*/
 		
 		if(turmaDoXerife == null)
 			return "redirect:/403";

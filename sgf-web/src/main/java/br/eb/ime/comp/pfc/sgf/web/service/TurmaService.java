@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import br.eb.ime.comp.pfc.sgf.models.Aluno;
 import br.eb.ime.comp.pfc.sgf.models.Turma;
 import br.eb.ime.comp.pfc.sgf.web.Utils;
 
@@ -23,6 +24,10 @@ public class TurmaService {
 	
 	public Turma getById(String id){
 		return restTemplate.getForObject(ServiceName.turma + "/{id}", Turma.class, id);
+	}
+	
+	public Turma getByAluno(Aluno aluno){
+		return restTemplate.getForObject(ServiceName.turma + "/aluno/{idAluno}", Turma.class, aluno.getId());
 	}
 	
 	public Turma create(Turma turma){
