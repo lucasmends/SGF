@@ -37,8 +37,8 @@ public class Turma {
 	public Turma(String ano, String engenharia) {
 		this.ano = ano;
 		this.engenharia = engenharia;
-		this.disciplinas = new HashSet<>();
-		this.alunos = new HashSet<>();
+		this.disciplinas = new HashSet<Disciplina>();
+		this.alunos = new HashSet<Aluno>();
 	}
 
 	/**
@@ -111,7 +111,7 @@ public class Turma {
 	 */
 	public Set<Aluno> getAlunos() {
 		if(this.alunos == null)
-			this.alunos = new HashSet<>();
+			this.alunos = new HashSet<Aluno>();
 		return alunos;
 	}
 	

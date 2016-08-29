@@ -10,7 +10,7 @@ public class Tempo {
 	private String ordem;
 	
 	@DBRef
-	private Materia materia;
+	private Disciplina disciplina;
 	
 	private List<Falta> faltas;
 	
@@ -20,10 +20,10 @@ public class Tempo {
 		
 	}
 
-	public Tempo(String ordem, Materia materia, List<Falta> faltas) {
+	public Tempo(String ordem, Disciplina disciplina, List<Falta> faltas) {
 		super();
 		this.ordem = ordem;
-		this.materia = materia;
+		this.disciplina = disciplina;
 		this.faltas = faltas;
 	}
 
@@ -42,17 +42,17 @@ public class Tempo {
 	}
 
 	/**
-	 * @return the materia
+	 * @return the disciplina
 	 */
-	public Materia getMateria() {
-		return materia;
+	public Disciplina getDisciplina() {
+		return disciplina;
 	}
 
 	/**
-	 * @param materia the materia to set
+	 * @param disciplina the disciplina to set
 	 */
-	public void setMateria(Materia materia) {
-		this.materia = materia;
+	public void setDisciplina(Disciplina disciplina) {
+		this.disciplina = disciplina;
 	}
 
 	/**
@@ -60,7 +60,7 @@ public class Tempo {
 	 */
 	public List<Falta> getFaltas() {
 		if(this.faltas == null)
-			this.faltas = new ArrayList<>();
+			this.faltas = new ArrayList<Falta>();
 		return faltas;
 	}
 
@@ -90,7 +90,7 @@ public class Tempo {
 	 */
 	@Override
 	public String toString() {
-		return "{\"ordem\":  \"" + ordem + "\", \"materia\":  \"" + materia + "\", \"faltas\":  \"" + faltas
+		return "{\"ordem\":  \"" + ordem + "\", \"disciplina\":  \"" + disciplina + "\", \"faltas\":  \"" + faltas
 				+ "\", \"assinatura\":  \"" + assinatura + "\"}";
 	}
 

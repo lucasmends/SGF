@@ -90,7 +90,7 @@ public class Ata {
 	 */
 	public void setTempos(List<Tempo> tempos) {
 		if(this.tempos == null)
-			this.tempos = new ArrayList<>();
+			this.tempos = new ArrayList<Tempo>();
 		this.tempos = tempos;
 	}
 
