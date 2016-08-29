@@ -1,0 +1,57 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="base :: head (${title})"></head>
+
+<body>
+	<nav th:replace="base :: nav-logged (${user.isCoordenador()} )" th:if="${user.isProfessor()} == true"></nav>
+
+	<!-- Begin page content -->
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-lg-6">
+				<h3 align="center">Atas de Faltas</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6 col-lg-6">
+				<div class="row">
+					<div class="panel panel-default">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Data</th>
+									<th>Turma</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="ata : ${atas}">
+									<td th:text="${ata.data}"></td>
+									<td th:text="${aluno.idTurma}"></td>
+									<td>
+										<a th:href="@{/ata/id/} + ${ata.id}">
+											<span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+										</a>
+										<a th:href="@{/ata/edit/} + ${ata.id}" th:if="${user.isAluno()} == true">
+											<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+										</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="row" th:if="${user.isAluno()} == true">
+					<a class="btn btn-default" th:href="@{/ata/new}">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nova Ata de Faltas
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End page content -->
+	<footer th:replace="base :: footer"></footer>
+</body>
+
+</html>

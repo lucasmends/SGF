@@ -3,6 +3,8 @@ package br.eb.ime.comp.pfc.sgf.web.controller;
 import java.security.Principal;
 import java.util.Comparator;
 import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,112 +29,144 @@ import br.eb.ime.comp.pfc.sgf.web.service.TurmaService;
 import br.eb.ime.comp.pfc.sgf.web.service.AtaService;
 
 @Controller
-@RequestMapping("/disciplina")
+@RequestMapping("/ata")
 public class AtaController {
 	
 	@Autowired
-	private DisciplinaService service;
+	private AlunoService alunoService;
 	@Autowired
 	private ProfessorService professorService;
+	@Autowired
+	private DisciplinaService disciplinaService;
+	@Autowired
+	private TurmaService turmaService;
+	@Autowired
+	private AtaService service;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model, Principal u){
 		User user = new User((UsernamePasswordAuthenticationToken) u);
+		List<Ata> atas = null;
 		
-		if(!user.isProfessor())
-			return "redirect:/403";
-		
-		List<Disciplina> disciplinas = service.getAll();
-		//ordenar por nome
-		disciplinas.sort(new Comparator<Disciplina>() {
-
-			@Override
-			public int compare(Disciplina o1, Disciplina o2) {
-				return o1.getNome().compareTo(o2.getNome());
+		if(user.isCoordenador()) {
+			String email = user.getName();
+			Professor coordenador = professorService.getByEmail(email);
+			atas = service.getByCoordenador(coordenador.getId());
+		}
+		else
+			if(user.isAluno()) {
+				String numero = user.getName();
+				Aluno xerife = alunoService.getByNumero(numero);
+				atas = service.getByXerife(xerife.getId());
 			}
-		});
+			else
+				return "redirect:/403";
 		
-		model.addAttribute("title", "Disciplinas");
-		model.addAttribute("disciplinas", disciplinas);
+		model.addAttribute("title", "Atas");
+		model.addAttribute("atas", atas);
 		model.addAttribute("user", user);
-		return "disciplina/index";
+		return "ata/index";
 	}
 	
 	@RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
-	public String getByNome(@PathVariable("id") String id, Model model, Principal u){
+	public String getById(@PathVariable("id") String id, Model model, Principal u){
 		User user = new User((UsernamePasswordAuthenticationToken) u);
 		
 		if(!user.isProfessor())
 			return "redirect:/403";
 		
-		Disciplina disciplina = service.getById(id);
-		model.addAttribute("disciplina",disciplina);
-		model.addAttribute("title", "Disciplina");
+		Ata ata = service.getById(id);
+		model.addAttribute("ata",ata);
+		model.addAttribute("title", "Ata");
 		model.addAttribute("user", user);
 		
-		return "disciplina/disciplina";
+		return "ata/ata";
 	}
 	
 	@RequestMapping(value = "/todos", method = RequestMethod.GET)
 	public String all(Model model){
-		return "redirect:/disciplina/";
+		return "redirect:/ata/";
 	}
 	
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
-	public String newDisciplina(Model model, Disciplina disciplina, Principal u){
+	public String newAta(Model model, Ata ata, Principal u){
 		User user = new User((UsernamePasswordAuthenticationToken) u);
 		
-		if(!user.isCoordenador())
+		if(!user.isAluno())
 			return "redirect:/403";
 		
-		List<Professor> professores = professorService.getAll();
-		model.addAttribute("professores", professores);
-		model.addAttribute("title", "Nova Disciplina");
+		List<Turma> turmas = turmaService.getAll();
+		Turma turmaDoXerife = null;
+		// obter turma do xerife
+		String numero = user.getName();
+		Aluno xerife = alunoService.getByNumero(numero);
+		for(int i=0; i<turmas.size(); i++) {
+			List<Aluno> alunosDaTurma = turmas.get(i).getAlunos();
+			for(int j=0; j<alunosDaTurma.size(); j++) {
+				if(alunosDaTurma.get(j).getId() == xerife.getId()) {
+					turmaDoXerife = turmas.get(i);
+				}
+			}
+		}
+		
+		if(turmaDoXerife == null)
+			return "redirect:/403";
+		
+		List<Aluno> alunos = turmaDoXerife.getAlunos();
+		List<Disciplina> disciplinas = turmaDoXerife.getDisciplinas();
+		
+		ata = new Ata();
+		ata.setTurma(turmaDoXerife.getId());
+		
+		model.addAttribute("ata", ata);
+		model.addAttribute("disciplinas", disciplinas);
+		model.addAttribute("alunos", alunos);
+		model.addAttribute("title", "Nova Ata de Faltas");
 		model.addAttribute("user", user);
-		return "disciplina/new";
+		return "ata/new";
 	}
 	
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
-	public String createDisciplina(@RequestParam("nome") String nome, @RequestParam("id") String id, Principal u){
+	public String createDisciplina(@RequestParam("ata") Ata ata, Principal u){
 		User user = new User((UsernamePasswordAuthenticationToken) u);
 		
-		if(!user.isCoordenador())
+		if(!user.isAluno())
 			return "redirect:/403";
 		
-		Professor professor = professorService.getById(id);
-		Disciplina disciplina = new Disciplina(nome, professor);
-		service.create(disciplina);
-		return "redirect:" + "/disciplina/";
+		service.create(ata);
+		return "redirect:" + "/ata/";
 	}
 	
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public String editDisciplina(@PathVariable("id") String id, Model model, Principal u){
 		User user = new User((UsernamePasswordAuthenticationToken) u);
 
-		if(!user.isCoordenador())
+		if(!user.isAluno())
 			return "redirect:/403";
 		
-		Disciplina disciplina = service.getById(id);
-		List<Professor> professores = professorService.getAll();
-		model.addAttribute("professores", professores);
-		model.addAttribute("disciplina", disciplina);
-		model.addAttribute("title", "Editar Disciplina");
+		Ata ata = service.getById(id);
+		
+		Turma turmaDoXerife = turmaService.getById(ata.getIdTurma());
+		List<Aluno> alunos = turmaDoXerife.getAlunos();
+		List<Disciplina> disciplinas = turmaDoXerife.getDisciplinas();
+		
+		model.addAttribute("ata", ata);
+		model.addAttribute("disciplinas", disciplinas);
+		model.addAttribute("alunos", alunos);
+		model.addAttribute("title", "Editar Ata de Faltas");
 		model.addAttribute("user", user);
-		return "disciplina/edit";
+		return "ata/edit";
 	}
 	
-	@RequestMapping(value = "/edit/{disciplinaId}", method = RequestMethod.POST)
-	public String saveDisciplina(@PathVariable("disciplinaId") String disciplinaId, @RequestParam("id") String id, Principal u){
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+	public String saveDisciplina(@PathVariable("id") String id, @RequestParam("ata") Ata ata, Principal u){
 		User user = new User((UsernamePasswordAuthenticationToken) u);
 
-		if(!user.isCoordenador())
+		if(!user.isAluno())
 			return "redirect:/403";
 		
-		Disciplina disciplina = service.getById(disciplinaId);
-		Professor professor = professorService.getById(id);
-		disciplina.setProfessor(professor);
-		service.update(disciplina);
+		service.update(ata);
 		
-		return "redirect:" + "/disciplina/";
+		return "redirect:" + "/ata/";
 	}
 }

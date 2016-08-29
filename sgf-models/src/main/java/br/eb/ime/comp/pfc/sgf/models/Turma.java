@@ -3,7 +3,9 @@
  */
 package br.eb.ime.comp.pfc.sgf.models;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.data.annotation.Id;
@@ -25,10 +27,10 @@ public class Turma {
 	private String engenharia;
 	
 	@DBRef
-	private Set<Disciplina> disciplinas;
+	private List<Disciplina> disciplinas;
 	
 	@DBRef
-	private Set<Aluno> alunos;
+	private List<Aluno> alunos;
 
 	public Turma(){
 		
@@ -37,8 +39,8 @@ public class Turma {
 	public Turma(String ano, String engenharia) {
 		this.ano = ano;
 		this.engenharia = engenharia;
-		this.disciplinas = new HashSet<Disciplina>();
-		this.alunos = new HashSet<Aluno>();
+		this.disciplinas = new ArrayList<Disciplina>();
+		this.alunos = new ArrayList<Aluno>();
 	}
 
 	/**
@@ -79,29 +81,29 @@ public class Turma {
 	/**
 	 * @return the disciplinas
 	 */
-	public Set<Disciplina> getDisciplinas() {
+	public List<Disciplina> getDisciplinas() {
 		if(this.disciplinas == null)
-			this.disciplinas = new HashSet<Disciplina>();
+			this.disciplinas = new ArrayList<Disciplina>();
 		return disciplinas;
 	}
 
 	/**
 	 * @param disciplinas the disciplinas to set
 	 */
-	public void setDisciplinas(Set<Disciplina> disciplinas) {
+	public void setDisciplinas(List<Disciplina> disciplinas) {
 		this.disciplinas = disciplinas;
 	}
 
 	/**
 	 * @param alunos the alunos to set
 	 */
-	public void setAlunos(Set<Aluno> alunos) {
+	public void setAlunos(List<Aluno> alunos) {
 		this.alunos = alunos;
 	}
 
 	public Turma addDisciplina(Disciplina disciplina){
 		if(this.disciplinas == null)
-			this.disciplinas = new HashSet<Disciplina>();
+			this.disciplinas = new ArrayList<Disciplina>();
 		this.disciplinas.add(disciplina);
 		return this;
 	}
@@ -109,15 +111,15 @@ public class Turma {
 	/**
 	 * @return the alunos
 	 */
-	public Set<Aluno> getAlunos() {
+	public List<Aluno> getAlunos() {
 		if(this.alunos == null)
-			this.alunos = new HashSet<Aluno>();
+			this.alunos = new ArrayList<Aluno>();
 		return alunos;
 	}
 	
 	public Turma addAluno(Aluno aluno){
 		if(this.alunos == null)
-			this.alunos = new HashSet<Aluno>();
+			this.alunos = new ArrayList<Aluno>();
 		this.alunos.add(aluno);
 		return this;
 	}

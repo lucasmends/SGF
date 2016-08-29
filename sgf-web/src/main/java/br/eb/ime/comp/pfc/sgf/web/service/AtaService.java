@@ -40,7 +40,7 @@ public class AtaService {
 		return Arrays.asList(response.getBody());
 	}
 	
-	public List<Ata> getByCoorddenador(String id){
+	public List<Ata> getByCoordenador(String id){
 		ResponseEntity<Ata[]> response = restTemplate.getForEntity(ServiceName.ata + "/coordenador/{id}", Ata[].class, id);
 		return Arrays.asList(response.getBody());
 	}
