@@ -2073,3 +2073,28 @@ java.lang.NullPointerException: null
 2016-08-28 22:51:33,430 [Worker-198] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
 2016-08-28 22:51:33,431 [Worker-198] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2016-08-28 22:51:33,432 [Worker-198] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/igor/Documents/IME/PFC/SGF/sgf-web/src/test/resources
+2016-08-29 10:46:40,622 [Worker-246] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-08-29 10:46:40,622 [Worker-246] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2016-08-29 10:46:40,622 [Worker-246] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2016-08-29 10:46:40,624 [Worker-246] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-08-29 10:46:40,624 [Worker-246] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/igor/Documents/IME/PFC/SGF/sgf-web/src/test/resources
+2016-08-29 10:59:48,989 [Worker-250] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-08-29 10:59:48,990 [Worker-250] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2016-08-29 10:59:48,992 [Worker-250] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 49 resources
+2016-08-29 10:59:48,994 [Worker-250] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-08-29 10:59:48,994 [Worker-250] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/igor/Documents/IME/PFC/SGF/sgf-web/src/test/resources
+2016-08-29 11:00:06,134 [Worker-245] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-08-29 11:00:06,134 [Worker-245] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2016-08-29 11:00:06,134 [Worker-245] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2016-08-29 11:00:06,136 [Worker-245] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-08-29 11:00:06,136 [Worker-245] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/igor/Documents/IME/PFC/SGF/Core/src/test/resources
+2016-08-29 11:00:29,402 [Worker-243] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-08-29 11:00:29,408 [Worker-243] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2016-08-29 11:00:29,410 [Worker-243] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 49 resources
+2016-08-29 11:00:29,412 [Worker-243] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-08-29 11:00:29,412 [Worker-243] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/igor/Documents/IME/PFC/SGF/sgf-web/src/test/resources
+2016-08-29 11:04:13,857 [Worker-251] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-08-29 11:04:13,857 [Worker-251] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2016-08-29 11:04:13,857 [Worker-251] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2016-08-29 11:04:13,867 [Worker-251] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-08-29 11:04:13,867 [Worker-251] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/igor/Documents/IME/PFC/SGF/sgf-web/src/test/resources
