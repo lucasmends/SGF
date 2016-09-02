@@ -31,6 +31,10 @@ public class AtaController {
 	@Autowired
 	private AtaRepository repo;
 	
+	@RequestMapping(method = RequestMethod.GET)
+	public List<Ata> getAll(){
+		return repo.getAll();
+	}
 
 	@RequestMapping(method = RequestMethod.POST)
 	public Ata create(@RequestBody Ata ata){
