@@ -4,7 +4,8 @@
 <head th:replace="base :: head (${title})"></head>
 
 <body>
-	<nav th:replace="base :: nav-logged (${user.isCoordenador()} )" th:if="${user.isProfessor()} == true"></nav>
+	<nav class="navbar navbar-default navbar-fixed-top" th:include="base :: nav-logged-aluno (${user.name})" th:if="${user.aluno}"></nav>
+	<nav class="navbar navbar-default navbar-fixed-top" th:include="base :: nav-logged (${user.isCoordenador()} )" th:if="${user.professor}"></nav>
 
 	<!-- Begin page content -->
 	<div class="container">
@@ -42,7 +43,8 @@
 						</table>
 					</div>
 				</div>
-				<div class="row" th:if="${user.isAluno()} == true">
+				<!-- <div class="row" th:if="${user.isAluno()} == true"> -->
+				<div class="row">
 					<a class="btn btn-default" th:href="@{/ata/new}">
 						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nova Ata de Faltas
 					</a>

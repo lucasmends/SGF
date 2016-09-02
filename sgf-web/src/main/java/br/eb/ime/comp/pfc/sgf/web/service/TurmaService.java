@@ -21,13 +21,20 @@ public class TurmaService {
 	@LoadBalanced
 	private RestTemplate restTemplate;
 	
+	@Autowired
+	private AlunoService alunoService;
 	
 	public Turma getById(String id){
 		return restTemplate.getForObject(ServiceName.turma + "/{id}", Turma.class, id);
 	}
 	
 	public Turma getByAluno(Aluno aluno){
-		return restTemplate.getForObject(ServiceName.turma + "/aluno/{idAluno}", Turma.class, aluno.getId());
+		List<Turma> turmas = this.getAll();
+		for(Turma turma : turmas){
+			if(turma.getAlunos().contains(aluno))
+				return turma;
+		}
+		return null;
 	}
 	
 	public Turma create(Turma turma){

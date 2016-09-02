@@ -1,47 +1,92 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="base :: head (${title})"></head>
 
 <body>
-	<nav th:replace="base :: nav-logged-aluno" th:if="${user.isAluno()} == true"></nav>
-	<nav th:replace="base :: nav-logged (${user.isCoordenador()} )" th:if="${user.isProfessor()} == true"></nav>
+	<nav class="navbar navbar-default navbar-fixed-top"
+		th:include="base :: nav-logged-aluno (${user.name})"
+		th:if="${user.aluno}"></nav>
+	<nav class="navbar navbar-default navbar-fixed-top"
+		th:include="base :: nav-logged (${user.isCoordenador()} )"
+		th:if="${user.professor}"></nav>
 
 	<!-- Begin page content -->
 	<div class="container">
 		<div class="row">
-			<div class="col-md-3 col-lg-3">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<div class="panel-heading" >
-							<h4 align="center" th:text="'Editar o Aluno ' + ${aluno.nome}"></h4>
+			<div class="col-md-7 col-lg-7">
+				<div class="col-md-12 col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="panel-heading">
+								<h4 align="center">Ata de Faltas</h4>
+							</div>
+							<div class="row">
+								<label for="data" class="col-md-2 col-lg-2 control-label">Data
+								</label>
+								<div class="col-md-3 col-lg-3">
+									<p id="data" name="data"
+										th:text="${ata.data}"></p>
+								</div>
+							</div>
+
+							<div class="panel-body">
+								<form method="post" th:action="@{/ata/edit/} + ${ata.id}"
+									th:each="tempo : ${ata.tempos}" class="form-horizontal">
+									<div class="form-group">
+										<label for="ordem" class="col-md-2 col-lg-2 control-label">Ordem
+										</label>
+										<div class="col-md-1 col-lg-1" id="ordem" name="ordem">
+											<p th:text="${tempo.ordem}"></p>
+											<input type="hidden" id="ordem" name="ordem"
+												th:value="${tempo.ordem}" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="disciplina"
+											class="col-md-2 col-lg-2 control-label">Disciplina </label>
+										<div class="col-md-4 col-lg-4">
+											<select class="form-control" id="disciplina"
+												name="disciplina">
+												<option th:if="${tempo.disciplina != null}"
+													th:value="${tempo.disciplina.id}"
+													th:text="${tempo.disciplina.nome}" selected="true"></option>
+												<option th:each="disciplina : ${tempo.disciplinasAvulsas}"
+													th:value="${disciplina.id}" th:text="${disciplina.nome}"></option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="alunos" class="col-md-2 col-lg-2 control-label">Faltas
+										</label>
+										<div class="col-md-4 col-lg-4">
+											<select multiple="true" class="form-control" id="alunos"
+												name="alunos" data-size="1">
+												<option th:each="aluno : ${tempo.faltas}"
+													th:value="${aluno.numero}" th:text="${aluno.nome}"
+													selected="true"></option>
+												<option th:each="aluno : ${tempo.alunosAvulsos}"
+													th:value="${aluno.numero}" th:text="${aluno.nome}"></option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-md-offset-6 col-lg-offset-6">
+											<input type="submit" id="create" class="btn btn-default"
+												value="Salvar" />
+										</div>
+									</div>
+
+								</form>
+							</div>
 						</div>
-						<form method="post" th:action="@{/aluno/edit/} + ${aluno.numero}" class="form-horizontal">
-							<div class="form-group">
-								<label for="nome" class="col-md-2 col-lg-2 control-label">Nome </label>
-								<div class="col-md-6 col-lg-6">
-									<input type="text" class="form-control" id="nome" name="nome" th:value="*{aluno.nome}" required="true" />
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="email" class="col-md-2 col-lg-2 control-label">Email </label>
-								<div class="col-md-8 col-lg-8">
-									<input type="email" class="form-control" id="email" name="email" th:value="*{aluno.email}" required="true" />
-								</div>
-							</div>
-							<div class="form-group" th:if="${user.isAluno()} == true">
-								<label for="password" class="col-md-2 col-lg-2 control-label">Senha </label>
-								<div class="col-md-6 col-lg-6">
-									<input type="password" id="password" class="form-control" name="password" />
-								</div>
-							</div>
-							<input type="hidden" id="password" th:if="${user.isCoordenador()} == true" name="password" value="" />
-							<div class="form-group">
-								<div class="col-md-offset-6 col-lg-offset-6">
-									<input type="submit" id="create" class="btn btn-default" value="Salvar" />
-								</div>
-							</div>
-						</form>
+					</div>
+					<div class="row">
+						<div class="col-md-offset-6 col-lg-offset-6">
+							<a class="btn btn-default" th:href="@{/ata/assinar/} + ${ata.id}">Assinar
+								ata</a>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -49,19 +94,6 @@
 	</div>
 	<!-- End page content -->
 	<footer th:replace="base :: footer"></footer>
-	<script>
-		function checkPasswordMatch() {
-			var password = $("#password").val();
-			var confirmPassword = $("#password_").val();
-
-			if (password != confirmPassword) {
-				$("#bad").show();
-			} else {
-				$("#bad").hide();
-				$("#good").hide();
-			}
-		}
-	</script>
 </body>
 
 </html>

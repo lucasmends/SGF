@@ -13,10 +13,10 @@ public class Xerife {
 	
 	}
 
-	public Xerife(Aluno aluno, String assinatura) {
+	public Xerife(Aluno aluno) {
 		super();
 		this.xerife = aluno;
-		this.assinatura = assinatura;
+		this.assinatura = null;
 	}
 
 	/**

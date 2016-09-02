@@ -3,6 +3,7 @@ package br.eb.ime.comp.pfc.sgf.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
 public class Tempo {
@@ -12,7 +13,14 @@ public class Tempo {
 	@DBRef
 	private Disciplina disciplina;
 	
-	private List<Falta> faltas;
+	@Transient
+	private List<Disciplina> disciplinasAvulsas;
+	
+	@DBRef
+	private List<Aluno> faltas;
+	
+	@Transient
+	private List<Aluno> alunosAvulsos;
 	
 	private Assinatura assinatura;
 	
@@ -20,13 +28,15 @@ public class Tempo {
 		
 	}
 
-	public Tempo(String ordem, Disciplina disciplina, List<Falta> faltas) {
-		super();
+	public Tempo(String ordem, List<Disciplina> disciplinasAvulsas, List<Aluno> alunosAvulsos) {
 		this.ordem = ordem;
-		this.disciplina = disciplina;
-		this.faltas = faltas;
+		this.disciplinasAvulsas = disciplinasAvulsas;
+		this.alunosAvulsos = alunosAvulsos;
 	}
 
+	public Tempo(String ordem){
+		this.ordem = ordem;
+	}
 	/**
 	 * @return the ordem
 	 */
@@ -58,16 +68,16 @@ public class Tempo {
 	/**
 	 * @return the faltas
 	 */
-	public List<Falta> getFaltas() {
+	public List<Aluno> getFaltas() {
 		if(this.faltas == null)
-			this.faltas = new ArrayList<Falta>();
+			this.faltas = new ArrayList<Aluno>();
 		return faltas;
 	}
 
 	/**
 	 * @param faltas the faltas to set
 	 */
-	public void setFaltas(List<Falta> faltas) {
+	public void setFaltas(List<Aluno> faltas) {
 		this.faltas = faltas;
 	}
 
@@ -83,6 +93,41 @@ public class Tempo {
 	 */
 	public void setAssinatura(Assinatura assinatura) {
 		this.assinatura = assinatura;
+	}
+	
+	
+
+	/**
+	 * @return the alunosAvulsos
+	 */
+	public List<Aluno> getAlunosAvulsos() {
+		if(alunosAvulsos == null)
+			alunosAvulsos = new ArrayList<>();
+		return alunosAvulsos;
+	}
+
+	/**
+	 * @param alunosAvulsos the alunosAvulsos to set
+	 */
+	public void setAlunosAvulsos(List<Aluno> alunosAvulsos) {
+		this.alunosAvulsos = alunosAvulsos;
+	}
+
+	
+	/**
+	 * @return the disciplinasAvulsas
+	 */
+	public List<Disciplina> getDisciplinasAvulsas() {
+		if(disciplinasAvulsas == null)
+			disciplinasAvulsas = new ArrayList<>();
+		return disciplinasAvulsas;
+	}
+
+	/**
+	 * @param disciplinasAvulsas the disciplinasAvulsas to set
+	 */
+	public void setDisciplinasAvulsas(List<Disciplina> disciplinasAvulsas) {
+		this.disciplinasAvulsas = disciplinasAvulsas;
 	}
 
 	/* (non-Javadoc)

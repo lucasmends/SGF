@@ -34,11 +34,6 @@ public class TurmaRepository {
 		return mongo.findOne(searchProfessorQuery, Turma.class);
 	}
 	
-	public Turma getByAluno(String idAluno){
-		Query searchProfessorQuery = new Query(Criteria.where("alunos.id").is(idAluno));
-		return mongo.findOne(searchProfessorQuery, Turma.class);
-	}
-	
 	public List<Turma> findByEngenharia(String engenharia){
 		Query searchProfessorQuery = new Query(Criteria.where("engenharia").is(engenharia));
 		return mongo.find(searchProfessorQuery, Turma.class);

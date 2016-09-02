@@ -61,8 +61,7 @@ public class AlunoController {
 		model.addAttribute("aluno",aluno);
 		model.addAttribute("title", "Aluno " + aluno.getNome());
 		
-		model.addAttribute("user", user);
-		return "aluno/aluno";
+		model.addAttribute("user", user);		return "aluno/aluno";
 	}
 	
 	@RequestMapping(value = "/todos", method = RequestMethod.GET)

@@ -4,11 +4,10 @@
 package br.eb.ime.comp.pfc.sgf.models;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -31,7 +30,7 @@ public class Turma {
 	
 	@DBRef
 	private List<Aluno> alunos;
-
+	
 	public Turma(){
 		
 	}

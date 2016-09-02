@@ -17,6 +17,8 @@ public class Ata {
 	private String idTurma;
 	
 	private List<Tempo> tempos;
+	
+	private List<Falta> faltas;
 
 	private Xerife xerife;
 	
@@ -41,13 +43,6 @@ public class Ata {
 	 */
 	public String getId() {
 		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	/**
@@ -82,6 +77,8 @@ public class Ata {
 	 * @return the tempos
 	 */
 	public List<Tempo> getTempos() {
+		if(tempos == null)
+			tempos = new ArrayList<>();
 		return tempos;
 	}
 
@@ -120,6 +117,30 @@ public class Ata {
 	 */
 	public void setCoordenador(Coordenador coordenador) {
 		this.coordenador = coordenador;
+	}
+
+	
+	/**
+	 * @return the faltas
+	 */
+	public List<Falta> getFaltas() {
+		if(faltas == null)
+			faltas = new ArrayList<>();
+		return faltas;
+	}
+
+	/**
+	 * @param faltas the faltas to set
+	 */
+	public void setFaltas(List<Falta> faltas) {
+		this.faltas = faltas;
+	}
+
+	/**
+	 * @param idTurma the idTurma to set
+	 */
+	public void setIdTurma(String idTurma) {
+		this.idTurma = idTurma;
 	}
 
 	/* (non-Javadoc)
