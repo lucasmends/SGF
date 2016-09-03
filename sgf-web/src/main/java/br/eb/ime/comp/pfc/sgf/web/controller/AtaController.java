@@ -90,13 +90,13 @@ public class AtaController {
 
 		if (user.isProfessor() || ata.getXerife().getXerife().getNumero().equals(user.getName())) {
 			for (int i = 0; i < ata.getTempos().size(); i++) {
-				//verificação da assinatura do tempoß
+				//verificação da assinatura do tempo
 				if (Utils.recebeuAssinaturaProfessor(ata.getTempos().get(i))){
 					ata.getTempos().get(i).setSaved(true);
 				}
 				/*
 				 * Se o tempo não tem assinatura e o professor que irá ver a página é o 
-				 * que deve assinar, libera o botão de assinar o tempoß
+				 * que deve assinar, libera o botão de assinar o tempo
 				 */
 				if (user.isProfessor()) {
 					if(ata.getTempos().get(i).getDisciplina().getProfessor().getEmail().equals(user.getName())){
@@ -104,6 +104,10 @@ public class AtaController {
 					}
 				}
 			}
+			
+			//verifica se recebeu a assinatura do coordenador
+			if(Utils.recebeuAssinaturaCoordenador(ata.getCoordenador()))
+				ata.getCoordenador().setAssinado(true);
 			
 			model.addAttribute("ata", ata);
 			model.addAttribute("title", "Ata");
@@ -170,6 +174,7 @@ public class AtaController {
 
 		if (!ata.getXerife().getXerife().getNumero().equals(user.getName()))
 			return "redirect:/403";
+		//verifica se o xerife já assinou a ata
 		if (Utils.recebeuAssinaturaXerife(ata.getXerife())) {
 			model.addAttribute("title", "Ata de Faltas");
 			model.addAttribute("ata", ata);
@@ -212,6 +217,7 @@ public class AtaController {
 		Ata ata = service.getById(id);
 		if (!ata.getXerife().getXerife().getNumero().equals(user.getName()))
 			return "redirect:/403";
+		//verifica se o xerife já assinou a ata
 		if (Utils.recebeuAssinaturaXerife(ata.getXerife())) {
 			model.addAttribute("title", "Ata de Faltas");
 			model.addAttribute("ata", ata);
