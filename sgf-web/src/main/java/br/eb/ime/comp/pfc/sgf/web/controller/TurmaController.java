@@ -168,6 +168,9 @@ public class TurmaController {
 	public String addAluno(@PathVariable("id") String id, Model model, Principal u) {
 		User user = new User((UsernamePasswordAuthenticationToken) u);
 
+		if(!user.isCoordenador())
+			return "redirect:/403";
+		
 		Turma turma = service.getById(id);
 		List<Aluno> alunos = alunoService.getAll();
 		model.addAttribute("turma", turma);
@@ -182,6 +185,9 @@ public class TurmaController {
 			Principal u) {
 		User user = new User((UsernamePasswordAuthenticationToken) u);
 
+		if(!user.isCoordenador())
+			return "redirect:/403";
+		
 		Turma turma = service.getById(id);
 		Aluno aluno = alunoService.getByNumero(numero);
 		turma.addAluno(aluno);
@@ -193,6 +199,9 @@ public class TurmaController {
 	public String addDisciplina(@PathVariable("id") String id, Model model, Principal u) {
 		User user = new User((UsernamePasswordAuthenticationToken) u);
 
+		if(!user.isCoordenador())
+			return "redirect:/403";
+		
 		Turma turma = service.getById(id);
 		List<Disciplina> disciplinas = disciplinaService.getAll();
 		model.addAttribute("turma", turma);
@@ -206,7 +215,10 @@ public class TurmaController {
 	public String saveDisciplina(@PathVariable("id") String id, @RequestParam("disciplinaId") String disciplinaId, Model model,
 			Principal u) {
 		User user = new User((UsernamePasswordAuthenticationToken) u);
-
+		
+		if(!user.isCoordenador())
+			return "redirect:/403";
+		
 		Turma turma = service.getById(id);
 		Disciplina disciplina = disciplinaService.getById(disciplinaId);
 		turma.addDisciplina(disciplina);

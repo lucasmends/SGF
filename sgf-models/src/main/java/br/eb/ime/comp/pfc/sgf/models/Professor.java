@@ -157,6 +157,10 @@ public class Professor {
 		return id;
 	}
 
+	public boolean isCoordenador(){
+		return this.coordenador.equals(Professor.IS_COORDEADOR);
+	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

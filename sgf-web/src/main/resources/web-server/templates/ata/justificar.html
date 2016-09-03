@@ -1,0 +1,45 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="base :: head (${title})"></head>
+
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top"
+		th:include="base :: nav-logged-aluno (${user.name})"
+		th:if="${user.aluno}"></nav>
+	<nav class="navbar navbar-default navbar-fixed-top"
+		th:include="base :: nav-logged (${user.isCoordenador()} )"
+		th:if="${user.professor}"></nav>
+
+	<!-- Begin page content -->
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-lg-6">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<form class="form-inline" method="post"
+							th:action="@{/ata/justificar/} + ${ata.id}">
+							<div class="form-group">
+								<label for="motivo"
+									th:text="${falta.aluno.nome} + ' - ' + ${falta.aluno.numero}"></label>
+								<input type="text" class="form-control" id="motivo"
+									name="motivo" th:value="*{falta.motivo}" />
+									<input type="hidden" name="numero" th:value="${falta.aluno.numero}" />
+							</div>
+							<div class="form-group">
+								<input type="submit" id="create" class="btn btn-default"
+									value="Salvar" />
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- End page content -->
+	<footer th:replace="base :: footer"></footer>
+</body>
+
+</html>

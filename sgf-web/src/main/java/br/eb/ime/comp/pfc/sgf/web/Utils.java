@@ -10,6 +10,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 import br.eb.ime.comp.pfc.sgf.models.Client;
+import br.eb.ime.comp.pfc.sgf.models.Coordenador;
+import br.eb.ime.comp.pfc.sgf.models.Tempo;
+import br.eb.ime.comp.pfc.sgf.models.Xerife;
 
 
 public class Utils {
@@ -35,4 +38,22 @@ public class Utils {
 		return null;
 	}
 	
+	public static boolean recebeuAssinaturaXerife(Xerife xerife){
+		if(xerife.getAssinatura() == null || xerife.getAssinatura().equals("")){
+			return false;
+		}
+		return true;
+	}
+	
+	public static boolean recebeuAssinaturaProfessor(Tempo tempo){
+		if(tempo.getAssinatura() == null || tempo.getAssinatura().equals(""))
+			return false;
+		return true;
+	}
+	
+	public static boolean recebeuAssinaturaCoordenador(Coordenador coordenador){
+		if(coordenador.getAssinatura() == null || coordenador.getAssinatura().equals(""))
+			return false;
+		return true;
+	}
 }

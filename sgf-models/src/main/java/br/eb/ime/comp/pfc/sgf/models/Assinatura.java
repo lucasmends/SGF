@@ -44,6 +44,20 @@ public class Assinatura {
 		this.assinatura = assinatura;
 	}
 
+	/**
+	 * @return the idProfessor
+	 */
+	public String getIdProfessor() {
+		return idProfessor;
+	}
+
+	/**
+	 * @param idProfessor the idProfessor to set
+	 */
+	public void setIdProfessor(String idProfessor) {
+		this.idProfessor = idProfessor;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

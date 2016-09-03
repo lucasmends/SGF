@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Tempo {
 	
 	private String ordem;
@@ -13,16 +15,22 @@ public class Tempo {
 	@DBRef
 	private Disciplina disciplina;
 	
+	@JsonIgnore
 	@Transient
 	private List<Disciplina> disciplinasAvulsas;
 	
 	@DBRef
 	private List<Aluno> faltas;
 	
+	@JsonIgnore
 	@Transient
 	private List<Aluno> alunosAvulsos;
 	
 	private Assinatura assinatura;
+
+	@JsonIgnore
+	@Transient
+	private Boolean saved;
 	
 	public Tempo(){
 		
@@ -101,9 +109,9 @@ public class Tempo {
 	 * @return the alunosAvulsos
 	 */
 	public List<Aluno> getAlunosAvulsos() {
-		if(alunosAvulsos == null)
-			alunosAvulsos = new ArrayList<>();
-		return alunosAvulsos;
+		if(this.alunosAvulsos == null)
+			this.alunosAvulsos = new ArrayList<Aluno>();
+		return this.alunosAvulsos;
 	}
 
 	/**
@@ -119,15 +127,31 @@ public class Tempo {
 	 */
 	public List<Disciplina> getDisciplinasAvulsas() {
 		if(disciplinasAvulsas == null)
-			disciplinasAvulsas = new ArrayList<>();
+			disciplinasAvulsas = new ArrayList<Disciplina>();
 		return disciplinasAvulsas;
 	}
-
+	
 	/**
 	 * @param disciplinasAvulsas the disciplinasAvulsas to set
 	 */
 	public void setDisciplinasAvulsas(List<Disciplina> disciplinasAvulsas) {
 		this.disciplinasAvulsas = disciplinasAvulsas;
+	}
+	
+	/**
+	 * @return the salved
+	 */
+	public boolean isSaved() {
+		if(this.saved == null)
+			this.saved = false;
+		return saved;
+	}
+
+	/**
+	 * @param salved the salved to set
+	 */
+	public void setSaved(boolean saved) {
+		this.saved = saved;
 	}
 
 	/* (non-Javadoc)

@@ -59,7 +59,10 @@ public class AtaRepository {
 		Query searchAtaQuery = new Query(Criteria.where("id").is(ata.getId()));
 		
 		Update update = new Update();
+		update.set("data", ata.getData());
+		update.set("idTurma", ata.getIdTurma());
 		update.set("tempos", ata.getTempos());
+		update.set("faltas", ata.getFaltas());
 		update.set("xerife", ata.getXerife());
 		update.set("coordenador", ata.getCoordenador());
 		

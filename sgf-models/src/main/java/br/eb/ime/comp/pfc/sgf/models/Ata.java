@@ -49,6 +49,8 @@ public class Ata {
 	 * @return the data
 	 */
 	public String getData() {
+		if(data == null)
+			return "";
 		return data;
 	}
 
@@ -77,8 +79,8 @@ public class Ata {
 	 * @return the tempos
 	 */
 	public List<Tempo> getTempos() {
-		if(tempos == null)
-			tempos = new ArrayList<>();
+		if(this.tempos == null)
+			this.tempos = new ArrayList<Tempo>();
 		return tempos;
 	}
 
@@ -86,8 +88,6 @@ public class Ata {
 	 * @param tempos the tempos to set
 	 */
 	public void setTempos(List<Tempo> tempos) {
-		if(this.tempos == null)
-			this.tempos = new ArrayList<Tempo>();
 		this.tempos = tempos;
 	}
 
@@ -125,7 +125,7 @@ public class Ata {
 	 */
 	public List<Falta> getFaltas() {
 		if(faltas == null)
-			faltas = new ArrayList<>();
+			faltas = new ArrayList<Falta>();
 		return faltas;
 	}
 

@@ -1,0 +1,23 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="base :: head (${title})"></head>
+
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top"
+		th:include="base :: nav-logged-aluno (${user.name})"
+		th:if="${user.aluno}"></nav>
+	<nav class="navbar navbar-default navbar-fixed-top"
+		th:include="base :: nav-logged (${user.isCoordenador()} )"
+		th:if="${user.professor}"></nav>
+
+	<!-- Begin page content -->
+	<div class="container">
+		<p th:text="'A ata do dia ' + ${ata.data} + 'já foi assinada pelo xerife'"></p>
+	</div>
+	<!-- End page content -->
+	<footer th:replace="base :: footer"></footer>
+</body>
+
+</html>

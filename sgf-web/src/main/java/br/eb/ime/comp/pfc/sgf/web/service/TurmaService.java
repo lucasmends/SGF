@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import br.eb.ime.comp.pfc.sgf.models.Aluno;
+import br.eb.ime.comp.pfc.sgf.models.Professor;
 import br.eb.ime.comp.pfc.sgf.models.Turma;
 import br.eb.ime.comp.pfc.sgf.web.Utils;
 
@@ -22,7 +23,7 @@ public class TurmaService {
 	private RestTemplate restTemplate;
 	
 	@Autowired
-	private AlunoService alunoService;
+	private ProfessorService professorService;
 	
 	public Turma getById(String id){
 		return restTemplate.getForObject(ServiceName.turma + "/{id}", Turma.class, id);
@@ -48,5 +49,16 @@ public class TurmaService {
 	public List<Turma> getAll(){
 		ResponseEntity<Turma[]> response = restTemplate.getForEntity(ServiceName.turma, Turma[].class);
 		return Arrays.asList(response.getBody());
+	}
+	
+	public Professor getCoordenador(Turma turma){
+		String engenharia = turma.getEngenharia();
+		for(Professor professor : professorService.getAll()){
+			if(professor.getEngenharias().contains(engenharia)){
+				if(professor.isCoordenador())
+					return professor;
+			}
+		}
+		return null;
 	}
 }
