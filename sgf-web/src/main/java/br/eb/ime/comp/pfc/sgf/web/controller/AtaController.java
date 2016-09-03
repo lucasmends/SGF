@@ -53,43 +53,71 @@ public class AtaController {
 			String email = user.getName();
 			Professor coordenador = professorService.getByEmail(email);
 			atas = service.getByCoordenador(coordenador);
+			
+			//as atas que o coordenador é apenas professor
+			List<Ata> atasProfessor = service.getByProfessor(coordenador);
+			for(Ata ata : atasProfessor){
+				if(!atas.contains(ata))
+					atas.add(ata);
+			}
 		} else if (user.isAluno()) {
 			String numero = user.getName();
 			Aluno xerife = alunoService.getByNumero(numero);
 			atas = service.getByXerife(xerife);
 		} else {
-			return "redirect:/403";
+			String email = user.getName();
+			Professor professor = professorService.getByEmail(email);
+			atas = service.getByProfessor(professor);
 		}
 
-		// model.addAttribute("title", "Atas");
+		for (int i = 0; i < atas.size(); i++) {
+			atas.get(i).setTurma(turmaService.getById(atas.get(i).getIdTurma()));
+		}
+
+		model.addAttribute("title", "Atas");
 		model.addAttribute("atas", atas);
-		// model.addAttribute("user", user);
+		model.addAttribute("user", user);
 		// return "ata/index";
 
-		return "redirect:/ata/new";
+		return "ata/index";
 	}
 
 	@RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
 	public String getById(@PathVariable("id") String id, Model model, Principal u) {
 		User user = new User((UsernamePasswordAuthenticationToken) u);
 
-		if (!user.isProfessor())
-			return "redirect:/403";
-
 		Ata ata = service.getById(id);
-		model.addAttribute("ata", ata);
-		model.addAttribute("title", "Ata");
-		model.addAttribute("user", user);
 
-		/*
-		 * Colocar a checagem de assinatura 
-		 * for(int i = 0; i < ata.getTempos().size(); i++){ 
-		 * 		ata.getTempos().get(i).setSaved(true);
-		 * }
-		 */
+		if (user.isProfessor() || ata.getXerife().getXerife().getNumero().equals(user.getName())) {
+			for (int i = 0; i < ata.getTempos().size(); i++) {
+				//verificação da assinatura do tempoß
+				if (Utils.recebeuAssinaturaProfessor(ata.getTempos().get(i))){
+					ata.getTempos().get(i).setSaved(true);
+				}
+				/*
+				 * Se o tempo não tem assinatura e o professor que irá ver a página é o 
+				 * que deve assinar, libera o botão de assinar o tempoß
+				 */
+				if (user.isProfessor()) {
+					if(ata.getTempos().get(i).getDisciplina().getProfessor().getEmail().equals(user.getName())){
+						ata.getTempos().get(i).setProfessorDoTempo(!ata.getTempos().get(i).isSaved());
+					}
+				}
+			}
+			
+			model.addAttribute("ata", ata);
+			model.addAttribute("title", "Ata");
+			model.addAttribute("user", user);
 
-		System.out.println(ata);
-		return "ata/ata";
+			/*
+			 * Colocar a checagem de assinatura for(int i = 0; i <
+			 * ata.getTempos().size(); i++){
+			 * ata.getTempos().get(i).setSaved(true); }
+			 */
+
+			return "ata/ata";
+		}
+		return "redirect:/403";
 	}
 
 	@RequestMapping(value = "/todos", method = RequestMethod.GET)
@@ -97,8 +125,8 @@ public class AtaController {
 		return "redirect:/ata/";
 	}
 
-	@RequestMapping(value = "/new", method = RequestMethod.GET)
-	public String newAta(Model model, Principal u) {
+	@RequestMapping(value = "/new", method = RequestMethod.POST)
+	public String newAta(Model model, Principal u, @RequestParam("data") String data) {
 		User user = new User((UsernamePasswordAuthenticationToken) u);
 
 		if (!user.isAluno())
@@ -109,6 +137,7 @@ public class AtaController {
 		String numero = user.getName();
 		Aluno xerife = alunoService.getByNumero(numero);
 		Turma turmaDoXerife = turmaService.getByAluno(xerife);
+		
 		/*
 		 * for(int i=0; i<turmas.size(); i++) { List<Aluno> alunosDaTurma =
 		 * turmas.get(i).getAlunos(); for(int j=0; j<alunosDaTurma.size(); j++)
@@ -120,6 +149,7 @@ public class AtaController {
 			return "redirect:/403";
 
 		Ata ata = new Ata();
+		ata.setData(data);
 		ata.setXerife(new Xerife(xerife));
 		ata.setTurma(turmaDoXerife.getId());
 		ata.setCoordenador(new Coordenador(turmaService.getCoordenador(turmaDoXerife), null));
@@ -138,11 +168,12 @@ public class AtaController {
 
 		Ata ata = service.getById(id);
 
-		// if(!ata.getXerife().getXerife().getNumero().equals(user.getName()))
-		// return "redirect:/403";
+		if (!ata.getXerife().getXerife().getNumero().equals(user.getName()))
+			return "redirect:/403";
 		if (Utils.recebeuAssinaturaXerife(ata.getXerife())) {
 			model.addAttribute("title", "Ata de Faltas");
 			model.addAttribute("ata", ata);
+			model.addAttribute("user", user);
 			return "ata/assinadaXerife";
 		}
 
@@ -156,6 +187,7 @@ public class AtaController {
 				}
 			}
 
+			//para colocar o footer nos tempos
 			ata.getTempos().get(i).setSaved(true);
 			ata.getTempos().get(i).setDisciplinasAvulsas(turmaDoXerife.getDisciplinas());
 			ata.getTempos().get(i).getDisciplinasAvulsas().remove(ata.getTempos().get(i).getDisciplina());
@@ -178,11 +210,12 @@ public class AtaController {
 			return "redirect:/403";
 
 		Ata ata = service.getById(id);
-		//if (!ata.getXerife().getXerife().getNumero().equals(user.getName()))
-		//	return "redirect:/403";
-		if (!Utils.recebeuAssinaturaXerife(ata.getXerife())) {
+		if (!ata.getXerife().getXerife().getNumero().equals(user.getName()))
+			return "redirect:/403";
+		if (Utils.recebeuAssinaturaXerife(ata.getXerife())) {
 			model.addAttribute("title", "Ata de Faltas");
 			model.addAttribute("ata", ata);
+			model.addAttribute("user", user);
 			return "ata/assinadaXerife";
 		}
 
@@ -279,14 +312,54 @@ public class AtaController {
 			return "redirect:/403";
 
 		Ata ata = service.getById(id);
-		for(int i = 0; i < ata.getFaltas().size(); i++){
-			if(ata.getFaltas().get(i).getAluno().getNumero().equals(numero)){
+		for (int i = 0; i < ata.getFaltas().size(); i++) {
+			if (ata.getFaltas().get(i).getAluno().getNumero().equals(numero)) {
 				ata.getFaltas().get(i).setMotivo(motivo);
 				break;
 			}
 		}
-		
+
 		service.update(ata);
 		return "redirect:" + "/ata/edit/" + ata.getId();
+	}
+
+	@RequestMapping(value = "/assinar/aluno/{id}", method = RequestMethod.GET)
+	public String alunoAssinar(@PathVariable("id") String id, Principal u) {
+		User user = new User((UsernamePasswordAuthenticationToken) u);
+		if (!user.isAluno())
+			return "redirect:/403";
+		Ata ata = service.getById(id);
+		//verifica se o xerife é o da ata
+		if (!ata.getXerife().getXerife().getNumero().equals(user.getName()))
+			return "redirect:/403";
+
+		return null;
+	}
+
+	@RequestMapping(value = "/assinar/coordenador/{id}", method = RequestMethod.GET)
+	public String coordenadorAssinar(@PathVariable("id") String id, Principal u) {
+		User user = new User((UsernamePasswordAuthenticationToken) u);
+		if (!user.isCoordenador())
+			return "redirect:/403";
+		Ata ata = service.getById(id);
+		//verifica se o coordenador é o da ata
+		if (!ata.getCoordenador().getCoordenador().getEmail().equals(user.getName()))
+			return "redirect:/403";
+
+		return null;
+	}
+	
+	@RequestMapping(value = "/assinar/professor/{id}/ordem/{ordem}", method = RequestMethod.GET)
+	public String professorAssinar(@PathVariable("id") String id, @PathVariable("ordem") String ordem, Principal u) {
+		User user = new User((UsernamePasswordAuthenticationToken) u);
+		if (!user.isProfessor())
+			return "redirect:/403";
+		Ata ata = service.getById(id);
+		Integer ind = Integer.parseInt(ordem) - 1;
+		//verifica se o professor é o do tempo
+		if (!ata.getTempos().get(ind).getDisciplina().getProfessor().getEmail().equals(user.getName()))
+			return "redirect:/403";
+
+		return null;
 	}
 }

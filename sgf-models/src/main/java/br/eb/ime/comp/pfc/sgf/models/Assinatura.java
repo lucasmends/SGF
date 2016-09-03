@@ -17,20 +17,6 @@ public class Assinatura {
 	}
 
 	/**
-	 * @return the professor
-	 */
-	public String getProfessor() {
-		return idProfessor;
-	}
-
-	/**
-	 * @param professor the professor to set
-	 */
-	public void setProfessor(String professor) {
-		this.idProfessor = professor;
-	}
-
-	/**
 	 * @return the assinatura
 	 */
 	public String getAssinatura() {

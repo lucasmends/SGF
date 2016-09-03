@@ -57,7 +57,7 @@ public class Disciplina {
 	public String getNome() {
 		return nome;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

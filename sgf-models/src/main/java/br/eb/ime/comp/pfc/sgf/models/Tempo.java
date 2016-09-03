@@ -32,6 +32,10 @@ public class Tempo {
 	@Transient
 	private Boolean saved;
 	
+	@JsonIgnore
+	@Transient
+	private Boolean professorDoTempo;
+	
 	public Tempo(){
 		
 	}
@@ -152,6 +156,22 @@ public class Tempo {
 	 */
 	public void setSaved(boolean saved) {
 		this.saved = saved;
+	}
+	
+	/**
+	 * @return the professorDoTempo
+	 */
+	public Boolean getProfessorDoTempo() {
+		if(professorDoTempo == null)
+			professorDoTempo = false;
+		return professorDoTempo;
+	}
+
+	/**
+	 * @param professorDoTempo the professorDoTempo to set
+	 */
+	public void setProfessorDoTempo(Boolean professorDoTempo) {
+		this.professorDoTempo = professorDoTempo;
 	}
 
 	/* (non-Javadoc)

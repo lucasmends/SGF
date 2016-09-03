@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Document(collection="ata")
 public class Ata {
@@ -15,6 +18,10 @@ public class Ata {
 	private String data;
 	
 	private String idTurma;
+	
+	@JsonIgnore
+	@Transient
+	private Turma turma;
 	
 	private List<Tempo> tempos;
 	
@@ -141,6 +148,41 @@ public class Ata {
 	 */
 	public void setIdTurma(String idTurma) {
 		this.idTurma = idTurma;
+	}
+
+	/**
+	 * @return the turma
+	 */
+	public Turma getTurma() {
+		return turma;
+	}
+
+	/**
+	 * @param turma the turma to set
+	 */
+	public void setTurma(Turma turma) {
+		this.turma = turma;
+	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Ata other = (Ata) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
 	/* (non-Javadoc)

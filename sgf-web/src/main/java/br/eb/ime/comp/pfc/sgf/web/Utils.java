@@ -39,21 +39,14 @@ public class Utils {
 	}
 	
 	public static boolean recebeuAssinaturaXerife(Xerife xerife){
-		if(xerife.getAssinatura() == null || xerife.getAssinatura().equals("")){
-			return false;
-		}
-		return true;
+		return xerife.getAssinado();
 	}
 	
 	public static boolean recebeuAssinaturaProfessor(Tempo tempo){
-		if(tempo.getAssinatura() == null || tempo.getAssinatura().equals(""))
-			return false;
-		return true;
+		return tempo.isSaved();
 	}
 	
 	public static boolean recebeuAssinaturaCoordenador(Coordenador coordenador){
-		if(coordenador.getAssinatura() == null || coordenador.getAssinatura().equals(""))
-			return false;
-		return true;
+		return coordenador.getAssinado();
 	}
 }
