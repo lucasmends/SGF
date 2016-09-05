@@ -2,6 +2,7 @@ package br.eb.ime.comp.pfc.sgf.web;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.web.client.RestTemplate;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -39,14 +40,20 @@ public class Utils {
 	}
 	
 	public static boolean recebeuAssinaturaXerife(Xerife xerife){
-		return xerife.getAssinado();
+		if (xerife.getAssinatura() == null)
+			return false;
+		return xerife.getAssinatura().equals(DigestUtils.sha1Hex(xerife.getXerife().getId()));
 	}
 	
 	public static boolean recebeuAssinaturaProfessor(Tempo tempo){
-		return tempo.isSaved();
+		if(tempo.getAssinatura().getAssinatura() == null)
+			return false;
+		return tempo.getAssinatura().getAssinatura().equals(DigestUtils.sha1Hex(tempo.getAssinatura().getIdProfessor()));
 	}
 	
 	public static boolean recebeuAssinaturaCoordenador(Coordenador coordenador){
-		return coordenador.getAssinado();
+		if(coordenador.getAssinatura() == null)
+			return false;
+		return coordenador.getAssinatura().equals(DigestUtils.sha1Hex(coordenador.getCoordenador().getId()));
 	}
 }

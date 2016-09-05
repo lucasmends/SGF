@@ -21,6 +21,7 @@ import br.eb.ime.comp.pfc.sgf.models.Turma;
 import br.eb.ime.comp.pfc.sgf.models.Xerife;
 import br.eb.ime.comp.pfc.sgf.models.Ata;
 import br.eb.ime.comp.pfc.sgf.models.Coordenador;
+import br.eb.ime.comp.pfc.sgf.web.Assinatura;
 import br.eb.ime.comp.pfc.sgf.web.User;
 import br.eb.ime.comp.pfc.sgf.web.Utils;
 import br.eb.ime.comp.pfc.sgf.web.service.AlunoService;
@@ -74,6 +75,10 @@ public class AtaController {
 			atas.get(i).setTurma(turmaService.getById(atas.get(i).getIdTurma()));
 		}
 
+		for(int i = 0; i < atas.size(); i++){
+			atas.get(i).getCoordenador().setAssinado(Utils.recebeuAssinaturaCoordenador(atas.get(i).getCoordenador()));
+		}
+		
 		model.addAttribute("title", "Atas");
 		model.addAttribute("atas", atas);
 		model.addAttribute("user", user);
@@ -91,9 +96,8 @@ public class AtaController {
 		if (user.isProfessor() || ata.getXerife().getXerife().getNumero().equals(user.getName())) {
 			for (int i = 0; i < ata.getTempos().size(); i++) {
 				//verificação da assinatura do tempo
-				if (Utils.recebeuAssinaturaProfessor(ata.getTempos().get(i))){
-					ata.getTempos().get(i).setSaved(true);
-				}
+					ata.getTempos().get(i).setSaved(Utils.recebeuAssinaturaProfessor(ata.getTempos().get(i)));
+				
 				/*
 				 * Se o tempo não tem assinatura e o professor que irá ver a página é o 
 				 * que deve assinar, libera o botão de assinar o tempo
@@ -108,6 +112,8 @@ public class AtaController {
 			//verifica se recebeu a assinatura do coordenador
 			if(Utils.recebeuAssinaturaCoordenador(ata.getCoordenador()))
 				ata.getCoordenador().setAssinado(true);
+			
+			ata.getXerife().setAssinado(Utils.recebeuAssinaturaXerife(ata.getXerife()));
 			
 			model.addAttribute("ata", ata);
 			model.addAttribute("title", "Ata");
@@ -330,7 +336,7 @@ public class AtaController {
 	}
 
 	@RequestMapping(value = "/assinar/aluno/{id}", method = RequestMethod.GET)
-	public String alunoAssinar(@PathVariable("id") String id, Principal u) {
+	public String alunoAssinar(@PathVariable("id") String id, Principal u, Model model) {
 		User user = new User((UsernamePasswordAuthenticationToken) u);
 		if (!user.isAluno())
 			return "redirect:/403";
@@ -339,11 +345,20 @@ public class AtaController {
 		if (!ata.getXerife().getXerife().getNumero().equals(user.getName()))
 			return "redirect:/403";
 
-		return null;
+		Aluno xerife = alunoService.getByNumero(user.getName());
+		ata = Assinatura.assinar(xerife, ata);
+		if(ata == null){
+			model.addAttribute("user", user);
+			model.addAttribute("title", "Erro");
+			return "/ata/erro";
+		}
+		service.update(ata);
+		return "redirect:" + "/ata/id/" + ata.getId();
+
 	}
 
 	@RequestMapping(value = "/assinar/coordenador/{id}", method = RequestMethod.GET)
-	public String coordenadorAssinar(@PathVariable("id") String id, Principal u) {
+	public String coordenadorAssinar(@PathVariable("id") String id, Principal u, Model model) {
 		User user = new User((UsernamePasswordAuthenticationToken) u);
 		if (!user.isCoordenador())
 			return "redirect:/403";
@@ -352,11 +367,21 @@ public class AtaController {
 		if (!ata.getCoordenador().getCoordenador().getEmail().equals(user.getName()))
 			return "redirect:/403";
 
-		return null;
+		Professor coordenador = professorService.getByEmail(user.getName());
+		
+		ata = Assinatura.assinarCoordenador(coordenador, ata);
+		if(ata == null){
+			model.addAttribute("user", user);
+			model.addAttribute("title", "Erro");
+			return "/ata/erro";
+		}
+		service.update(ata);
+		
+		return "redirect:" + "/ata/id/" + ata.getId();
 	}
 	
-	@RequestMapping(value = "/assinar/professor/{id}/ordem/{ordem}", method = RequestMethod.GET)
-	public String professorAssinar(@PathVariable("id") String id, @PathVariable("ordem") String ordem, Principal u) {
+	@RequestMapping(value = "/assinar/professor/{id}/tempo/{ordem}", method = RequestMethod.GET)
+	public String professorAssinar(@PathVariable("id") String id, @PathVariable("ordem") String ordem, Principal u, Model model) {
 		User user = new User((UsernamePasswordAuthenticationToken) u);
 		if (!user.isProfessor())
 			return "redirect:/403";
@@ -366,6 +391,16 @@ public class AtaController {
 		if (!ata.getTempos().get(ind).getDisciplina().getProfessor().getEmail().equals(user.getName()))
 			return "redirect:/403";
 
-		return null;
+		Professor professor = professorService.getByEmail(user.getName());
+		ata = Assinatura.assinarProfessor(professor, ata, ind);
+		if(ata == null){
+			model.addAttribute("user", user);
+			model.addAttribute("title", "Erro");
+			return "/ata/erro";
+		}
+		
+		service.update(ata);
+		
+		return "redirect:" + "/ata/id/" + ata.getId();
 	}
 }

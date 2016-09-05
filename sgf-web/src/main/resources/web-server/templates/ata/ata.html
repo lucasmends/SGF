@@ -85,7 +85,7 @@
 										</tbody>
 									</table>
 								</div>
-								<div class="row" th:if="${user.coordenador}">
+								<div class="row" th:if="${user.coordenador} and ${ata.xerife.assinado}">
 									<a class="btn btn-default"
 										th:unless="${ata.coordenador.assinado}"
 										th:href="@{/ata/assinar/coordenador/} + ${ata.id}">Assinar
@@ -93,7 +93,7 @@
 								</div>
 								<div class="panel-footer" th:if="${ata.xerife.assinado}">
 									<p
-										th:text="'O aluno ' + ${ata.xerife.xerife.numero} + 'assinou'"></p>
+										th:text="'O aluno ' + ${ata.xerife.xerife.numero} + ' assinou'"></p>
 									<p th:if="${ata.coordenador.assinado}">Coordenador assinou</p>
 								</div>
 							</div>

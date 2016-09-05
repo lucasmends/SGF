@@ -6,6 +6,7 @@ package br.eb.ime.comp.pfc.sgf.models;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -161,6 +162,10 @@ public class Professor {
 		return this.coordenador.equals(Professor.IS_COORDEADOR);
 	}
 	
+	public String assinatura(){
+		return DigestUtils.sha1Hex(this.id);
+	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
@@ -191,7 +196,7 @@ public class Professor {
 	 */
 	@Override
 	public String toString() {
-		return "P{\"id\": \"" + id + ", \"nome\": \"" + nome + "\", \"email\": \"" + email + "\", \"coordenador\": \"" + coordenador
+		return "{\"id\": \"" + id + ", \"nome\": \"" + nome + "\", \"email\": \"" + email + "\", \"coordenador\": \"" + coordenador
 				+ "\", \"password\": \"" + password + "\", \"engenharias\": \"" + engenharias + "\"}";
 	}
 	

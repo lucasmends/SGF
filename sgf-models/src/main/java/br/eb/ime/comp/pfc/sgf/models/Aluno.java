@@ -1,5 +1,6 @@
 package br.eb.ime.comp.pfc.sgf.models;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -116,7 +117,10 @@ public class Aluno {
 				"\", \"password\": \""	+ password + "\"}";
 	}
 
-
+	public String assinatura(){
+		return DigestUtils.sha1Hex(this.id);
+	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
@@ -129,6 +133,11 @@ public class Aluno {
 		if (getClass() != obj.getClass())
 			return false;
 		Aluno other = (Aluno) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
 		if (numero == null) {
 			if (other.numero != null)
 				return false;

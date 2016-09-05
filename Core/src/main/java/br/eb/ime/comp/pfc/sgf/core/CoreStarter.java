@@ -40,9 +40,14 @@ public class CoreStarter {
 
 			System.setProperty("spring.config.name", serverName + "-server");
 			
-			if(args.length == 2)
-				System.setProperty("server.port", args[1]);
-			
+			if(args.length == 2){
+				try{
+					Integer.parseInt(args[1]);
+					System.setProperty("server.port", args[1]);
+				}catch (Exception e) {
+					System.out.println("Porta inválida. Usando a default " + System.getProperty("server.port"));
+				}	
+			}
 			SpringApplication.run(services().get(serverName), serverName + "server");
 
 		} // Caso outra execeção ocorra

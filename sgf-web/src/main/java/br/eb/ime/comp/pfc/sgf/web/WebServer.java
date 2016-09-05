@@ -23,6 +23,17 @@ import br.eb.ime.comp.pfc.sgf.web.service.AlunoService;
 public class WebServer extends WebMvcConfigurerAdapter{
 
 	public static void main(String[] args) {
+		System.setProperty("spring.config.name", "application");
+		
+		if(args.length == 1){
+			try{
+				Integer.parseInt(args[0]);
+				System.setProperty("server.port", args[0]);
+			}catch (Exception e) {
+
+			}			
+		}
+		
 		SpringApplication.run(WebServer.class, args);
 	}
 

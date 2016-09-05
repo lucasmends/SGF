@@ -7,37 +7,41 @@ import org.springframework.boot.SpringApplication;
 
 import br.eb.ime.comp.pfc.sgf.api.login.LoginServer;
 
-
 public class APIStarter {
 
 	public static void main(String args[]) {
 
-		String serviceName;
+		String serviceName = "login";
 
-		try {
-			switch (args.length) {
+		/*
+		 * try { switch (args.length) {
+		 * 
+		 * case 1: serviceName = args[0].toLowerCase(); break;
+		 * 
+		 * default: usage(); return; }
+		 */
 
-			case 1:
-				serviceName = args[0].toLowerCase();
-				break;
+		System.setProperty("spring.config.name", serviceName + "-server");
 
-			default:
-				usage();
-				return;
+		if (args.length == 1) {
+			try {
+				Integer.parseInt(args[1]);
+				System.setProperty("server.port", args[0]);
+			} catch (Exception e) {
+				System.out.println("Porta inválida. Usando a default " + System.getProperty("server.port"));
 			}
-
-			System.setProperty("spring.config.name", serviceName + "-server");
-
-			SpringApplication.run(services().get(serviceName), serviceName + "server");
-
-		} // Caso uma execeção ocorra
-		catch (Exception e) {
-			usage();
-			return;
 		}
+		
+		SpringApplication.run(services().get(serviceName), serviceName + "server");
+
+		// } // Caso uma execeção ocorra
+		// catch (Exception e) {
+		// usage();
+		// return;
+		// }
 
 	}
-	
+
 	/**
 	 * Contém todas as classes de configurações dos serviços base
 	 * 
@@ -49,7 +53,7 @@ public class APIStarter {
 		allServices.put("login", LoginServer.class);
 		return allServices;
 	}
-	
+
 	/**
 	 * Mensagem de como usar
 	 */
