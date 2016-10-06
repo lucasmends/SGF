@@ -289,7 +289,7 @@ public class AtaController {
 		model.addAttribute("ata", ata);
 		model.addAttribute("user", user);
 		model.addAttribute("title", "Editar Ata de Faltas");
-		return "/ata/edit";
+		return "ata/edit";
 	}
 
 	@RequestMapping(value = "/justificar/{id}/{numero}", method = RequestMethod.GET)
@@ -313,7 +313,7 @@ public class AtaController {
 		model.addAttribute("ata", ata);
 		model.addAttribute("falta", falta);
 		model.addAttribute("user", user);
-		return "/ata/justificar";
+		return "ata/justificar";
 	}
 
 	@RequestMapping(value = "/justificar/{id}", method = RequestMethod.POST)
@@ -350,7 +350,7 @@ public class AtaController {
 		if(ata == null){
 			model.addAttribute("user", user);
 			model.addAttribute("title", "Erro");
-			return "/ata/erro";
+			return "ata/erro";
 		}
 		service.update(ata);
 		return "redirect:" + "/ata/id/" + ata.getId();
@@ -396,7 +396,7 @@ public class AtaController {
 		if(ata == null){
 			model.addAttribute("user", user);
 			model.addAttribute("title", "Erro");
-			return "/ata/erro";
+			return "ata/erro";
 		}
 		
 		service.update(ata);

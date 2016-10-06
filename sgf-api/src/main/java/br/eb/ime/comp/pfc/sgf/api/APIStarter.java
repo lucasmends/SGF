@@ -25,7 +25,7 @@ public class APIStarter {
 
 		if (args.length == 1) {
 			try {
-				Integer.parseInt(args[1]);
+				Integer.parseInt(args[0]);
 				System.setProperty("server.port", args[0]);
 			} catch (Exception e) {
 				System.out.println("Porta inválida. Usando a default " + System.getProperty("server.port"));
